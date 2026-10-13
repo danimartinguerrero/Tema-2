@@ -135,3 +135,25 @@
     \draw[#2, line width=0.7pt] (0,0) circle (#1);
   \end{scope}
   \tdCirc[#2!60, line width=0.4pt]{#1}{0}}
+
+% =========================================================================
+%  Región de carga V' para los diagramas geométricos (secciones 3 y 4):
+%  contorno suave, separado de los ejes, con sombreado radial tenue.
+%  \regionV{desplazamiento}  (el contorno está centrado cerca de (2.25,2.7))
+% =========================================================================
+\def\contornoV{plot[smooth cycle, tension=0.75] coordinates
+  {(0.95,2.5) (1.35,3.5) (2.45,3.95) (3.55,3.45) (3.6,2.25) (2.6,1.55) (1.45,1.65)}}
+\newcommand{\regionV}{%
+  \shade[inner color=rosaclaro!25, outer color=rosaclaro!90] \contornoV;
+  \draw[magacero, line width=0.75pt] \contornoV;}
+% Ejes cartesianos en perspectiva caballera con el origen marcado
+% \ejesO{long z}{long y}{long x}
+\newcommand{\ejesO}[3]{%
+  \draw[eje] (0,0) -- (0,#1) node[above, etiq] {$z$};
+  \draw[eje] (0,0) -- (#2,0) node[right, etiq] {$y$};
+  \draw[eje] (0,0) -- ({-0.76*#3},{-0.65*#3}) node[below left=-2pt, etiq] {$x$};}
+% Elemento de volumen (cubito en perspectiva) centrado en #1
+\newcommand{\cubito}[1]{%
+  \draw[magprof, line width=0.5pt, fill=white] ($(#1)+(-0.12,-0.12)$) rectangle ($(#1)+(0.12,0.12)$);
+  \draw[magprof, line width=0.5pt, fill=rosaclaro!40] ($(#1)+(-0.12,0.12)$) -- ++(0.07,0.07) -- ++(0.24,0) -- ++(-0.07,-0.07) -- cycle;
+  \draw[magprof, line width=0.5pt, fill=rosaclaro!70] ($(#1)+(0.12,0.12)$) -- ++(0.07,0.07) -- ++(0,-0.24) -- ++(-0.07,-0.07) -- cycle;}

@@ -43,15 +43,26 @@
      {\color{magacero}\rule{3.2cm}{0.8pt}}\\[14pt]
      {\color{black!80}\itshape\large\SubtituloTema}};
 
-  % Emblema: líneas de campo de un dipolo puntual, r = k sen^2(θ)
-  \begin{scope}[shift={($(O)+(9.9cm,11.05cm)$)}, x=0.95cm, y=0.95cm]
-    \draw[magclaro!70, line width=0.35pt] (0,-1.15) -- (0,1.15);
-    \foreach \k in {0.55,0.95,1.5,2.3,3.4}{%
-      \foreach \s in {1,-1}{%
-        \draw[magclaro, line width=0.5pt, domain=4:176, samples=90, variable=\t]
-          plot ({\s*\k*sin(\t)^3},{\k*sin(\t)^2*cos(\t)});}}
-    \fill[white] (0,0) circle (0.24);
-    \draw[-{Stealth[length=4pt,width=3.4pt]}, magacero, line width=1.1pt] (0,-0.2) -- (0,0.24);
+  % Emblema: líneas de campo del término cuadrupolar con simetría de revolución,
+  % r^2 = C sen^2(t)|cos t|, recortadas a un disco; a trazos, el cono nodal
+  % cos^2(t) = 1/3 (equipotencial nula).
+  \begin{scope}[shift={($(O)+(9.9cm,11.0cm)$)}, x=0.8cm, y=0.8cm]
+    \fill[magfondo] (0,0) circle (1.95);
+    \begin{scope}
+      \clip (0,0) circle (1.95);
+      \draw[magclaro!80, line width=0.3pt, dash pattern=on 2pt off 1.6pt]
+        ({-2*sin(54.74)},{-2*cos(54.74)}) -- ({2*sin(54.74)},{2*cos(54.74)})
+        ({-2*sin(54.74)},{2*cos(54.74)}) -- ({2*sin(54.74)},{-2*cos(54.74)});
+      \draw[magacero!55, line width=0.45pt] (0,0.25) -- (0,2) (0,-0.25) -- (0,-2) (0.25,0) -- (2,0) (-0.25,0) -- (-2,0);
+      \foreach \C in {0.9,1.9,3.4,5.8,9.8,16.5}{%
+        \foreach \sx/\sz in {1/1,-1/1,1/-1,-1/-1}{%
+          \draw[magacero!55, line width=0.45pt, domain=2:88, samples=80, variable=\t]
+            plot ({\sx*sqrt(\C*cos(\t))*sin(\t)^2},{\sz*sqrt(\C*cos(\t))*sin(\t)*cos(\t)});}}
+    \end{scope}
+    \draw[magacero, line width=0.6pt] (0,0) circle (1.95);
+    \fill[white] (0,0) circle (0.22);
+    \draw[-{Stealth[length=2.6pt,width=2.4pt]}, magprof, line width=0.8pt] (0,0) -- (0,0.21);
+    \draw[-{Stealth[length=2.6pt,width=2.4pt]}, magprof, line width=0.8pt] (0,0) -- (0,-0.21);
   \end{scope}
 
   % Epígrafe: las expresiones centrales del tema
