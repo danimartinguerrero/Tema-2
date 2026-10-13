@@ -399,12 +399,13 @@ if __name__ == "__main__":
 
     # Esquema «dipolo físico frente a dipolo puntual» (fuera de una esfera r < 1)
     #   puntual: Psi = sen^2(t)/r = x^2/r^3 ;  físico: Psi = cos(a-) - cos(a+)
-    niv = [0.04, 0.10, 0.17, 0.25, 0.35, 0.48, 0.62]
+    # (distribución completa, sin ocultar las fuentes; ventana [-3, 3]^2)
+    niv = [0.04, 0.10, 0.17, 0.25, 0.35, 0.48, 0.62, 0.85, 1.15, 1.5]
     exporta_psi("esq_dip_puntual_lc.tex", "Dipolo puntual - función de corriente",
-                lambda X, Z: X * X / (X * X + Z * Z) ** 1.5, niv)
+                lambda X, Z: X * X / (X * X + Z * Z) ** 1.5, niv, r0=0.03, n=1201)
     exporta_psi("esq_dip_fisico_lc.tex", "Dipolo físico - función de corriente",
                 lambda X, Z: (Z + 0.5) / np.hypot(X, Z + 0.5)
-                - (Z - 0.5) / np.hypot(X, Z - 0.5), niv)
+                - (Z - 0.5) / np.hypot(X, Z - 0.5), niv, r0=0.0, n=1201)
 
     # Error de truncamiento para una carga puntual fuera del origen
     tabla_error_carga("error_carga.dat")
