@@ -377,23 +377,26 @@ def niveles_simetricos(paso, n):
 if __name__ == "__main__":
     print("Generando datos en", os.path.normpath(SALIDA))
 
+    # Niveles de las equipotenciales medidos sobre el ContourPlot de las figuras
+    # del tema: equiespaciados, phi = +-k Delta con k = 1..10 (más el nivel nulo).
+    # La región en blanco del centro es la de |phi| > 10 Delta.
+    #   dipolo:      phi = cos(t)/r^2,      Delta = 0,00585
+    #   cuadrupolo:  phi = P2(cos t)/r^3,   Delta = 0,000593
+    niv_dip = niveles_simetricos(0.00585, 10)
+
     # Dipolo puntual (p = q l u_z con q = l = 1)
     E, phi = dipolo_puntual()
     exporta("dip_puntual", "Dipolo puntual", E, phi,
-            niveles_simetricos(0.0105, 20), r0_eq=1.3, r0_lc=1.2, dsep=0.88)
+            niv_dip, r0_eq=0.25, r0_lc=1.2, dsep=0.88)
 
     # Dipolo físico: +q en z = +l/2, -q en z = -l/2
     E, phi = cargas([(1, 0, 0.5), (-1, 0, -0.5)])
     exporta("dip_fisico", "Dipolo físico", E, phi,
-            niveles_simetricos(0.0105, 20), r0_eq=1.3, r0_lc=1.2, dsep=0.88, vect=False)
+            niv_dip, r0_eq=0.25, r0_lc=1.2, dsep=0.88, vect=False)
 
     # Término cuadrupolar (cuadrupolo puntual con simetría de revolución)
     E, phi = cuadrupolo_puntual()
-    # Niveles como en el ContourPlot de las figuras del tema: equiespaciados y
-    # acotados (10 positivos, 15 negativos), sin disco excluido. La región en
-    # blanco es la de |phi| por encima del último nivel, que tiene forma de
-    # trébol de cuatro hojas; las curvas convergen hacia el cono nodal.
-    niv_cua = [0.00125 * k for k in range(1, 11)] + [-0.00125 * k for k in range(1, 16)] + [0.0]
+    niv_cua = niveles_simetricos(0.000593, 10) + [0.0]
     exporta("cua_puntual", "Cuadrupolo puntual", E, phi,
             niv_cua, r0_eq=0.25, r0_lc=1.2, dsep=0.88)
 
