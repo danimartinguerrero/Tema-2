@@ -43,26 +43,21 @@
      {\color{magacero}\rule{3.2cm}{0.8pt}}\\[14pt]
      {\color{black!80}\itshape\large\SubtituloTema}};
 
-  % Emblema: líneas de campo del término cuadrupolar con simetría de revolución,
-  % r^2 = C sen^2(t)|cos t|, recortadas a un disco; a trazos, el cono nodal
-  % cos^2(t) = 1/3 (equipotencial nula).
-  \begin{scope}[shift={($(O)+(9.9cm,11.0cm)$)}, x=0.8cm, y=0.8cm]
-    \fill[magfondo] (0,0) circle (1.95);
+  % Emblema: líneas de campo del término cuadrupolar dentro de un contorno en
+  % trébol de cuatro hojas, r(t) = R (0,26 + 0,74 |sen 2t|), con las hojas a lo
+  % largo de los lóbulos del campo; a trazos, los ejes de simetría.
+  \begin{scope}[shift={($(O)+(9.9cm,11.2cm)$)}, x=0.72cm, y=0.72cm]
+    \fill[magfondo] plot[domain=0:360, samples=241, variable=\t] ({2.0*(0.26+0.74*abs(sin(2*\t)))*cos(\t)},{2.0*(0.26+0.74*abs(sin(2*\t)))*sin(\t)}) -- cycle;
     \begin{scope}
-      \clip (0,0) circle (1.95);
-      \draw[magclaro!80, line width=0.3pt, dash pattern=on 2pt off 1.6pt]
-        ({-2*sin(54.74)},{-2*cos(54.74)}) -- ({2*sin(54.74)},{2*cos(54.74)})
-        ({-2*sin(54.74)},{2*cos(54.74)}) -- ({2*sin(54.74)},{-2*cos(54.74)});
-      \draw[magacero!55, line width=0.45pt] (0,0.25) -- (0,2) (0,-0.25) -- (0,-2) (0.25,0) -- (2,0) (-0.25,0) -- (-2,0);
-      \foreach \C in {0.9,1.9,3.4,5.8,9.8,16.5}{%
+      \clip plot[domain=0:360, samples=241, variable=\t] ({2.0*(0.26+0.74*abs(sin(2*\t)))*cos(\t)},{2.0*(0.26+0.74*abs(sin(2*\t)))*sin(\t)}) -- cycle;
+      \draw[magclaro, line width=0.35pt, dash pattern=on 1.6pt off 1.6pt] (0,-2) -- (0,2) (-2,0) -- (2,0);
+      \foreach \C in {1.2,3.0,6.5}{%
         \foreach \sx/\sz in {1/1,-1/1,1/-1,-1/-1}{%
-          \draw[magacero!55, line width=0.45pt, domain=2:88, samples=80, variable=\t]
+          \draw[magacero!60, line width=0.45pt, domain=2:88, samples=80, variable=\t]
             plot ({\sx*sqrt(\C*cos(\t))*sin(\t)^2},{\sz*sqrt(\C*cos(\t))*sin(\t)*cos(\t)});}}
     \end{scope}
-    \draw[magacero, line width=0.6pt] (0,0) circle (1.95);
-    \fill[white] (0,0) circle (0.22);
-    \draw[-{Stealth[length=2.6pt,width=2.4pt]}, magprof, line width=0.8pt] (0,0) -- (0,0.21);
-    \draw[-{Stealth[length=2.6pt,width=2.4pt]}, magprof, line width=0.8pt] (0,0) -- (0,-0.21);
+    \draw[magacero, line width=0.6pt] plot[domain=0:360, samples=241, variable=\t] ({2.0*(0.26+0.74*abs(sin(2*\t)))*cos(\t)},{2.0*(0.26+0.74*abs(sin(2*\t)))*sin(\t)}) -- cycle;
+    \fill[magprof] (0,0) circle (0.06);
   \end{scope}
 
   % Epígrafe: las expresiones centrales del tema

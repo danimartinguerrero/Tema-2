@@ -20,10 +20,15 @@
   \draw[eje] (0,0,0) -- (0,3.3,0) node[anchor=west, etiq] {$y$};
   \draw[eje] (0,0,0) -- (0,0,2.2) node[anchor=south, etiq] {$z$};
   % elemento de volumen
-  \coordinate (Q) at (1.0,0.6,0.3);
-  \draw[vect] (0,0,0) -- (Q) node[pos=0.55, anchor=north west, etiq] {$\rp$};
-  \fill[white, draw=magprof, line width=0.5pt] (Q) circle (2pt);
-  \node[etiq, font=\footnotesize, anchor=south west] at ($(Q)+(0,0.08,0.05)$) {$\dVp$};
+  % elemento de volumen cúbico (arista 0,22) en Q
+  \def\qx{-0.6}\def\qy{1.25}\def\qz{0.55}\def\h{0.11}
+  \draw[vect] (0,0,0) -- (\qx,\qy,\qz) node[pos=0.5, anchor=south east, etiq] {$\rp$};
+  \foreach \cara in {%
+    {(\qx+\h,\qy-\h,\qz-\h) -- (\qx+\h,\qy+\h,\qz-\h) -- (\qx+\h,\qy+\h,\qz+\h) -- (\qx+\h,\qy-\h,\qz+\h)},
+    {(\qx-\h,\qy+\h,\qz-\h) -- (\qx+\h,\qy+\h,\qz-\h) -- (\qx+\h,\qy+\h,\qz+\h) -- (\qx-\h,\qy+\h,\qz+\h)},
+    {(\qx-\h,\qy-\h,\qz+\h) -- (\qx+\h,\qy-\h,\qz+\h) -- (\qx+\h,\qy+\h,\qz+\h) -- (\qx-\h,\qy+\h,\qz+\h)}}{%
+    \filldraw[magprof, line width=0.5pt, fill=white] \cara -- cycle;}
+  \node[etiq, font=\footnotesize, anchor=south west] at (\qx+0.1,\qy+0.15,\qz+0.15) {$\dVp$};
   % cotas
   \draw[<->, fino] (\A+0.25,-\B,-\C) -- node[anchor=north, etiq, font=\footnotesize] {$2b$} (\A+0.25,\B,-\C);
   \draw[<->, fino] (\A,\B+0.25,-\C) -- node[anchor=north west, etiq, font=\footnotesize] {$2a$} (-\A,\B+0.25,-\C);

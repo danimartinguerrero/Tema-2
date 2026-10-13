@@ -7,15 +7,15 @@
 \begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
   \ejesO{4.4}{5.0}{1.6}
   \regionV
-  \node[etiq, text=magprof] at (3.85,3.8) {$V'$};
+  \node[etiq, text=magprof] at (3.55,4.3) {$V'$};
   \coordinate (O) at (0,0);
   \coordinate (Op) at (0.55,3.75);
-  \coordinate (Q) at (2.65,2.95);
+  \coordinate (Q) at (2.25,3.0);
   \draw[vect] (O) -- ($(Q)+(-0.1,-0.12)$) node[pos=0.42, below right=-1pt, etiq] {$\rp$};
   \draw[vectrojo] (Op) -- ($(Q)+(-0.13,0.05)$) node[pos=0.3, above right=0pt, etiq, text=rojoteo] {$\vc{r}\,''$};
   \draw[vectverde] (O) -- (Op) node[pos=0.5, left=5pt, etiq, text=verdeteo] {$\OOp$};
   \cubito{Q}
-  \node[etiq, font=\footnotesize, anchor=north west] at ($(Q)+(0.12,-0.1)$) {$\dVp$};
+  \node[etiq, font=\footnotesize, anchor=north west] at ($(Q)+(0.1,-0.14)$) {$\dVp$};
   \fill[black] (O) circle (1.2pt) node[below right=1pt, etiq, font=\footnotesize] {$O$};
   \fill[black] (Op) circle (1.2pt) node[above left=0pt, etiq, font=\footnotesize] {$O'$};
   \node[cuadro, anchor=north west, font=\footnotesize, align=left, inner sep=4pt] at (5.8,2.6)

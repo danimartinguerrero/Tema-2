@@ -141,11 +141,10 @@
 %  contorno suave, separado de los ejes, con sombreado radial tenue.
 %  \regionV{desplazamiento}  (el contorno está centrado cerca de (2.25,2.7))
 % =========================================================================
-\def\contornoV{plot[smooth cycle, tension=0.75] coordinates
-  {(0.95,2.5) (1.35,3.5) (2.45,3.95) (3.55,3.45) (3.6,2.25) (2.6,1.55) (1.45,1.65)}}
-\newcommand{\regionV}{%
-  \shade[inner color=rosaclaro!25, outer color=rosaclaro!90] \contornoV;
-  \draw[magacero, line width=0.75pt] \contornoV;}
+\def\contornoV{plot[smooth cycle, tension=0.62] coordinates
+  {(1.05,2.6) (0.95,3.5) (1.5,4.25) (2.2,4.05) (2.8,4.4) (3.3,3.85) (3.05,3.1) (3.35,2.35) (2.8,1.85) (2.0,2.05) (1.4,1.85)}}
+% Contorno irregular y alargado, sin relleno: el volumen es arbitrario
+\newcommand{\regionV}{\draw[magacero, line width=0.8pt] \contornoV;}
 % Ejes cartesianos en perspectiva caballera con el origen marcado
 % \ejesO{long z}{long y}{long x}
 \newcommand{\ejesO}[3]{%

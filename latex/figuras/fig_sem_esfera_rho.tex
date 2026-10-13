@@ -17,12 +17,12 @@
   \coordinate (Zp) at (0,1);
   \coordinate (Q) at (-0.75,1.05);
   \coordinate (P) at (4.6,1.8);
-  \fill[white, draw=magprof, line width=0.5pt] ($(Q)+(-0.1,-0.1)$) rectangle ($(Q)+(0.1,0.1)$);
-  \node[etiq, font=\footnotesize, anchor=south east, text=magprof] at ($(Q)+(-0.06,0.06)$) {$\dif q$};
-  \draw[vect] (O) -- ($(Q)+(0.06,-0.1)$) node[pos=0.45, right=1pt, etiq, text=white] {$\rp$};
+  \draw[vect] (O) -- ($(Q)+(0.06,-0.1)$) node[pos=0.55, left=5pt, etiq, text=white] {$\rp$};
+  \cubito{Q}
+  \node[etiq, font=\footnotesize, anchor=south east, text=magprof] at ($(Q)+(-0.12,0.12)$) {$\dif q$};
   \draw[vect] (O) -- (P) node[pos=0.62, below right=-2pt, etiq] {$\vc{r}$};
   \draw[vectrojo] ($(Q)+(0.11,0.02)$) -- (P) node[pos=0.62, above=2pt, etiq, text=rojoteo] {$\vc{R}=\vc{r}-\rp$};
-  \pic[draw=white, line width=0.5pt, angle radius=0.42cm, "$\theta'$", angle eccentricity=1.55, font=\scriptsize, text=white] {angle=Zp--O--Q};
+  \pic[draw=white, line width=0.5pt, angle radius=0.45cm, "$\theta'$", angle eccentricity=1.75, font=\scriptsize, text=white] {angle=Zp--O--Q};
   \fill[magprof] (P) circle (1.5pt) node[right=2pt, etiq] {$P$};
   \draw[<-, fino] (1.2,-1.2) -- (2.0,-1.75) node[right, etiq, font=\footnotesize] {$\rho=\rho(r')$, \ $r'\le R$};
 \end{tikzpicture}

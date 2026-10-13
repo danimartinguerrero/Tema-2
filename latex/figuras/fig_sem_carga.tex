@@ -13,15 +13,16 @@
   \draw[punteado] (1.6,0,0) -- (1.6,1.9,0) -- (0,1.9,0);
   \node[etiq, font=\footnotesize, anchor=north] at (1.6,0,0) {$a$};
   \node[etiq, font=\footnotesize, anchor=north west] at (0,1.9,0) {$b$};
-  \draw[punteado] (0,0,1.5) -- (1.6,1.9,1.5);
+  \draw[punteado] (1.6,1.9,1.5) -- (0,1.9,1.5) -- (0,0,1.5);
+  \draw[punteado] (0,1.9,1.5) -- (0,1.9,0);
   \node[etiq, font=\footnotesize, anchor=east] at (0,0,1.5) {$c$};}
 \tdplotsetmaincoords{70}{120}
 \begin{minipage}[b]{0.47\textwidth}\centering
 \begin{tikzpicture}[tdplot_main_coords, scale=1.25, >=Stealth]
   \ejesIII \proyecciones
-  \draw[vect, rojoteo] (0,0,0) -- (1.6,1.9,1.5) node[pos=0.55, anchor=south east, etiq, text=rojoteo] {$\rp_1$};
+  \draw[vect, rojoteo] (0,0,0) -- (1.6,1.9,1.5) node[pos=0.55, anchor=north west, etiq, text=rojoteo] {$\rp_1$};
   \node[cargapos] at (1.6,1.9,1.5) {$+$};
-  \node[etiq, anchor=south west] at (1.6,1.9,1.62) {$q\ (a,b,c)$};
+  \node[etiq, anchor=south east] at (1.6,1.75,1.62) {$q$};
 \end{tikzpicture}\\[2pt]{\small\scshape (a)}
 \end{minipage}\hfill
 \begin{minipage}[b]{0.47\textwidth}\centering
@@ -30,7 +31,7 @@
   \draw[->, line width=1.5pt, magacero] (0,0,0) -- (1.6,1.9,1.5) node[pos=0.45, anchor=south east, xshift=-3pt, yshift=4pt, etiq, text=magacero] {$\vp=q\,\rp_1$};
   \node[cargapos] at (1.6,1.9,1.5) {$+$};
   \node[carganeg] at (0,0,0) {$-$};
-  \node[etiq, anchor=south west] at (1.6,1.9,1.62) {$q$};
+  \node[etiq, anchor=south east] at (1.6,1.75,1.62) {$q$};
   \node[etiq, anchor=north west] at (0,0.1,-0.15) {$-q$};
 \end{tikzpicture}\\[2pt]{\small\scshape (b)}
 \end{minipage}

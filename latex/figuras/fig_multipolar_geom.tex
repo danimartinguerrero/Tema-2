@@ -8,13 +8,13 @@
 \begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
   \ejesO{4.4}{6.6}{1.6}
   \regionV
-  \node[etiq, text=magprof] at (0.8,3.65) {$V'$};
+  \node[etiq, text=magprof] at (0.62,3.95) {$V'$};
   \coordinate (O) at (0,0);
   \coordinate (Q) at (2.2,3.05);
   \coordinate (P) at (6.3,3.1);
   \draw[vect] (O) -- ($(Q)+(-0.1,-0.12)$) node[pos=0.5, above left=-1pt, etiq] {$\rp$};
   \cubito{Q}
-  \node[etiq, font=\footnotesize, anchor=north west] at ($(Q)+(0.12,-0.18)$) {$\dif q=\rho\,\dVp$};
+  \node[etiq, font=\footnotesize, anchor=south west] at ($(Q)+(0.16,0.12)$) {$\dif q$};
   \draw[vect] (O) -- (P) node[pos=0.75, below right=-2pt, etiq] {$\vc{r}$};
   \draw[vectrojo] ($(Q)+(0.22,0.02)$) -- (P) node[pos=0.55, above=2pt, etiq, text=rojoteo] {$\vc{R}=\vc{r}-\rp$};
   \pic[draw=magacero, line width=0.55pt, angle radius=0.95cm, "$\theta'$", angle eccentricity=1.3, font=\small] {angle=P--O--Q};
@@ -23,7 +23,7 @@
   \node[cuadro, anchor=north west, font=\footnotesize, align=left, inner sep=4pt] at (7.1,1.6)
      {$R^{2}=r^{2}+r'^{2}-2rr'\cos\theta'$\\[4pt] $\vc{r}\cdot\rp=rr'\cos\theta'$};
 \end{tikzpicture}
-\caption{Geometría del desarrollo multipolar: el elemento de carga $\dif q=\rho\,\dVp$, en $\rp$, y el punto campo $P$, en $\vc{r}$, forman con el origen el ángulo
+\caption{Geometría del desarrollo multipolar: el elemento de carga $\dif q=\rho\,\dVp$ (cubito), en $\rp$, de una región $V'$ arbitraria, y el punto campo $P$, en $\vc{r}$, forman con el origen el ángulo
 $\theta'$. Cuando $r'\ll r$, el vector $\vc{R}$ es casi paralelo a $\vc{r}$ y $1/R$ admite un desarrollo en potencias de $r'/r$.}
 \label{fig:multipolar-geom}
 \end{figure}
