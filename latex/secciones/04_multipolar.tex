@@ -1,0 +1,493 @@
+% =========================================================================
+\section{El desarrollo multipolar del potencial}\label{sec:multipolar}
+% =========================================================================
+Volvemos al problema general: una distribución $\rho(\rp)$ localizada en un volumen $V'$, cuyo potencial (\cref{eq:pot-integral}) queremos aproximar en
+puntos alejados, $r\gg r'$ (\cref{fig:multipolar-geom}). El único ingrediente del integrando que depende a la vez del punto campo y del punto
+fuente es $1/R$; desarrollándolo en potencias de $r'/r$ separaremos ambas dependencias.
+
+\input{figuras/fig_multipolar_geom}
+
+% -------------------------------------------------------------------------
+\subsection{Desarrollo de \texorpdfstring{$1/R$}{1/R} y polinomios de Legendre}\label{sec:desarrollo-1R}
+% -------------------------------------------------------------------------
+Por el teorema del coseno, $R^{2}=\norm{\vc{r}-\rp}^{2}=r^{2}+r'^{2}-2rr'\cosp$, de modo que
+\begin{equation}\label{eq:1R-coseno}
+  \frac{1}{R}=\bigl(r^{2}+r'^{2}-2rr'\cosp\bigr)^{-1/2}
+  =\frac{1}{r}\Bigl[1+\underbrace{\Bigl(\frac{r'}{r}\Bigr)^{2}-2\,\frac{r'}{r}\cosp}_{x}\Bigr]^{-1/2}.
+\end{equation}
+Si $r'/r\ll1$, también $\abs{x}\ll1$, y podemos usar el binomio de Newton.
+
+\begin{lema}[Serie binomial de Newton]\label{lem:binomio}
+Para todo $n\in\R$ y $\abs{x}<1$, $(1+x)^{n}=\sum_{k=0}^{\infty}\binom{n}{k}x^{k}$, con
+$\binom{n}{k}=\frac{n(n-1)\cdots(n-k+1)}{k!}$. En particular, para $n=-\frac12$,
+\begin{equation}\label{eq:binomio-12}
+  (1+x)^{-1/2}=1-\frac{1}{2}\,x+\frac{3}{8}\,x^{2}-\frac{5}{16}\,x^{3}+\cdots
+\end{equation}
+\end{lema}
+\begin{proof}
+Es la serie de Taylor de $(1+x)^{n}$ en $x=0$, cuyo radio de convergencia es $1$ cuando $n\notin\N$. Los coeficientes de \cref{eq:binomio-12} son
+$\binom{-1/2}{1}=-\frac12$, $\binom{-1/2}{2}=\frac{(-\frac12)(-\frac32)}{2}=\frac38$ y $\binom{-1/2}{3}=\frac{(-\frac12)(-\frac32)(-\frac52)}{6}=-\frac{5}{16}$.
+\end{proof}
+
+Sustituyendo $x$ en \cref{eq:binomio-12} y \emph{agrupando por potencias} de $r'/r$ (y no de $x$, que mezcla órdenes distintos):
+\[
+  \frac{1}{R}=\frac{1}{r}\Bigl\{1-\frac{1}{2}\Bigl[\Bigl(\frac{r'}{r}\Bigr)^{2}-2\,\frac{r'}{r}\cosp\Bigr]
+  +\frac{3}{8}\Bigl[\Bigl(\frac{r'}{r}\Bigr)^{2}-2\,\frac{r'}{r}\cosp\Bigr]^{2}+\cdots\Bigr\}.
+\]
+El término de orden $r'/r$ procede solo del primer corchete: $+\frac{r'}{r}\cosp$. El de orden $(r'/r)^{2}$ recibe dos contribuciones, $-\frac12(r'/r)^{2}$
+del primer corchete y $\frac38\bigl(-2\frac{r'}{r}\cosp\bigr)^{2}=\frac32(r'/r)^{2}\cos^{2}\theta'$ del segundo, que suman
+$(r'/r)^{2}\,\frac12(3\cos^{2}\theta'-1)$. Por tanto,
+\begin{equation}\label{eq:1R-orden2}
+  \frac{1}{R}=\frac{1}{r}\Bigl[1+\frac{r'}{r}\cosp+\Bigl(\frac{r'}{r}\Bigr)^{2}\frac{1}{2}\bigl(3\cos^{2}\theta'-1\bigr)+\ord\Bigl(\frac{r'^{3}}{r^{3}}\Bigr)\Bigr].
+\end{equation}
+Los coeficientes de cada potencia son polinomios en $\cosp$ que reconocemos enseguida.
+
+\begin{definicion}[Polinomios de Legendre]\label{def:legendre}
+Los \emph{polinomios de Legendre} $\Pl{\ell}(x)$, $\ell\in\N$, $x\in[-1,1]$, son los coeficientes del desarrollo de la \emph{función generatriz}
+\begin{equation}\label{eq:generatriz}
+  g(x,t)=\frac{1}{\sqrt{1-2xt+t^{2}}}=\sum_{\ell=0}^{\infty}\Pl{\ell}(x)\,t^{\ell},\qquad \abs{t}<1 .
+\end{equation}
+Fueron introducidos por Legendre precisamente al estudiar la atracción gravitatoria de cuerpos extensos~\cite{LEGENDRE}, un problema matemáticamente idéntico al nuestro.
+Equivalentemente, vienen dados por la fórmula de Rodrigues $\Pl{\ell}(x)=\frac{1}{2^{\ell}\ell!}\frac{\dif^{\ell}}{\dif x^{\ell}}(x^{2}-1)^{\ell}$. Los primeros son
+\begin{equation}\label{eq:legendre}
+  \begin{gathered}
+  \Pl{0}(x)=1,\qquad \Pl{1}(x)=x,\qquad \Pl{2}(x)=\tfrac12(3x^{2}-1),\\
+  \Pl{3}(x)=\tfrac12(5x^{3}-3x),\qquad \Pl{4}(x)=\tfrac18(35x^{4}-30x^{2}+3).
+  \end{gathered}
+\end{equation}
+\end{definicion}
+
+\begin{teorema}[Desarrollo de $1/R$ en polinomios de Legendre]\label{teo:1R-legendre}
+Si $r'<r$,
+\begin{equation}\label{eq:1R-legendre}
+  \boxed{\;\frac{1}{R}=\frac{1}{\norm{\vc{r}-\rp}}=\sum_{\ell=0}^{\infty}\frac{r'^{\,\ell}}{r^{\ell+1}}\,\Pl{\ell}(\cosp)\;}
+\end{equation}
+y la serie converge absolutamente.
+\end{teorema}
+\begin{proof}
+Por \cref{eq:1R-coseno}, $1/R=\frac1r\bigl(1-2\cosp\,t+t^{2}\bigr)^{-1/2}=\frac1r\,g(\cosp,t)$ con $t=r'/r\in[0,1)$. Basta aplicar \cref{eq:generatriz}. La convergencia
+para $\abs{t}<1$ se debe a que, con $\abs{x}\le1$, las raíces de $1-2xt+t^{2}$ son $t=x\pm\mathrm{i}\sqrt{1-x^{2}}$, de módulo $1$: la función $g(x,\cdot)$ es analítica en el disco
+$\abs{t}<1$ y su serie de potencias converge en él. El cálculo hasta orden dos, \cref{eq:1R-orden2}, confirma los tres primeros coeficientes.
+\end{proof}
+
+\begin{lema}[Acotación de los polinomios de Legendre]\label{lem:legendre-cota}
+Para todo $\ell\in\N$ y $x\in[-1,1]$, $\abs{\Pl{\ell}(x)}\le1$, con igualdad en $x=\pm1$: $\Pl{\ell}(1)=1$ y $\Pl{\ell}(-1)=(-1)^{\ell}$.
+\end{lema}
+\begin{proof}
+Se cumple la primera integral de Laplace~\cite{ARFKEN}, $\Pl{\ell}(\cos\theta)=\frac{1}{\pi}\int_{0}^{\pi}\bigl(\cos\theta+\mathrm{i}\sen\theta\cos u\bigr)^{\ell}\dif u$. Como
+$\abs{\cos\theta+\mathrm{i}\sen\theta\cos u}=\bigl(\cos^{2}\theta+\sen^{2}\theta\cos^{2}u\bigr)^{1/2}\le1$, el integrando tiene módulo $\le1$ y
+$\abs{\Pl{\ell}}\le\frac1\pi\int_0^\pi\dif u=1$. Para los valores en $\pm1$: $g(1,t)=(1-t)^{-1}=\sum t^{\ell}$ y $g(-1,t)=(1+t)^{-1}=\sum(-t)^{\ell}$.
+\end{proof}
+
+\input{figuras/fig_legendre}
+
+\begin{observacion}[Convergencia del desarrollo]\label{obs:convergencia}
+La \cref{fig:legendre} ilustra el teorema para $r'/r=1/3$. Cada término está acotado por $(r'/r)^{\ell}/r$ (\cref{lem:legendre-cota}), de modo que la serie
+converge como una geométrica de razón $r'/r$: con solo cuatro términos la suma parcial es prácticamente indistinguible de la función exacta (el error es del orden del $1\%$). Cuanto más lejos esté el
+punto campo, más rápida es la convergencia.
+\end{observacion}
+
+% -------------------------------------------------------------------------
+\subsection{El desarrollo multipolar}\label{sec:desarrollo}
+% -------------------------------------------------------------------------
+\begin{teorema}[Desarrollo multipolar del potencial]\label{teo:multipolar}
+Sea $\rho$ una distribución acotada contenida en la bola de radio $a$ centrada en el origen, $\rho(\rp)=0$ si $r'>a$. Para todo punto campo con $r>a$,
+\begin{equation}\label{eq:desarrollo-multipolar}
+  \boxed{\;\phi(\vc{r})=\sum_{\ell=0}^{\infty}\phimul{\ell}(\vc{r}),\qquad
+  \phimul{\ell}(\vc{r})=\frac{1}{4\pi\eo}\,\frac{1}{r^{\ell+1}}\int_{V'}r'^{\,\ell}\,\rho(\rp)\,\Pl{\ell}(\cosp)\,\dVp\;}
+\end{equation}
+y la serie converge.
+\end{teorema}
+\begin{proof}
+Sustituimos \cref{eq:1R-legendre}, válido porque $r'\le a<r$ en todo el soporte de $\rho$, en \cref{eq:pot-integral}:
+\[
+  \phi(\vc{r})=\frac{1}{4\pi\eo}\int_{V'}\rho(\rp)\sum_{\ell=0}^{\infty}\frac{r'^{\,\ell}}{r^{\ell+1}}\Pl{\ell}(\cosp)\,\dVp .
+\]
+Por el \cref{lem:legendre-cota}, el término $\ell$-ésimo de la serie está acotado por $\abs{\rho}\,a^{\ell}/r^{\ell+1}$, y $\sum_\ell a^{\ell}/r^{\ell+1}$ converge
+porque $a/r<1$. Por el criterio $M$ de Weierstrass la serie converge uniformemente en $V'$, lo que permite intercambiar suma e integral; finalmente sacamos de la integral
+el factor $1/r^{\ell+1}$, que no depende de las coordenadas fuente.
+\end{proof}
+
+\begin{observacion}[Lectura del desarrollo]\label{obs:lectura}
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{Es exacto}: \cref{eq:desarrollo-multipolar} no es una aproximación, sino una reescritura del potencial válida fuera de la esfera que contiene la
+        distribución. La aproximación consiste en \emph{truncarlo}.
+  \item \emph{Jerarquía}: el término $\ell$-ésimo decae como $1/r^{\ell+1}$, de modo que a grandes distancias los primeros términos no nulos son los dominantes.
+        Reciben los nombres de término \emph{monopolar} ($\ell=0$), \emph{dipolar} ($\ell=1$), \emph{cuadrupolar} ($\ell=2$), \emph{octupolar} ($\ell=3$), \dots: el
+        término $\ell$-ésimo corresponde a un $2^{\ell}$-polo.
+  \item \emph{Lo que falta}: el ángulo $\theta'$ depende tanto de $\rp$ como de $\vc{r}$, así que en cada integral siguen mezcladas las coordenadas del punto campo
+        y las del punto fuente. Nuestro objetivo en lo que sigue es \emph{sacar de la integral la dependencia angular} del punto campo, para que cada término sea un
+        momento de la distribución (que se calcula una sola vez) multiplicado por una función explícita de $(r,\theta,\varphi)$.
+\end{enumerate}
+\end{observacion}
+
+% -------------------------------------------------------------------------
+\subsection{Término monopolar}\label{sec:monopolar}
+% -------------------------------------------------------------------------
+Con $\ell=0$, $\Pl{0}=1$ y $r'^{\,0}=1$, la integral es la carga total:
+
+\begin{proposicion}[Término monopolar]\label{prop:monopolar}
+\begin{equation}\label{eq:monopolar}
+  \boxed{\;\phimul{0}(\vc{r})=\frac{Q}{4\pi\eo\,r},\qquad Q=\int_{V'}\rho(\rp)\,\dVp\;}
+\end{equation}
+La carga neta $Q$ se denomina \emph{momento monopolar} (momento multipolar de orden cero) de la distribución.
+\end{proposicion}
+
+\begin{observacion}\label{obs:monopolar}
+El término monopolar coincide con el potencial de una carga puntual $Q$ situada en el origen. Decae como $1/r$ y es el dominante siempre que $Q\neq0$: es la
+afirmación precisa de que, \emph{suficientemente} lejos, toda distribución con carga neta parece una carga puntual. Obviamente, $Q$ no depende del origen de
+coordenadas escogido.
+\end{observacion}
+
+% -------------------------------------------------------------------------
+\subsection{Término dipolar}\label{sec:dipolar}
+% -------------------------------------------------------------------------
+Con $\ell=1$, $\Pl{1}(\cosp)=\cosp$ y
+\[
+  \phimul{1}(\vc{r})=\frac{1}{4\pi\eo\,r^{2}}\int_{V'}\rho(\rp)\,r'\cosp\,\dVp .
+\]
+La clave para separar variables es escribir $r'\cosp$ como un producto escalar: $r'\cosp=\rp\cdot\ur$, donde $\ur=\vc{r}/r$ \emph{no} depende de las coordenadas fuente
+y puede salir de la integral.
+
+\begin{proposicion}[Término dipolar]\label{prop:dipolar}
+\begin{equation}\label{eq:dipolar}
+  \boxed{\;\phimul{1}(\vc{r})=\frac{\vp\cdot\ur}{4\pi\eo\,r^{2}},\qquad \vp=\int_{V'}\rp\,\rho(\rp)\,\dVp\;}
+\end{equation}
+El vector $\vp$ es el \emph{momento dipolar} (momento multipolar de orden uno) de la distribución.
+\end{proposicion}
+\begin{proof}
+$\int_{V'}\rho\,r'\cosp\,\dVp=\int_{V'}\rho\,(\rp\cdot\ur)\,\dVp=\bigl(\int_{V'}\rho\,\rp\,\dVp\bigr)\cdot\ur=\vp\cdot\ur$, por la linealidad de la integral.
+\end{proof}
+
+\begin{observacion}[Generalización del momento dipolar]\label{obs:p-general}
+La \cref{eq:dipolar} coincide con el potencial de un dipolo puntual situado en el origen (\cref{prop:pot-dipolo}), y generaliza la definición $\vp=q\vl$ a
+distribuciones continuas. Para un sistema de cargas puntuales, $\rho(\rp)=\sum_iq_i\,\delta^{3}(\rp-\rp_i)$, la propiedad de filtrado de la delta de
+Dirac~\cite{TEMA1} da
+\begin{equation}\label{eq:p-discreto}
+  \vp=\int_{V'}\rp\sum_iq_i\,\delta^{3}(\rp-\rp_i)\,\dVp=\sum_{i}q_i\,\rp_i ,
+\end{equation}
+y para el dipolo físico, $\vp=q\,\rp_{+}-q\,\rp_{-}=q\vl$, como debía ser. Las distribuciones superficiales y lineales se tratan igual, cambiando
+$\rho\,\dVp$ por $\sigma\,\dSp$ o $\lambda\,\dlp$.
+\end{observacion}
+
+A diferencia de la carga neta, el momento dipolar \emph{depende del origen} de coordenadas.
+
+\input{figuras/fig_origen}
+
+\begin{proposicion}[Cambio de origen del momento dipolar]\label{prop:p-origen}
+Sean $\vp_{O}$ y $\vp_{O'}$ los momentos dipolares de una misma distribución respecto de dos orígenes $O$ y $O'$ (\cref{fig:origen}). Entonces
+\begin{equation}\label{eq:p-origen}
+  \boxed{\;\vp_{O'}=\vp_{O}-Q\,\OOp\;}
+\end{equation}
+\end{proposicion}
+\begin{proof}
+Si $\rp$ y $\vc{r}\,''$ son las posiciones de un mismo punto fuente respecto de $O$ y de $O'$, entonces $\vc{r}\,''=\rp-\OOp$, y
+\[
+  \vp_{O'}=\int_{V'}\vc{r}\,''\rho\,\dVp=\int_{V'}\bigl(\rp-\OOp\bigr)\rho\,\dVp=\int_{V'}\rp\rho\,\dVp-\OOp\int_{V'}\rho\,\dVp=\vp_{O}-Q\,\OOp .\qedhere
+\]
+\end{proof}
+
+\begin{corolario}[Distribuciones neutras y centro de carga]\label{cor:centro-carga}
+\begin{enumerate}[label=(\roman*)]
+  \item Si la carga neta es nula, $Q=0$, el momento dipolar no depende del origen. Además, en ese caso el término dipolar es la contribución dominante al potencial.
+  \item Si $Q\neq0$, siempre puede escogerse un origen respecto del cual la distribución no tenga momento dipolar: basta tomar
+        \begin{equation}\label{eq:centro-carga}
+          \OOp=\vc{r}_{c}=\frac{\vp_{O}}{Q},
+        \end{equation}
+        el \emph{centro de carga} de la distribución, análogo eléctrico del centro de masas.
+\end{enumerate}
+\end{corolario}
+\begin{proof}
+(i) Es \cref{eq:p-origen} con $Q=0$; como $\phimul{0}=0$, el primer término no nulo del desarrollo es el dipolar. (ii) Con $\OOp=\vp_{O}/Q$,
+\cref{eq:p-origen} da $\vp_{O'}=\vp_{O}-Q\,\vp_{O}/Q=\vc{0}$.
+\end{proof}
+
+% -------------------------------------------------------------------------
+\subsection{Término cuadrupolar}\label{sec:cuadrupolar}
+% -------------------------------------------------------------------------
+Con $\ell=2$ y $\Pl{2}(\cosp)=\frac12(3\cos^{2}\theta'-1)$,
+\begin{equation}\label{eq:cuadrupolar-integral}
+  \phimul{2}(\vc{r})=\frac{1}{4\pi\eo\,r^{3}}\int_{V'}\rho(\rp)\,r'^{2}\,\Pl{2}(\cosp)\,\dVp=\frac{1}{8\pi\eo\,r^{3}}\int_{V'}\rho(\rp)\,r'^{2}\bigl(3\cos^{2}\theta'-1\bigr)\dVp .
+\end{equation}
+Como $\cosp$ depende de $\vc{r}$ y de $\rp$, tratamos de nuevo de separar lo que depende del punto campo de lo que depende del punto fuente.
+
+\begin{lema}[Separación de variables en el término cuadrupolar]\label{lem:separacion}
+Con los cosenos directores $\cd{j}$ del punto campo (\cref{not:puntos}),
+\begin{equation}\label{eq:separacion}
+  r'^{2}\bigl(3\cos^{2}\theta'-1\bigr)=\sum_{j,k}T_{jk}\,\cd{j}\cd{k},\qquad T_{jk}=3x'_jx'_k-\delt{j}{k}\,r'^{2},\qquad j,k\in\{x,y,z\}.
+\end{equation}
+\end{lema}
+\begin{proof}
+Como $r'\cosp=\ur\cdot\rp=\cd{x}x'+\cd{y}y'+\cd{z}z'$ y $\cd{x}^{2}+\cd{y}^{2}+\cd{z}^{2}=1$,
+\[
+  r'^{2}\bigl(3\cos^{2}\theta'-1\bigr)=3\bigl(\ur\cdot\rp\bigr)^{2}-r'^{2}=3\bigl(\cd{x}x'+\cd{y}y'+\cd{z}z'\bigr)^{2}-r'^{2}\bigl(\cd{x}^{2}+\cd{y}^{2}+\cd{z}^{2}\bigr).
+\]
+Desarrollando el cuadrado con $(a+b+c)^{2}=a^{2}+b^{2}+c^{2}+2ab+2ac+2bc$,
+\[
+  =3\bigl(\cd{x}^{2}x'^{2}+\cd{y}^{2}y'^{2}+\cd{z}^{2}z'^{2}\bigr)+6\bigl(\cd{x}\cd{y}\,x'y'+\cd{x}\cd{z}\,x'z'+\cd{y}\cd{z}\,y'z'\bigr)-r'^{2}\bigl(\cd{x}^{2}+\cd{y}^{2}+\cd{z}^{2}\bigr),
+\]
+y repartiendo cada término cruzado $6\,\cd{j}\cd{k}\,x'_jx'_k$ ($j\neq k$) a partes iguales entre las posiciones $(j,k)$ y $(k,j)$, se obtiene la forma cuadrática
+\[
+  \begin{pmatrix}\cd{x}&\cd{y}&\cd{z}\end{pmatrix}
+  \begin{pmatrix}3x'^{2}-r'^{2}&3x'y'&3x'z'\\ 3x'y'&3y'^{2}-r'^{2}&3y'z'\\ 3x'z'&3y'z'&3z'^{2}-r'^{2}\end{pmatrix}
+  \begin{pmatrix}\cd{x}\\ \cd{y}\\ \cd{z}\end{pmatrix}=\sum_{j,k}T_{jk}\,\cd{j}\cd{k}.\qedhere
+\]
+\end{proof}
+
+La matriz $T_{jk}$ solo depende del punto fuente y los cosenos directores solo del punto campo: integrando en $V'$ conseguimos la separación buscada.
+
+\begin{definicion}[Tensor momento cuadrupolar]\label{def:cuadrupolo}
+Se llama \emph{tensor momento cuadrupolar} (o, simplemente, momento cuadrupolar) de una distribución de carga, respecto del origen $O$, a la matriz
+$\Qt=(\Qjk)$ de componentes
+\begin{equation}\label{eq:Qjk}
+  \boxed{\;\Qjk=\int_{V'}\rho(\rp)\bigl(3x'_jx'_k-\delt{j}{k}\,r'^{2}\bigr)\dVp\;},\qquad j,k\in\{x,y,z\}.
+\end{equation}
+Para un sistema discreto de cargas puntuales $q_i$ en $\rp_i=(x'_i,y'_i,z'_i)$,
+\begin{equation}\label{eq:Qjk-discreto}
+  \Qjk=\sum_{i}q_i\bigl(3x'_{i,j}x'_{i,k}-\delt{j}{k}\,r_i'^{\,2}\bigr).
+\end{equation}
+\end{definicion}
+
+\begin{proposicion}[Término cuadrupolar]\label{prop:cuadrupolar}
+\begin{equation}\label{eq:cuadrupolar}
+  \boxed{\;\phimul{2}(\vc{r})=\frac{1}{8\pi\eo\,r^{3}}\sum_{j,k}\Qjk\,\cd{j}\cd{k}=\frac{1}{8\pi\eo\,r^{5}}\sum_{j,k}\Qjk\,x_jx_k\;}
+\end{equation}
+\end{proposicion}
+\begin{proof}
+Se integra \cref{eq:separacion} multiplicada por $\rho$ y se sustituye en \cref{eq:cuadrupolar-integral}; los $\cd{j}$ salen de la integral porque no dependen de
+$\rp$. La segunda forma se sigue de $\cd{j}=x_j/r$.
+\end{proof}
+
+\begin{observacion}[Analogía con el término dipolar]\label{obs:analogia-p-Q}
+El término dipolar puede escribirse igual, $\vp\cdot\ur=\sum_jp_j\,\cd{j}$: es una forma \emph{lineal} en los cosenos directores, mientras que el cuadrupolar es una
+forma \emph{cuadrática}. En general, el término $\ell$-ésimo es una forma de grado $\ell$ en los $\cd{j}$, cuyos coeficientes son los momentos de orden $\ell$ de la
+distribución. El término cuadrupolar decae como $1/r^{3}$ y es el dominante cuando $Q=0$ y $\vp=\vc{0}$; su valor coincide con el potencial de un
+\emph{cuadrupolo} (por ejemplo, dos dipolos de sentidos contrarios, como en la \cref{fig:cuadrupolo-plano}) situado en el origen.
+\end{observacion}
+
+\subsubsection*{Propiedades del tensor cuadrupolar}
+\begin{proposicion}[Componentes independientes]\label{prop:Q-propiedades}
+\begin{enumerate}[label=(\roman*)]
+  \item $\Qt$ es \emph{simétrico}, $\Qjk=Q_{kj}$: de sus nueve componentes, solo seis son independientes.
+  \item $\Qt$ tiene \emph{traza nula}, $\Tr\Qt=Q_{xx}+Q_{yy}+Q_{zz}=0$: esta ligadura elimina un grado de libertad más y deja cinco componentes independientes.
+  \item Existe un sistema de ejes cartesianos, los \emph{ejes principales}, en el que $\Qt$ es diagonal, $\Qt=\operatorname{diag}(Q_1,Q_2,Q_3)$ con
+        $Q_1+Q_2+Q_3=0$, y en él
+        \begin{equation}\label{eq:Q-principal}
+          \phimul{2}(\vc{r})=\frac{1}{8\pi\eo\,r^{3}}\bigl(Q_1\cd{1}^{2}+Q_2\cd{2}^{2}+Q_3\cd{3}^{2}\bigr).
+        \end{equation}
+\end{enumerate}
+\end{proposicion}
+\begin{proof}
+(i) El integrando $3x'_jx'_k-\delt{j}{k}r'^{2}$ es simétrico en $j,k$. (ii) Sumando las componentes diagonales,
+\[
+  \Tr\Qt=\sum_{j}Q_{jj}=\int_{V'}\rho\bigl(3x'^{2}-r'^{2}+3y'^{2}-r'^{2}+3z'^{2}-r'^{2}\bigr)\dVp=\int_{V'}\rho\bigl(3r'^{2}-3r'^{2}\bigr)\dVp=0 .
+\]
+(iii) Toda matriz real simétrica es diagonalizable mediante una matriz ortogonal (teorema espectral): sus autovectores, ortonormales, definen los ejes
+principales, y una rotación conserva la traza.
+\end{proof}
+
+\begin{observacion}[Cinco números: dos autovalores y tres ángulos]\label{obs:cinco}
+El recuento de la \cref{prop:Q-propiedades} tiene una lectura geométrica: dos de los autovalores (el tercero lo fija la traza nula) y los tres ángulos que orientan los
+ejes principales. En general, el momento de orden $\ell$ tiene $2\ell+1$ componentes independientes: $1$ para la carga, $3$ para el dipolo y $5$ para el
+cuadrupolo.
+\end{observacion}
+
+\begin{observacion}[Relación con el tensor de inercia]\label{obs:inercia}
+La estructura de $\Qt$ recuerda a la del tensor de inercia de la mecánica, $I_{jk}=\int\rho_m\bigl(r'^{2}\delt{j}{k}-x'_jx'_k\bigr)\dVp$: ambos son formas cuadráticas
+construidas con los segundos momentos de la distribución. De hecho, si se sustituye la densidad de masa $\rho_m$ por la de carga $\rho$, se tiene
+$\Qjk=\delt{j}{k}\Tr I-3I_{jk}$, de modo que los ejes principales de inercia y los del cuadrupolo coinciden.
+\end{observacion}
+
+\begin{proposicion}[Cambio de origen del tensor cuadrupolar]\label{prop:Q-origen}
+Si $\vc{d}=\OOp$ y $Q$, $\vp$ y $\Qjk$ se refieren al origen $O$, el tensor cuadrupolar respecto de $O'$ es
+\begin{equation}\label{eq:Q-origen}
+  Q'_{jk}=\Qjk-3\bigl(p_jd_k+d_jp_k\bigr)+2\,\delt{j}{k}\,(\vp\cdot\vc{d})+Q\bigl(3d_jd_k-\delt{j}{k}d^{2}\bigr).
+\end{equation}
+En particular, si $Q=0$ y $\vp=\vc{0}$ el tensor cuadrupolar no depende del origen.
+\end{proposicion}
+\begin{proof}
+Con $\vc{r}\,''=\rp-\vc{d}$, el integrando de $Q'_{jk}$ es
+$3(x'_j-d_j)(x'_k-d_k)-\delt{j}{k}\norm{\rp-\vc{d}}^{2}=\bigl(3x'_jx'_k-\delt{j}{k}r'^{2}\bigr)-3\bigl(x'_jd_k+d_jx'_k\bigr)+2\,\delt{j}{k}\,\rp\cdot\vc{d}+3d_jd_k-\delt{j}{k}d^{2}$.
+Al multiplicar por $\rho$ e integrar, $\int\rho\,x'_j=p_j$ y $\int\rho=Q$.
+\end{proof}
+
+Es un ejemplo de una regla general: \emph{el primer momento multipolar no nulo de una distribución no depende del origen} (la carga si $Q\neq0$; el dipolo si $Q=0$;
+el cuadrupolo si además $\vp=\vc{0}$\dots).
+
+\begin{observacion}[Interpretación geométrica: forma de la distribución]\label{obs:forma}
+Para una distribución positiva con simetría de revolución alrededor de $z$ (\cref{sec:revolucion}), $Q_{zz}=\int\rho\,(2z'^{2}-x'^{2}-y'^{2})\dVp$ compara la extensión
+de la carga a lo largo del eje con la transversal (\cref{fig:formas}):
+\begin{itemize}
+  \item $Q_{zz}>0$: la carga está \emph{alargada} según $z$ (forma de «cigarro», elipsoide prolato);
+  \item $Q_{zz}<0$: la carga está \emph{achatada} (forma de «disco», elipsoide oblato);
+  \item $Q_{zz}=0$: no hay deformación cuadrupolar (por ejemplo, simetría esférica).
+\end{itemize}
+Las componentes fuera de la diagonal indican que la distribución está \emph{girada} respecto de los ejes: si $Q_{xy}\neq0$, por ejemplo, la dirección de alargamiento está
+orientada oblicuamente en el plano $xy$. Así se describen, por ejemplo, las deformaciones de los núcleos atómicos.
+\end{observacion}
+
+\input{figuras/fig_formas}
+
+% -------------------------------------------------------------------------
+\subsection{Distribuciones con simetría de revolución}\label{sec:revolucion}
+% -------------------------------------------------------------------------
+Cuando la distribución es invariante frente a rotaciones alrededor de un eje, el número de componentes independientes se reduce drásticamente.
+
+\begin{teorema}[Momentos de una distribución con simetría de revolución]\label{teo:revolucion}
+Sea $\rho(\rp)=\rho(r',\theta')$ independiente del ángulo azimutal $\varphi'$ (simetría de revolución alrededor del eje $z$). Entonces:
+\begin{enumerate}[label=(\roman*)]
+  \item el momento dipolar es paralelo al eje: $p_x=p_y=0$ y $\vp=p_z\,\uz$;
+  \item el tensor cuadrupolar es diagonal y queda determinado por una sola componente:
+        \begin{equation}\label{eq:Q-revolucion}
+          Q_{jk}=0\ (j\neq k),\qquad Q_{xx}=Q_{yy}=-\tfrac12\,Q_{zz},\qquad Q_{zz}=\int_{V'}\rho\,\bigl(3z'^{2}-r'^{2}\bigr)\dVp ;
+        \end{equation}
+  \item el término cuadrupolar es
+        \begin{equation}\label{eq:cuadrupolar-revolucion}
+          \boxed{\;\phimul{2}(\vc{r})=\frac{Q_{zz}}{16\pi\eo\,r^{3}}\bigl(3\cos^{2}\theta-1\bigr)=\frac{Q_{zz}}{8\pi\eo\,r^{3}}\,\Pl{2}(\cos\theta)\;}
+        \end{equation}
+\end{enumerate}
+\end{teorema}
+\begin{proof}
+Usamos coordenadas esféricas para el punto fuente, $x'=r'\sen\theta'\cos\varphi'$, $y'=r'\sen\theta'\sen\varphi'$, $z'=r'\cos\theta'$ y
+$\dVp=r'^{2}\sen\theta'\,\dif r'\,\dif\theta'\,\dif\varphi'$. Como $\rho$ no depende de $\varphi'$, en cada integral se puede separar la integral en $\varphi'$ (teorema de Fubini),
+y las únicas que aparecen son
+\[
+  \int_{0}^{2\pi}\cos\varphi'\,\dif\varphi'=\bigl[\sen\varphi'\bigr]_{0}^{2\pi}=0,\qquad
+  \int_{0}^{2\pi}\sen\varphi'\,\dif\varphi'=\bigl[-\cos\varphi'\bigr]_{0}^{2\pi}=-1-(-1)=0,
+\]
+\[
+  \int_{0}^{2\pi}\sen\varphi'\cos\varphi'\,\dif\varphi'=\frac12\int_{0}^{2\pi}\frac{\dif}{\dif\varphi'}\bigl(\sen^{2}\varphi'\bigr)\dif\varphi'=\frac12\bigl[\sen^{2}\varphi'\bigr]_{0}^{2\pi}=0,
+\]
+\[
+  \int_{0}^{2\pi}\cos^{2}\varphi'\,\dif\varphi'=\int_{0}^{2\pi}\sen^{2}\varphi'\,\dif\varphi'=\pi .
+\]
+(i) $p_x=\int\rho\,x'\,\dVp\propto\int_0^{2\pi}\cos\varphi'\dif\varphi'=0$ y, análogamente, $p_y\propto\int_0^{2\pi}\sen\varphi'\dif\varphi'=0$.
+
+(ii) Fuera de la diagonal, $\delt{j}{k}=0$ y $Q_{jk}=3\int\rho\,x'_jx'_k\,\dVp$. Como $x'z'=r'^{2}\sen\theta'\cos\theta'\cos\varphi'$, $y'z'=r'^{2}\sen\theta'\cos\theta'\sen\varphi'$ y
+$x'y'=r'^{2}\sen^{2}\theta'\cos\varphi'\sen\varphi'$, se tiene $Q_{xz}\propto\int\cos\varphi'=0$, $Q_{yz}\propto\int\sen\varphi'=0$ y $Q_{xy}\propto\int\sen\varphi'\cos\varphi'=0$. En la
+diagonal, $Q_{xx}$ y $Q_{yy}$ difieren solo en que llevan $\cos^{2}\varphi'$ o $\sen^{2}\varphi'$, cuyas integrales coinciden: $Q_{xx}=Q_{yy}$. Con la traza nula,
+$2Q_{xx}+Q_{zz}=0$, de donde $Q_{xx}=Q_{yy}=-\frac12Q_{zz}$.
+
+(iii) Sustituyendo en \cref{eq:cuadrupolar} y usando $\cd{x}^{2}+\cd{y}^{2}=1-\cd{z}^{2}$ y $\cd{z}=\cos\theta$,
+\begin{align*}
+  \phimul{2}&=\frac{1}{8\pi\eo r^{3}}\Bigl[Q_{xx}\bigl(\cd{x}^{2}+\cd{y}^{2}\bigr)+Q_{zz}\cd{z}^{2}\Bigr]
+  =\frac{1}{8\pi\eo r^{3}}\Bigl[-\frac12Q_{zz}\bigl(1-\cd{z}^{2}\bigr)+Q_{zz}\cd{z}^{2}\Bigr]\\
+  &=\frac{Q_{zz}}{8\pi\eo r^{3}}\Bigl(\frac32\cos^{2}\theta-\frac12\Bigr).\qedhere
+\end{align*}
+\end{proof}
+
+\begin{observacion}[Por qué se anulan: argumento geométrico]\label{obs:anulacion}
+Las integrales en $\varphi'$ se anulan por una razón de signos: $\sen\varphi'\cos\varphi'>0$ en el primer y el tercer cuadrante y $<0$ en el segundo y el cuarto, con
+contribuciones que se compensan exactamente al dar la vuelta completa (también se ve escribiendo $\sen\varphi'\cos\varphi'=\frac12\sen2\varphi'$, una sinusoide completa
+de integral nula en un periodo). Físicamente: para cada punto $(x',y')$ hay otro, girado, con la misma densidad y el signo opuesto de $x'$ o de $y'$; la integración en
+$\varphi'$ «mata» todos los términos que contienen $\sen\varphi'$, $\cos\varphi'$ o su producto. Y los ejes $x$ e $y$ son físicamente equivalentes, de ahí $Q_{xx}=Q_{yy}$. Se
+pasa así de $9$ componentes a $6$ (simetría), a $5$ (traza nula) y, con simetría de revolución, a \emph{una sola} (dos ligaduras más).
+\end{observacion}
+
+Con simetría de revolución, por tanto, los dos primeros términos no monopolares tienen la misma estructura,
+\begin{equation}\label{eq:dip-cuad-legendre}
+  \phimul{1}=\frac{p\cos\theta}{4\pi\eo r^{2}}=\frac{p}{4\pi\eo r^{2}}\,\Pl{1}(\cos\theta),\qquad
+  \phimul{2}=\frac{Q_{zz}}{8\pi\eo r^{3}}\,\Pl{2}(\cos\theta),
+\end{equation}
+donde ahora $\theta$ es la colatitud del punto campo respecto del eje de simetría.
+
+\begin{corolario}[Campo, equipotenciales y líneas del término cuadrupolar]\label{cor:campo-cuadrupolo}
+Para el término \cref{eq:cuadrupolar-revolucion}:
+\begin{enumerate}[label=(\roman*)]
+  \item el campo es $\vE_{2}=\dfrac{3Q_{zz}}{16\pi\eo r^{4}}\Bigl[\bigl(3\cos^{2}\theta-1\bigr)\ur+2\sen\theta\cos\theta\,\uth\Bigr]$, que decae como $1/r^{4}$;
+  \item las equipotenciales $\phimul{2}=\phi_0$ son las curvas $r^{3}=K\,(3\cos^{2}\theta-1)$, y la equipotencial nula es el \emph{cono nodal} $\cos^{2}\theta=1/3$,
+        es decir, $\theta\simeq54{,}7^{\circ}$ y $125{,}3^{\circ}$;
+  \item las líneas de campo son las curvas $r^{2}=C\sen^{2}\theta\,\abs{\cos\theta}$, más el eje $z$ y el plano ecuatorial.
+\end{enumerate}
+\end{corolario}
+\begin{proof}
+(i) $E_r=-\partial_r\phimul{2}=3\phimul{2}/r$ y $E_\theta=-\frac1r\partial_\theta\phimul{2}=-\frac{Q_{zz}}{16\pi\eo r^{4}}(-6\cos\theta\sen\theta)$.
+(ii) Es inmediato. (iii) Como en la \cref{prop:lineas-dipolo},
+$\frac{\dif r}{r\,\dif\theta}=\frac{E_r}{E_\theta}=\frac{3\cos^{2}\theta-1}{2\sen\theta\cos\theta}$, y derivando $\frac12\ln\bigl(\sen^{2}\theta\cos\theta\bigr)$ se comprueba que
+$\frac{\dif}{\dif\theta}\,\frac12\ln\bigl(\sen^{2}\theta\cos\theta\bigr)=\frac{2\cos^{2}\theta-\sen^{2}\theta}{2\sen\theta\cos\theta}=\frac{3\cos^{2}\theta-1}{2\sen\theta\cos\theta}$.
+\end{proof}
+
+\input{figuras/fig_equipotenciales}
+
+La \cref{fig:equipotenciales} compara las equipotenciales de los tres primeros términos: esferas para el monopolo, los dos lóbulos del dipolo y los cuatro
+del cuadrupolo, separados por el cono nodal. La \cref{fig:cuadrupolo-mma} completa la descripción del término cuadrupolar con sus líneas de campo y su campo
+vectorial, y la \cref{fig:cuadrupolo-fp} lo compara con un cuadrupolo físico de tres cargas, que estudiamos a continuación.
+
+\input{figuras/fig_cuadrupolo_mma}
+
+\begin{ejemplo}[Cuadrupolo lineal]\label{ej:cuadrupolo-lineal}
+Sean las cargas $+q$ en $z=\pm d$ y $-2q$ en el origen (dos dipolos opuestos, de momentos $\pm qd\,\uz$, unidos por su carga negativa). Entonces
+$Q=q+q-2q=0$, $\vp=q\,d\,\uz+q(-d)\uz+(-2q)\vc{0}=\vc{0}$, y el sistema tiene simetría de revolución alrededor de $z$, con
+\[
+  Q_{zz}=\sum_iq_i\bigl(3z_i^{2}-r_i^{2}\bigr)=q\,(3d^{2}-d^{2})+q\,(3d^{2}-d^{2})+(-2q)\cdot0=4qd^{2}>0 .
+\]
+El primer término no nulo es el cuadrupolar, independiente del origen (\cref{prop:Q-origen}):
+\[
+  \phi(\vc{r})\simeq\phimul{2}(\vc{r})=\frac{4qd^{2}}{16\pi\eo r^{3}}\bigl(3\cos^{2}\theta-1\bigr)=\frac{qd^{2}}{4\pi\eo r^{3}}\bigl(3\cos^{2}\theta-1\bigr).
+\]
+La carga positiva está en los extremos del eje, «alargada» según $z$, y en efecto $Q_{zz}>0$: el potencial es positivo dentro del cono nodal que rodea al eje y
+negativo cerca del plano ecuatorial (\cref{fig:cuadrupolo-fp}).
+\end{ejemplo}
+
+\input{figuras/fig_cuadrupolo_fp}
+
+% -------------------------------------------------------------------------
+\subsection{Un ejemplo sin simetría de revolución: el cuadrupolo plano}\label{sec:cuadrupolo-plano}
+% -------------------------------------------------------------------------
+\begin{ejemplo}[Cuadrupolo plano de cuatro cargas]\label{ej:cuadrupolo-plano}
+Hallar todas las componentes del tensor cuadrupolar del sistema de cuatro cargas situadas en el plano $xy$ a distancia $a$ del origen:
+$q_1=+q$ en $(a,0,0)$, $q_2=+q$ en $(-a,0,0)$, $q_3=-q$ en $(0,a,0)$ y $q_4=-q$ en $(0,-a,0)$.
+
+\emph{Momentos de orden inferior.} $Q=q+q-q-q=0$ y $\vp=q(a\ux)+q(-a\ux)-q(a\uy)-q(-a\uy)=\vc{0}$, de modo que el tensor cuadrupolar no depende del origen y el término
+cuadrupolar es el dominante.
+
+\emph{Diagonal principal.} Todas las cargas están en el plano $z=0$ y a distancia $r_i=a$ del origen. Con \cref{eq:Qjk-discreto},
+\begin{align*}
+  Q_{xx}&=q\,(3a^{2}-a^{2})+q\bigl[3(-a)^{2}-a^{2}\bigr]-q\,(0-a^{2})-q\,(0-a^{2})=6qa^{2},\\
+  Q_{yy}&=q\,(0-a^{2})+q\,(0-a^{2})-q\,(3a^{2}-a^{2})-q\,(3a^{2}-a^{2})=-6qa^{2},\\
+  Q_{zz}&=q\,(0-a^{2})+q\,(0-a^{2})-q\,(0-a^{2})-q\,(0-a^{2})=0 .
+\end{align*}
+\emph{Fuera de la diagonal.} Cada carga está sobre un eje y en el plano $z=0$, así que los productos cruzados $x_iy_i$, $x_iz_i$, $y_iz_i$ se anulan para todas:
+$Q_{xy}=Q_{xz}=Q_{yz}=0$. En consecuencia,
+\[
+  \Qt=\begin{pmatrix}6qa^{2}&0&0\\0&-6qa^{2}&0\\0&0&0\end{pmatrix},\qquad \Tr\Qt=6qa^{2}-6qa^{2}+0=0\ \checkmark
+\]
+y el potencial a grandes distancias es $\phi\simeq\frac{1}{8\pi\eo r^{3}}\bigl(6qa^{2}\cd{x}^{2}-6qa^{2}\cd{y}^{2}\bigr)=\frac{3qa^{2}}{4\pi\eo r^{3}}\,\sen^{2}\theta\cos2\varphi$.
+\end{ejemplo}
+
+\begin{observacion}[Lectura de los signos]\label{obs:cuadrupolo-plano}
+Los signos opuestos de la diagonal dibujan la geometría del campo (\cref{fig:cuadrupolo-plano}): $Q_{xx}=6qa^{2}>0$ indica que el eje $x$, donde están las cargas
+positivas, es el que «manda» la repulsión (allí el potencial es positivo y las líneas salen), mientras que $Q_{yy}=-6qa^{2}<0$ hace del eje $y$ el «sumidero»
+negativo. Es un cuadrupolo puramente bidimensional, que estira el campo según $x$ y lo comprime según $y$; el sistema no tiene simetría de revolución, y por eso
+$Q_{xx}\neq Q_{yy}$ aunque los ejes $x$, $y$, $z$ son ya sus ejes principales.
+\end{observacion}
+
+\input{figuras/fig_cuadrupolo_plano}
+
+% -------------------------------------------------------------------------
+\subsection{Resumen: los tres primeros momentos}\label{sec:resumen}
+% -------------------------------------------------------------------------
+A distancias suficientemente grandes de una distribución dada podemos escribir el potencial como
+\begin{equation}\label{eq:resumen}
+  \boxed{\;\phi(\vc{r})=\phimul{0}+\phimul{1}+\phimul{2}+\cdots=\frac{1}{4\pi\eo}\Biggl[\frac{Q}{r}+\frac{\vp\cdot\ur}{r^{2}}+\frac{1}{2r^{3}}\sum_{j,k}\Qjk\,\cd{j}\cd{k}+\cdots\Biggr]\;}
+\end{equation}
+donde los momentos multipolares se calculan según la \cref{tab:momentos}, para distribuciones continuas o discretas.
+
+\begin{table}[ht]
+\centering
+\caption{Momentos multipolares de una distribución de carga respecto del origen $O$. Para distribuciones superficiales o lineales se sustituye $\rho\,\dVp$ por
+$\sigma\,\dSp$ o $\lambda\,\dlp$.}
+\label{tab:momentos}
+\renewcommand{\arraystretch}{1.7}
+\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
+  \toprule
+  \textsc{Momento} & \textsc{Distribución continua} & \textsc{Distribución discreta} & \textsc{Término}\\
+  \midrule
+  Monopolar   & $Q=\displaystyle\int_{V'}\rho(\rp)\,\dVp$ & $Q=\displaystyle\sum_{i=1}^{N}q_i$ & $\dfrac{Q}{4\pi\eo r}$\\
+  Dipolar     & $\vp=\displaystyle\int_{V'}\rp\rho(\rp)\,\dVp$ & $\vp=\displaystyle\sum_{i=1}^{N}q_i\,\rp_i$ & $\dfrac{\vp\cdot\ur}{4\pi\eo r^{2}}$\\
+  Cuadrupolar & $\Qjk=\displaystyle\int_{V'}\rho\,\bigl(3x'_jx'_k-\delt{j}{k}r'^{2}\bigr)\dVp$ & $\Qjk=\displaystyle\sum_{i=1}^{N}q_i\bigl(3x'_{i,j}x'_{i,k}-\delt{j}{k}r_i'^{\,2}\bigr)$
+                         & $\dfrac{\sum_{j,k}\Qjk\cd{j}\cd{k}}{8\pi\eo r^{3}}$\\
+  \bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,47 @@
+% =========================================================================
+% Figura (clon de «Tema 2. Figuras», diapositivas «Término cuadrupolar»):
+% (a) equipotenciales, (b) equipotenciales y líneas de campo y (c) campo
+% eléctrico del término cuadrupolar con simetría de revolución,
+% phi_2 ~ Q_zz P2(cos t)/r^3, Q_zz > 0. Datos: figuras/datos/cua_puntual_*.
+% =========================================================================
+\begin{figure}[t]
+\centering
+\newcommand{\icono}{% dos dipolos opuestos unidos por su carga negativa
+  \draw[-{Stealth[length=2.8pt,width=2.6pt]}, mmarojo, line width=0.9pt] (0,0) -- (0,0.95);
+  \draw[-{Stealth[length=2.8pt,width=2.6pt]}, mmarojo, line width=0.9pt] (0,0) -- (0,-0.95);
+  \fill[mmarojo] (0,0) circle (0.2);}
+\begin{minipage}[t]{0.325\textwidth}\centering
+{\footnotesize Equipotenciales}\\[3pt]
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \renewcommand{\EQ}[1]{\draw[mmaEQsolo] plot coordinates {#1};}%
+  \colorlet{marcoc}{grispizarra!60}
+  \panelMMA{10}{white}{0}{\input{figuras/datos/cua_puntual_eq.tex}}
+  \fill[white] (0,0) circle (2.0);
+  \icono
+  \marcoMMA{10}{5}{$x$ (u.\,arb.)}{$z$ (u.\,arb.)}
+\end{tikzpicture}\\[1pt]{\small\scshape (a)}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.325\textwidth}\centering
+{\footnotesize Equipotenciales y líneas de campo}\\[3pt]
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \panelMMA{10}{mmafondo}{1.2}{%
+    \input{figuras/datos/cua_puntual_eq.tex}
+    \input{figuras/datos/cua_puntual_lc.tex}
+    \input{figuras/datos/cua_puntual_fl.tex}}
+  \icono
+  \marcoMMA{10}{5}{$x$ (u.\,arb.)}{$z$ (u.\,arb.)}
+\end{tikzpicture}\\[1pt]{\small\scshape (b)}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.325\textwidth}\centering
+{\footnotesize Campo eléctrico}\\[3pt]
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \panelMMA{10}{mmafondo}{1.2}{\input{figuras/datos/cua_puntual_vf.tex}}
+  \marcoMMA{10}{5}{$x$ (u.\,arb.)}{$z$ (u.\,arb.)}
+\end{tikzpicture}\\[1pt]{\small\scshape (c)}
+\end{minipage}
+\caption{Término cuadrupolar con simetría de revolución, $\phimul{2}\propto Q_{zz}\Pl{2}(\cos\theta)/r^{3}$ con $Q_{zz}>0$ (\cref{teo:revolucion}). (a)~Equipotenciales: los
+lóbulos polares (potencial positivo) son más extensos que los ecuatoriales (negativo) porque $\Pl{2}(\pm1)=1$ y $\Pl{2}(0)=-\frac12$. (b)~Líneas de campo: salen a lo largo
+del eje $z$, entran por el plano ecuatorial y cruzan el cono nodal. (c)~Campo eléctrico, con la misma escala de color que la \cref{fig:dipolo-mma}: cae como $1/r^{4}$,
+aún más deprisa que el dipolar. El icono rojo representa dos dipolos opuestos. Recreación de~\cite{FIGURAS-T2}.}
+\label{fig:cuadrupolo-mma}
+\end{figure}

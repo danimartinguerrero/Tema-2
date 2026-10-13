@@ -1,0 +1,127 @@
+% =========================================================================
+\section{Estimación del error al truncar el desarrollo}\label{sec:error}
+% =========================================================================
+La pregunta obligada ahora es: ¿cuántos términos del desarrollo debemos considerar? Todo depende del error con el que queramos determinar el
+potencial. Pero conocer el error exige conocer el potencial exacto, que es precisamente lo que no sabemos calcular y la razón por la que hacemos el
+desarrollo. Empezamos, por eso, con una situación en la que sí lo conocemos, y después veremos que, bajo una hipótesis muy natural, el error puede
+acotarse sin conocer el potencial exacto.
+
+\begin{definicion}[Error relativo de truncamiento]\label{def:error}
+Sea $\phi^{(N)}=\sum_{\ell=0}^{N}\phimul{\ell}$ el desarrollo multipolar truncado en el orden $N$. Su \emph{error relativo} en el punto $\vc{r}$ es
+\begin{equation}\label{eq:error}
+  e_{N}(\vc{r})=\left\lvert\frac{\phi_{\mathrm{exacto}}(\vc{r})-\phi^{(N)}(\vc{r})}{\phi_{\mathrm{exacto}}(\vc{r})}\right\rvert\times100\ (\%).
+\end{equation}
+\end{definicion}
+
+% -------------------------------------------------------------------------
+\subsection{Un caso con solución exacta: la carga puntual}\label{sec:error-carga}
+% -------------------------------------------------------------------------
+\begin{ejemplo}[Carga puntual en el origen]\label{ej:carga-origen}
+Si la carga $q$ está en el origen, $\phi_{\mathrm{exacto}}=q/(4\pi\eo r)$ coincide con el término monopolar: todos los demás momentos son nulos ($\vp=q\,\vc{0}=\vc{0}$,
+$\Qjk=q\,(0-0)=0$, \dots) y, tomando un solo término, el error es del $0\%$.
+\end{ejemplo}
+
+\begin{ejemplo}[Carga puntual fuera del origen]\label{ej:carga-fuera}
+Sea ahora la carga $q$ en $\rp=a\,\uz$ (\cref{fig:error-carga}). El potencial exacto es
+\[
+  \phi_{\mathrm{exacto}}(\vc{r})=\frac{1}{4\pi\eo}\,\frac{q}{R}=\frac{q}{4\pi\eo\sqrt{r^{2}+a^{2}-2ra\cos\theta}},
+\]
+y, por el \cref{teo:1R-legendre} con $r'=a$ y $\theta'=\theta$, su desarrollo multipolar es $\phi=\frac{q}{4\pi\eo}\sum_{\ell}\frac{a^{\ell}}{r^{\ell+1}}\Pl{\ell}(\cos\theta)$. Los
+dos primeros términos son
+\[
+  \phimul{0}=\frac{q}{4\pi\eo r},\qquad \phimul{1}=\frac{\vp\cdot\ur}{4\pi\eo r^{2}}=\frac{q\,\rp\cdot\ur}{4\pi\eo r^{2}}=\frac{q\,a\cos\theta}{4\pi\eo r^{2}},
+  \qquad \phi^{(1)}=\frac{q}{4\pi\eo}\Bigl(\frac1r+\frac{a\cos\theta}{r^{2}}\Bigr).
+\]
+La \cref{tab:error-carga} recoge el error cometido, con $q=1\,\mathrm{nC}$ y $a=1\,\mathrm{m}$, para $\theta=\pi/2$ y $\theta=0$.
+\end{ejemplo}
+
+\begin{table}[ht]
+\centering
+\caption{Potencial exacto y aproximado (términos monopolar y dipolar) de una carga $q=1\,\mathrm{nC}$ situada en $a\,\uz$ con $a=1\,\mathrm{m}$, y error relativo
+$e_{1}$ (\cref{def:error}). Se ha usado $1/(4\pi\eo)=8{,}98755\cdot10^{9}\,\mathrm{N\,m^{2}/C^{2}}$.}
+\label{tab:error-carga}
+\renewcommand{\arraystretch}{1.25}
+\small\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}c@{\quad}ccc@{\quad}ccc@{}}
+  \toprule
+  & \multicolumn{3}{c}{$\theta=\pi/2$} & \multicolumn{3}{c}{$\theta=0$}\\
+  \cmidrule(r{0.8em}){2-4}\cmidrule{5-7}
+  $r$ & $\phi_{\mathrm{exacto}}$ (V) & $\phi^{(1)}$ (V) & $e_{1}$ (\%) & $\phi_{\mathrm{exacto}}$ (V) & $\phi^{(1)}$ (V) & $e_{1}$ (\%)\\
+  \midrule
+  $10\,a$   & $0{,}894295$  & $0{,}898755$  & $0{,}499$              & $0{,}998617$  & $0{,}988631$  & $1{,}00$\\
+  $100\,a$  & $0{,}0898710$ & $0{,}0898755$ & $5{,}00\cdot10^{-3}$   & $0{,}0907834$ & $0{,}0907743$ & $1{,}00\cdot10^{-2}$\\
+  $1000\,a$ & $8{,}987547\cdot10^{-3}$ & $8{,}987552\cdot10^{-3}$ & $5{,}00\cdot10^{-5}$ & $8{,}996548\cdot10^{-3}$ & $8{,}996539\cdot10^{-3}$ & $1{,}00\cdot10^{-4}$\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+\input{figuras/fig_error_carga}
+
+\begin{observacion}[Lectura de los resultados]\label{obs:error-carga}
+Al multiplicar la distancia por diez, el error se divide por cien: decrece como $(a/r)^{2}$, que es el peso relativo del primer término despreciado, el
+cuadrupolar ($\phimul{2}/\phimul{0}=(a/r)^{2}\Pl{2}(\cos\theta)$). El coeficiente es $\abs{\Pl{2}(\cos\theta)}$: vale $1$ sobre el eje y $\frac12$ en el plano ecuatorial, de
+ahí que el error sobre el eje sea el doble (\cref{fig:error-carga}). En la dirección del cono nodal, $\cos^{2}\theta=1/3$, el término cuadrupolar se anula y el error cae
+un orden más, al $(a/r)^{3}$.
+\end{observacion}
+
+% -------------------------------------------------------------------------
+\subsection{Cota del error para distribuciones de un solo signo}\label{sec:cota}
+% -------------------------------------------------------------------------
+Existe una situación en la que, aunque no conozcamos el potencial exacto, podemos estimar el error cometido: cuando toda la carga de la distribución es del
+mismo signo. En ese caso el término monopolar no se anula y es el dominante, y medimos el peso de cada término respecto de él.
+
+\begin{teorema}[Estimación del error]\label{teo:cota-error}
+Sea $\rho$ una distribución de carga \emph{de un solo signo} (por ejemplo, $\rho\ge0$) con carga neta $Q\neq0$, contenida en la bola de radio $a$ centrada en el origen
+($a$ es el \emph{tamaño característico} de la distribución). Entonces, para todo $r>a$ y todo $n\in\N$,
+\begin{equation}\label{eq:cota-error}
+  \boxed{\;\left\lvert\frac{\phimul{n}(\vc{r})}{\phimul{0}(\vc{r})}\right\rvert\le\Bigl(\frac{a}{r}\Bigr)^{n}\;}
+\end{equation}
+\end{teorema}
+\begin{proof}
+Por \cref{eq:desarrollo-multipolar} y \cref{eq:monopolar},
+\[
+  \frac{\phimul{n}(\vc{r})}{\phimul{0}(\vc{r})}=\frac{\dfrac{1}{4\pi\eo}\dfrac{1}{r^{n+1}}\displaystyle\int_{V'}r'^{\,n}\Pl{n}(\cosp)\,\rho(\rp)\,\dVp}{\dfrac{1}{4\pi\eo}\dfrac{Q}{r}}
+  =\frac{1}{Q\,r^{n}}\int_{V'}r'^{\,n}\Pl{n}(\cosp)\,\rho(\rp)\,\dVp .
+\]
+Como $\rho\ge0$, $\abs{\rho}=\rho$; además $\abs{\Pl{n}(\cosp)}\le1$ (\cref{lem:legendre-cota}) y $r'^{\,n}\le a^{n}$ en el soporte de $\rho$. Por tanto,
+\[
+  \left\lvert\int_{V'}r'^{\,n}\Pl{n}(\cosp)\,\rho\,\dVp\right\rvert\le\int_{V'}r'^{\,n}\,\abs{\Pl{n}(\cosp)}\,\rho\,\dVp\le a^{n}\int_{V'}\rho\,\dVp=Q\,a^{n},
+\]
+y dividiendo por $Q\,r^{n}>0$ se obtiene \cref{eq:cota-error}. Si $\rho\le0$ se aplica lo anterior a $-\rho$.
+\end{proof}
+
+\begin{corolario}[Error al truncar en el orden $N$]\label{cor:resto}
+En las condiciones del \cref{teo:cota-error}, el error relativo del desarrollo truncado (respecto del término dominante) satisface
+\begin{equation}\label{eq:resto}
+  \frac{\abs{\phi-\phi^{(N)}}}{\abs{\phimul{0}}}\le\sum_{n=N+1}^{\infty}\Bigl(\frac{a}{r}\Bigr)^{n}=\frac{(a/r)^{N+1}}{1-a/r}.
+\end{equation}
+\end{corolario}
+\begin{proof}
+$\abs{\phi-\phi^{(N)}}=\bigl\lvert\sum_{n>N}\phimul{n}\bigr\rvert\le\sum_{n>N}\abs{\phimul{n}}\le\abs{\phimul{0}}\sum_{n>N}(a/r)^{n}$, y la serie geométrica de razón $a/r<1$ se suma
+directamente.
+\end{proof}
+
+\begin{observacion}[Uso práctico: cuántos términos tomar]\label{obs:cuantos}
+El criterio del formulario~\cite{FORMULARIO} identifica el error con el peso del término $n$-ésimo, $\phimul{n}/\phimul{0}<(a/r)^{n}$. Si, por ejemplo, $r\sim10a$ y
+queremos un error inferior al $1\%$,
+\[
+  \Bigl(\frac{a}{r}\Bigr)^{n}=\Bigl(\frac{a}{10a}\Bigr)^{n}=10^{-n}\le0{,}01\quad\Longrightarrow\quad n=2,
+\]
+y habrá que tomar las contribuciones $n=0,1,2$: monopolar, dipolar y cuadrupolar. El \cref{cor:resto} lo confirma con todo rigor: truncando en $N=2$, el error es menor
+que $(0{,}1)^{3}/0{,}9\simeq0{,}11\%$, mientras que truncando en $N=1$ solo se garantiza un $1{,}1\%$. En la práctica se usa también la estimación con el tamaño
+\emph{medio} de la distribución, $\langle r'\rangle$, en lugar del máximo $a$:
+\begin{equation}\label{eq:estimacion-media}
+  \frac{\phimul{n}}{\phimul{0}}\lesssim\frac{\langle r'\rangle^{n}}{r^{n}}\,\frac{1}{Q}\int_{V'}\rho\,\dVp=\Bigl(\frac{\langle r'\rangle}{r}\Bigr)^{n},
+\end{equation}
+que es menos rigurosa pero más ajustada: es la que usaremos en los seminarios.
+\end{observacion}
+
+\begin{observacion}[Alcance de la cota]\label{obs:alcance}
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{La cota es óptima.} Para la carga puntual del \cref{ej:carga-fuera}, sobre el eje ($\theta=0$) se tiene $\phimul{n}/\phimul{0}=(a/r)^{n}\Pl{n}(1)=(a/r)^{n}$: la
+        desigualdad \cref{eq:cota-error} se alcanza.
+  \item \emph{La hipótesis de un solo signo es esencial.} Si hay cargas de ambos signos, $Q$ puede ser pequeña o nula (un dipolo, un cuadrupolo\dots) y entonces el término
+        monopolar deja de ser el dominante: no tiene sentido comparar con él. En ese caso el error debe estimarse respecto del primer término no nulo, como hicimos al comparar el
+        dipolo físico con el puntual (\cref{prop:discrepancia}).
+\end{enumerate}
+\end{observacion}

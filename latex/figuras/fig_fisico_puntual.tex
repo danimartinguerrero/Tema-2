@@ -1,0 +1,38 @@
+% =========================================================================
+% Figura (clon de «Tema 2. Figuras»): equipotenciales y líneas de campo del
+% dipolo puntual (izquierda) y del dipolo físico (derecha), como StreamPlot
+% de Mathematica. Datos: figuras/datos/dip_{puntual,fisico}_*.tex.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{minipage}[t]{0.49\textwidth}\centering
+\begin{tikzpicture}[x=0.29cm, y=0.29cm]
+  \panelMMA{10}{mmafondo}{1.2}{%
+    \input{figuras/datos/dip_puntual_eq.tex}
+    \draw[mmaEQ] (-10,0) -- (10,0);
+    \input{figuras/datos/dip_puntual_lc.tex}
+    \input{figuras/datos/dip_puntual_fl.tex}}
+  \dipoloRojo{0.85}
+  \node[font=\tiny, text=mmarojo] at (0.62,0.05) {$\vp$};
+  \marcoMMA{10}{5}{$x/\ell$}{$z/\ell$}
+\end{tikzpicture}\\[1pt]{\small\scshape (a)\; dipolo puntual}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\textwidth}\centering
+\begin{tikzpicture}[x=0.29cm, y=0.29cm]
+  \panelMMA{10}{mmafondo}{1.2}{%
+    \input{figuras/datos/dip_fisico_eq.tex}
+    \draw[mmaEQ] (-10,0) -- (10,0);
+    \input{figuras/datos/dip_fisico_lc.tex}
+    \input{figuras/datos/dip_fisico_fl.tex}}
+  \fill[mmarojo] (0,0.5) circle (0.2) (0,-0.5) circle (0.2);
+  \node[font=\tiny, text=mmarojo, anchor=west, inner sep=0.5pt] at (0.25,0.55) {$+q$};
+  \node[font=\tiny, text=mmarojo, anchor=west, inner sep=0.5pt] at (0.25,-0.55) {$-q$};
+  \marcoMMA{10}{5}{$x/\ell$}{$z/\ell$}
+\end{tikzpicture}\\[1pt]{\small\scshape (b)\; dipolo físico}
+\end{minipage}
+\caption{Equipotenciales (gris) y líneas de campo (azul) de (a)~un dipolo puntual $\vp=q\ell\,\uz$ y (b)~un dipolo físico con $+q$ en
+$z=\ell/2$ y $-q$ en $z=-\ell/2$, ambos con los mismos niveles de potencial. Fuera del disco central, de radio $1{,}2\,\ell$, las dos
+representaciones coinciden a simple vista; las pequeñas diferencias se concentran cerca de las cargas y en los «haces» de equipotenciales que
+convergen hacia el plano ecuatorial. Recreación de~\cite{FIGURAS-T2}.}
+\label{fig:fisico-puntual}
+\end{figure}

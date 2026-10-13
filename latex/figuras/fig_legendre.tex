@@ -1,0 +1,66 @@
+% =========================================================================
+% Figura (clon de «Tema 2. Figuras», diapositiva «Polinomios de Legendre»):
+% desarrollo de 1/R para r'/r = 1/3 (r = 3, r' = 1) en función de theta'.
+% Arriba, cada término (r'^l / r^{l+1}) P_l(cos theta'); abajo, las sumas
+% parciales frente a la función exacta 1/sqrt(10 - 6 cos theta').
+% Todo se evalúa analíticamente en pgfplots.
+% =========================================================================
+\begin{figure}[t]
+\centering
+\pgfplotsset{legendreejes/.style={marcoMMA, width=8.4cm, height=4.6cm, xmin=0, xmax=6.2832,
+    trig format plots=rad, domain=0:6.2832, samples=181, every axis plot/.style={line width=1.1pt},
+    xtick={0,1.5708,3.1416,4.7124}, xticklabels={$0$,$\frac{\pi}{2}$,$\pi$,$\frac{3\pi}{2}$},
+    xlabel={$\theta'$}, ylabel style={yshift=-3pt}}}
+\begin{minipage}[c]{0.33\textwidth}\centering
+{\small $\displaystyle\frac{1}{R}=\sum_{\ell=0}^{\infty}\frac{r'^{\,\ell}}{r^{\ell+1}}\,\Pl{\ell}(\cos\theta')$}\\[10pt]
+\begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
+  \draw[pizarra, densely dotted, line width=0.5pt] (0,0) circle (2);
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (40:2);
+  \coordinate (B) at (0.67,0);
+  \draw[->, line width=1pt, black] (O) -- (A) node[pos=0.55, above left=-1pt, etiq] {$\vc{r}$};
+  \draw[->, line width=1pt, mmaazul] (O) -- (B) node[below=2pt, etiq, text=mmaazul] {$\rp$};
+  \draw[->, line width=1pt, mmarojo] (B) -- (A) node[pos=0.5, right=1pt, etiq, text=mmarojo] {$\vc{R}$};
+  \pic[draw=mmaazul, line width=0.5pt, angle radius=0.42cm, "$\theta'$", angle eccentricity=1.7, font=\scriptsize] {angle=B--O--A};
+\end{tikzpicture}\\[4pt]
+{\footnotesize $r'/r=1/3$}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.64\textwidth}\centering
+\begin{tikzpicture}
+\begin{axis}[legendreejes, ymin=-0.14, ymax=0.37, ylabel={$(1/R)_{\ell}$},
+             ytick={-0.1,0,0.1,0.2,0.3},
+             y tick label style={/pgf/number format/.cd, fixed, precision=1, use comma}]
+  \addplot[grispizarra, line width=0.4pt] {0};
+  \addplot[mmaazul]     {1/3};
+  \addplot[mmanaranja]  {(1/9)*cos(x)};
+  \addplot[mmaverde]    {(1/27)*0.5*(3*cos(x)^2-1)};
+  \addplot[mmarojizo]   {(1/81)*0.5*(5*cos(x)^3-3*cos(x))};
+  \node[font=\scriptsize, text=mmaazul!80!black, fill=white, inner sep=1pt] at (axis cs:3.1416,0.30) {$\ell=0$};
+  \node[font=\scriptsize, text=mmanaranja!80!black, anchor=south] at (axis cs:0.55,0.12) {$\ell=1$};
+  \node[font=\scriptsize, text=mmaverde!70!black, anchor=south] at (axis cs:3.1416,0.045) {$\ell=2$};
+  \node[font=\scriptsize, text=mmarojizo!85!black, anchor=north] at (axis cs:4.95,-0.025) {$\ell=3$};
+\end{axis}
+\end{tikzpicture}\\[2pt]
+\begin{tikzpicture}
+\begin{axis}[legendreejes, ymin=0.22, ymax=0.52, ylabel={$\sum_{\ell\le n}(1/R)_{\ell}$},
+             ytick={0.25,0.30,...,0.50},
+             y tick label style={/pgf/number format/.cd, fixed, fixed zerofill, precision=2, use comma},
+             legend columns=5, legend cell align=left,
+             legend style={font=\scriptsize, draw=none, at={(0.5,-0.42)}, anchor=north,
+                           /tikz/every even column/.append style={column sep=6pt}}]
+  \addplot[mmavioleta, line width=2.6pt, opacity=0.55] {1/sqrt(10-6*cos(x))};
+  \addplot[mmanaranja, line width=1.3pt] {1/3};
+  \addplot[mmaverde]   {1/3+(1/9)*cos(x)};
+  \addplot[mmarojizo]  {1/3+(1/9)*cos(x)+(1/27)*0.5*(3*cos(x)^2-1)};
+  \addplot[mmaazul, line width=0.8pt]
+     {1/3+(1/9)*cos(x)+(1/27)*0.5*(3*cos(x)^2-1)+(1/81)*0.5*(5*cos(x)^3-3*cos(x))};
+  \legend{exacta, $n=0$, $n=1$, $n=2$, $n=3$}
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\caption{Desarrollo de $1/R$ en polinomios de Legendre (\cref{teo:1R-legendre}) para $r=3$ y $r'=1$ ($r'/r=1/3$), en función del ángulo $\theta'$ entre $\vc{r}$ y
+$\rp$. Arriba: los cuatro primeros términos $(1/R)_{\ell}=r'^{\,\ell}\Pl{\ell}(\cos\theta')/r^{\ell+1}$, cuya amplitud decrece en progresión geométrica de razón $1/3$.
+Abajo: sumas parciales hasta orden $n$ frente a la función exacta $1/R=(10-6\cos\theta')^{-1/2}$; con $n=3$ el error máximo es ya de solo un $1{,}2\%$, y cada orden adicional lo divide aproximadamente por tres. Recreación
+de~\cite{FIGURAS-T2}.}
+\label{fig:legendre}
+\end{figure}

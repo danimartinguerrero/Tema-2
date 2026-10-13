@@ -1,0 +1,369 @@
+% =========================================================================
+\section{Seminarios prácticos}\label{sec:seminarios}
+% =========================================================================
+Esta sección resuelve, con todo detalle, los cinco problemas de la relación del tema~\cite{PROBLEMAS-T2}. Cada uno sigue la misma estructura que en
+los temas anteriores: el \emph{enunciado}, la \emph{idea} que guía la resolución, la \emph{resolución} paso a paso y un breve comentario sobre la
+\emph{interpretación} del resultado. Todos se reducen a calcular unos pocos momentos multipolares, de modo que la estrategia es siempre la misma:
+\begin{enumerate}[label=(\arabic*)]
+  \item elegir el origen (si el enunciado no lo fija, el centro de simetría de la distribución) y los ejes adaptados a la geometría;
+  \item calcular $Q$, $\vp$ y $\Qjk$ con la \cref{tab:momentos}, aprovechando las simetrías para anular integrales antes de hacerlas
+        (\cref{teo:revolucion}: con simetría de revolución basta $Q_{zz}$ y se puede partir directamente de \cref{eq:cuadrupolar-revolucion});
+  \item decidir con la \cref{sec:error} cuántos términos hacen falta y construir el potencial; el campo se obtiene, si se pide, como $\vE=-\nab\phi$.
+\end{enumerate}
+La \cref{tab:resultados}, al final de la sección, recoge todos los resultados.
+
+% =========================================================================
+\subsection{Problema 2.1. Barra cargada vista desde lejos}\label{sem:barra}
+% =========================================================================
+\begin{ejercicio}[Potencial y campo de una barra con error menor del $1\%$]\label{ejer:barra}
+Calcular, con un error menor del $1\%$, el campo eléctrico y el potencial creados por una distribución lineal de carga de densidad uniforme $\lambda$ sobre una línea
+recta finita de longitud $\ell$, para puntos de observación situados a una distancia mayor que $10$ veces la longitud de la barra.
+\end{ejercicio}
+
+\begin{resolucion}
+\textbf{Idea.} Tenemos una barra de longitud $\ell$ y densidad uniforme $\lambda$, y la observamos desde $r>10\ell$. No hace falta resolver la integral exacta: basta
+desarrollar el potencial y quedarse con los términos que garantizan un error inferior al $1\%$. Tomamos el origen en el centro de la barra y el eje $z$ a lo largo de
+ella (\figpanel{fig:sem-barra}{a}); así el problema tiene simetría de revolución alrededor de $z$ y simetría de inversión $z\to-z$.
+
+\textbf{Paso 1: cuántos términos.} Toda la carga es del mismo signo, de modo que podemos usar la estimación del \cref{teo:cota-error}, en su versión con el tamaño
+característico (\cref{eq:estimacion-media}): $\phimul{n}/\phimul{0}\lesssim(\langle r'\rangle/r)^{n}$. Para esta distribución, la longitud característica es del orden de la
+propia barra, $\langle r'\rangle\sim\ell$, y como $r>10\ell$,
+\[
+  \frac{\langle r'\rangle}{r}\lesssim\frac{\ell}{r}<\frac{1}{10}\quad\Longrightarrow\quad\frac{\phimul{n}}{\phimul{0}}\lesssim\Bigl(\frac{1}{10}\Bigr)^{n}=10^{-n}.
+\]
+El término dipolar pesaría a lo sumo un $10\%$ y el cuadrupolar un $1\%$; para garantizar un error menor del $1\%$ basta calcular hasta el término cuadrupolar,
+$\phi\simeq\phimul{0}+\phimul{1}+\phimul{2}$ (y veremos que $\phimul{1}=0$ por simetría).
+
+\textbf{Paso 2: el desarrollo para la barra.} El elemento de carga es $\dif q=\lambda\,\dif z'$, en $\rp=z'\,\uz$ con $z'\in[-\ell/2,\ell/2]$. Si $z'>0$, el ángulo entre $\rp$ y
+$\vc{r}$ es $\theta'=\theta$ y $r'=z'$; si $z'<0$, $\theta'=\pi-\theta$ y $r'=-z'$. Por la paridad de los polinomios de Legendre, $\Pl{n}(-x)=(-1)^{n}\Pl{n}(x)$, en ambos casos
+$r'^{\,n}\Pl{n}(\cosp)=z'^{\,n}\Pl{n}(\cos\theta)$, y el \cref{teo:multipolar} da
+\[
+  \phi(\vc{r})=\frac{1}{4\pi\eo}\int_{-\ell/2}^{\ell/2}\frac{\lambda\,\dif z'}{\norm{\vc{r}-\rp}}
+  =\frac{\lambda}{4\pi\eo}\sum_{n=0}^{\infty}\frac{\Pl{n}(\cos\theta)}{r^{n+1}}\int_{-\ell/2}^{\ell/2}z'^{\,n}\,\dif z' .
+\]
+\emph{Término monopolar} ($n=0$): $\int_{-\ell/2}^{\ell/2}\dif z'=\ell$ y $\Pl{0}=1$, luego
+\[
+  \phimul{0}(\vc{r})=\frac{\lambda\ell}{4\pi\eo r}=\frac{Q}{4\pi\eo r},\qquad Q=\lambda\ell .
+\]
+\emph{Término dipolar} ($n=1$): $\int_{-\ell/2}^{\ell/2}z'\,\dif z'=\bigl[\tfrac{z'^{2}}{2}\bigr]_{-\ell/2}^{\ell/2}=\tfrac{(\ell/2)^{2}}{2}-\tfrac{(\ell/2)^{2}}{2}=0$. Es consecuencia de haber
+colocado el origen en el centro de la barra: el momento dipolar,
+\[
+  \vp=\int\rp\,\dif q=\lambda\int_{-\ell/2}^{\ell/2}z'\,\uz\,\dif z'=\lambda\,\uz\Bigl[\frac{z'^{2}}{2}\Bigr]_{-\ell/2}^{\ell/2}=\vc{0},
+\]
+se anula porque por cada elemento en $+z'$ hay otro en $-z'$ con la misma carga, $(+z')\lambda\,\dif z'+(-z')\lambda\,\dif z'=0$. Dicho con simetrías: la de revolución obliga a
+que $\vp\parallel\uz$ (\cref{teo:revolucion}), y la de inversión $z\to-z$ a que $p_z=-p_z$, es decir, $\vp=\vc{0}$.
+
+\emph{Término cuadrupolar} ($n=2$): $\int_{-\ell/2}^{\ell/2}z'^{2}\,\dif z'=\bigl[\tfrac{z'^{3}}{3}\bigr]_{-\ell/2}^{\ell/2}=\tfrac{\ell^{3}}{24}+\tfrac{\ell^{3}}{24}=\tfrac{\ell^{3}}{12}$ y
+$\Pl{2}(\cos\theta)=\frac12(3\cos^{2}\theta-1)$, luego
+\[
+  \phimul{2}(\vc{r})=\frac{\lambda}{4\pi\eo r^{3}}\,\frac12\bigl(3\cos^{2}\theta-1\bigr)\frac{\ell^{3}}{12}=\frac{\lambda\ell^{3}}{96\pi\eo r^{3}}\bigl(3\cos^{2}\theta-1\bigr).
+\]
+\emph{Comprobación con el tensor cuadrupolar.} Como hay simetría de revolución, basta $Q_{zz}=\int(3z'^{2}-r'^{2})\,\dif q=\int2z'^{2}\,\lambda\,\dif z'=2\lambda\frac{\ell^{3}}{12}=\frac{\lambda\ell^{3}}{6}$,
+y \cref{eq:cuadrupolar-revolucion} da $\phimul{2}=\frac{\lambda\ell^{3}/6}{16\pi\eo r^{3}}(3\cos^{2}\theta-1)$, el mismo resultado.
+
+\textbf{Paso 3: el potencial.} Con un error menor del $1\%$,
+\[
+  \boxed{\;\phi(\vc{r})\simeq\frac{\lambda\ell}{4\pi\eo r}+\frac{\lambda\ell^{3}\bigl(3\cos^{2}\theta-1\bigr)}{96\pi\eo r^{3}}\qquad(r>10\ell)\;}
+\]
+
+\textbf{Paso 4: el campo.} El potencial solo depende de $r$ y $\theta$, de modo que, con el gradiente en esféricas,
+$\vE=-\nab\phi=-\pd{\phi}{r}\,\ur-\frac1r\pd{\phi}{\theta}\,\uth$ ($E_\varphi=0$). Como hemos aproximado el potencial, el campo resultante es también aproximado.
+\emph{Componente radial:}
+\[
+  E_r=-\pd{\phi}{r}=-\Bigl[-\frac{\lambda\ell}{4\pi\eo r^{2}}+\frac{\lambda\ell^{3}}{96\pi\eo}\bigl(3\cos^{2}\theta-1\bigr)(-3)r^{-4}\Bigr]
+  =\frac{\lambda\ell}{4\pi\eo r^{2}}+\frac{\lambda\ell^{3}\bigl(3\cos^{2}\theta-1\bigr)}{32\pi\eo r^{4}} .
+\]
+\emph{Componente angular:} como $\pd{}{\theta}\bigl(3\cos^{2}\theta-1\bigr)=3\cdot2\cos\theta(-\sen\theta)=-6\sen\theta\cos\theta$,
+\[
+  \pd{\phi}{\theta}=\frac{\lambda\ell^{3}}{96\pi\eo r^{3}}\bigl(-6\sen\theta\cos\theta\bigr)=-\frac{\lambda\ell^{3}\sen\theta\cos\theta}{16\pi\eo r^{3}},\qquad
+  E_\theta=-\frac1r\pd{\phi}{\theta}=\frac{\lambda\ell^{3}\sen\theta\cos\theta}{16\pi\eo r^{4}} .
+\]
+En definitiva,
+\[
+  \boxed{\;\vE(\vc{r})\simeq\Bigl[\frac{\lambda\ell}{4\pi\eo r^{2}}+\frac{\lambda\ell^{3}\bigl(3\cos^{2}\theta-1\bigr)}{32\pi\eo r^{4}}\Bigr]\ur+\frac{\lambda\ell^{3}\sen\theta\cos\theta}{16\pi\eo r^{4}}\,\uth\;}
+\]
+\end{resolucion}
+
+\input{figuras/fig_sem_barra}
+
+\begin{observacion}[Interpretación y un análisis más fino]\label{obs:sem-barra}
+Lejos de la barra el término dominante es el de una carga puntual $Q=\lambda\ell$; la corrección cuadrupolar es positiva cerca del eje (la carga está «alargada» según $z$,
+$Q_{zz}>0$) y negativa cerca del plano ecuatorial. La estimación $\langle r'\rangle\sim\ell$ es conservadora: la carga más alejada del centro está a $a=\ell/2$, de modo que
+el \cref{teo:cota-error} garantiza $\abs{\phimul{2}/\phimul{0}}\le(1/20)^{2}=0{,}25\%$ y, de hecho, $\abs{\phimul{2}/\phimul{0}}=\frac{\ell^{2}}{24r^{2}}\abs{3\cos^{2}\theta-1}\le\frac{\ell^{2}}{12r^{2}}<0{,}084\%$.
+Así pues, para $r>10\ell$ ya el término monopolar \emph{solo} cumple el requisito del $1\%$, y al añadir el cuadrupolar el error cae hasta el orden del término
+siguiente no nulo, $\phimul{4}/\phimul{0}=\frac{\ell^{4}}{80r^{4}}\Pl{4}(\cos\theta)\sim10^{-6}$. La \figpanel{fig:sem-barra}{b} lo confirma comparando con el potencial exacto de la
+barra, $\phi=\frac{\lambda}{4\pi\eo}\bigl[\operatorname{arcsenh}\frac{z+\ell/2}{s}-\operatorname{arcsenh}\frac{z-\ell/2}{s}\bigr]$ (con $s$ la distancia al eje).
+\end{observacion}
+
+% =========================================================================
+\subsection{Problema 2.2. Momentos de una carga puntual}\label{sem:carga}
+% =========================================================================
+\begin{ejercicio}[Momentos de una carga puntual fuera del origen]\label{ejer:carga}
+Sea una carga puntual $q$ situada en el punto $(a,b,c)$. Calcular el momento monopolar, dipolar y cuadrupolar para ese sistema. ¿Cuál de esas cantidades varía si se añade una
+carga $-q$ en el origen de coordenadas?
+\end{ejercicio}
+
+\begin{resolucion}
+\textbf{Idea.} Es un sistema discreto de una sola carga: los momentos se obtienen directamente de las expresiones discretas de la \cref{tab:momentos}, con
+$\rp_1=a\,\ux+b\,\uy+c\,\uz$ y, por tanto, $r_1'^{\,2}=a^{2}+b^{2}+c^{2}$ (\figpanel{fig:sem-carga}{a}).
+
+\textbf{1) Momentos del sistema inicial.} \emph{Monopolar} ($\ell=0$): la carga neta del sistema, $Q=\sum_iq_i=q$.
+
+\emph{Dipolar} ($\ell=1$): el primer momento espacial de la distribución,
+\[
+  \vp=\sum_iq_i\,\rp_i=q\bigl(a\,\ux+b\,\uy+c\,\uz\bigr).
+\]
+\emph{Cuadrupolar} ($\ell=2$): $\Qjk=\sum_iq_i\bigl(3x'_{i,j}x'_{i,k}-\delt{j}{k}r_i'^{\,2}\bigr)$. En la diagonal principal ($j=k$, $\delt{j}{k}=1$),
+\[
+  Q_{xx}=q\bigl[3a^{2}-(a^{2}+b^{2}+c^{2})\bigr]=q\bigl(2a^{2}-b^{2}-c^{2}\bigr),
+\]
+\[
+  Q_{yy}=q\bigl[3b^{2}-(a^{2}+b^{2}+c^{2})\bigr]=q\bigl(2b^{2}-a^{2}-c^{2}\bigr),\qquad
+  Q_{zz}=q\bigl(2c^{2}-a^{2}-b^{2}\bigr).
+\]
+Fuera de la diagonal ($j\neq k$, $\delt{j}{k}=0$), y usando que el tensor es simétrico,
+\[
+  Q_{xy}=Q_{yx}=3qab,\qquad Q_{xz}=Q_{zx}=3qac,\qquad Q_{yz}=Q_{zy}=3qbc .
+\]
+En forma matricial,
+\[
+  \Qt=q\begin{pmatrix}2a^{2}-b^{2}-c^{2}&3ab&3ac\\3ab&2b^{2}-a^{2}-c^{2}&3bc\\3ac&3bc&2c^{2}-a^{2}-b^{2}\end{pmatrix},
+\]
+con $\Tr\Qt=q\,(2-1-1)(a^{2}+b^{2}+c^{2})=0$, como debe ser.
+
+\textbf{2) Variaciones al añadir $-q$ en el origen} (\figpanel{fig:sem-carga}{b}). La nueva carga $q_2=-q$ tiene vector de posición nulo, $\rp_2=0\,\ux+0\,\uy+0\,\uz$.
+
+\emph{Momento monopolar:} $Q_{\mathrm{nuevo}}=q_1+q_2=q+(-q)=0$. \emph{Es la única cantidad que varía} (y se anula).
+
+\emph{Momentos dipolar y cuadrupolar:} sus contribuciones son proporcionales a las coordenadas de cada carga ($x'_j$) o a productos de ellas ($x'_jx'_k$, $r'^{2}$), y todas
+se anulan para la carga situada en el origen:
+\[
+  \vp_{q_2}=(-q)\,\vc{0}=\vc{0},\qquad \bigl(\Qjk\bigr)_{q_2}=-q\bigl(3\cdot0\cdot0-\delt{j}{k}\cdot0\bigr)=0 .
+\]
+Por tanto, la carga añadida no perturba en absoluto los momentos de orden superior calculados antes.
+\end{resolucion}
+
+\input{figuras/fig_sem_carga}
+
+\begin{observacion}[Interpretación]\label{obs:sem-carga}
+Tras añadir la carga, el sistema es un dipolo físico de momento $\vp=q\,\rp_1$ y, al ser nula la carga neta, entra en juego el resultado de independencia del origen
+(\cref{cor:centro-carga}): $\vp$ ya no cambia al trasladar los ejes. Antes de añadirla, en cambio, $\vp$ dependía del origen, y tomando el origen en la propia carga, que es su
+centro de carga $\vc{r}_c=\vp/Q=(a,b,c)$, se anulaban $\vp$ y $\Qt$: una carga puntual vista desde su posición es un monopolo puro (\cref{ej:carga-origen}).
+\end{observacion}
+
+% =========================================================================
+\subsection{Problema 2.3. Paralelepípedo uniformemente cargado}\label{sem:paralelepipedo}
+% =========================================================================
+\begin{ejercicio}[Potencial de un paralelepípedo con error menor del $1\%$]\label{ejer:paralelepipedo}
+Sea una distribución de carga $Q$, uniforme, en un paralelepípedo de lados $2a$, $2b$, $2c$. Siendo todos los lados del mismo orden de magnitud $d$, calcular el potencial con un
+error $<1\%$ cuando se observa ese recinto cargado a distancias mayores que $10d$.
+\end{ejercicio}
+
+\begin{resolucion}
+\textbf{Idea.} El enunciado está incompleto: no indica respecto de qué origen, y como la carga neta no es nula el momento dipolar depende de esa elección
+(\cref{prop:p-origen}). Lo natural es tomar el origen en el centro del paralelepípedo y los ejes paralelos a sus aristas (\cref{fig:sem-paralelepipedo}), de modo que ocupa la región
+$[-a,a]\times[-b,b]\times[-c,c]$ con densidad $\rho=Q/\bigl[(2a)(2b)(2c)\bigr]=Q/(8abc)$.
+
+\textbf{Paso 1: cuántos términos.} La carga es de un solo signo y su tamaño característico es $\langle r'\rangle\sim d$; con $r>10d$, $\phimul{n}/\phimul{0}\lesssim10^{-n}$, y para un
+error menor del $1\%$ basta llegar al término cuadrupolar:
+\[
+  \phi\simeq\phimul{0}+\phimul{1}+\phimul{2}=\frac{Q}{4\pi\eo r}+\frac{\vp\cdot\ur}{4\pi\eo r^{2}}+\frac{1}{8\pi\eo r^{3}}\sum_{j,k}\Qjk\,\cd{j}\cd{k}.
+\]
+
+\textbf{Paso 2: momento dipolar.} Con $\rp=x'\,\ux+y'\,\uy+z'\,\uz$,
+\[
+  \vp=\rho\int_{-c}^{c}\!\!\int_{-b}^{b}\!\!\int_{-a}^{a}\bigl(x'\,\ux+y'\,\uy+z'\,\uz\bigr)\,\dif x'\,\dif y'\,\dif z'=\vc{0},
+\]
+porque cada componente es la integral de una función impar en un intervalo simétrico (por ejemplo, $\int_{-a}^{a}x'\,\dif x'=0$).
+
+\textbf{Paso 3: tensor cuadrupolar.} En la diagonal, $3x'^{2}-r'^{2}=2x'^{2}-y'^{2}-z'^{2}$, y como las integrales se separan,
+\begin{align*}
+  Q_{xx}&=\rho\int_{-c}^{c}\!\!\int_{-b}^{b}\!\!\int_{-a}^{a}\bigl(2x'^{2}-y'^{2}-z'^{2}\bigr)\dif x'\,\dif y'\,\dif z'\\
+         &=\rho\Bigl[2\cdot2b\cdot2c\Bigl[\frac{x'^{3}}{3}\Bigr]_{-a}^{a}-2a\cdot2c\Bigl[\frac{y'^{3}}{3}\Bigr]_{-b}^{b}-2a\cdot2b\Bigl[\frac{z'^{3}}{3}\Bigr]_{-c}^{c}\Bigr]\\
+        &=\rho\Bigl[2\cdot4bc\,\frac{2a^{3}}{3}-4ac\,\frac{2b^{3}}{3}-4ab\,\frac{2c^{3}}{3}\Bigr]\\
+        &=\underbrace{8\rho\,abc}_{Q}\,\frac{2a^{2}-b^{2}-c^{2}}{3}=\frac{Q}{3}\bigl(2a^{2}-b^{2}-c^{2}\bigr),
+\end{align*}
+y, de forma análoga (permutando los papeles de $a$, $b$, $c$),
+\[
+  Q_{yy}=\frac{Q}{3}\bigl(2b^{2}-a^{2}-c^{2}\bigr),\qquad Q_{zz}=\frac{Q}{3}\bigl(2c^{2}-a^{2}-b^{2}\bigr).
+\]
+Fuera de la diagonal, $Q_{xy}=3\rho\iiint x'y'\,\dif x'\,\dif y'\,\dif z'=0$ (integrando impar en $x'$), e igual $Q_{xz}=Q_{yz}=0$: los ejes de las aristas son los ejes principales.
+Comprobación: $\Tr\Qt=\frac{Q}{3}\bigl[(2-1-1)a^{2}+(2-1-1)b^{2}+(2-1-1)c^{2}\bigr]=0$.
+
+\textbf{Paso 4: el potencial.} Sustituyendo,
+\[
+  \phi(\vc{r})\simeq\frac{Q}{4\pi\eo r}+\frac{Q}{24\pi\eo r^{3}}\Bigl[\bigl(2a^{2}-b^{2}-c^{2}\bigr)\cd{x}^{2}+\bigl(2b^{2}-a^{2}-c^{2}\bigr)\cd{y}^{2}+\bigl(2c^{2}-a^{2}-b^{2}\bigr)\cd{z}^{2}\Bigr],
+\]
+con $\cd{x}^{2}=\sen^{2}\theta\cos^{2}\varphi=x^{2}/r^{2}$, $\cd{y}^{2}=\sen^{2}\theta\sen^{2}\varphi=y^{2}/r^{2}$ y $\cd{z}^{2}=\cos^{2}\theta=z^{2}/r^{2}$. En cartesianas se aprecia mejor la simetría:
+\[
+  \boxed{\;\phi(\vc{r})\simeq\frac{Q}{4\pi\eo r}+\frac{Q}{24\pi\eo r^{5}}\Bigl[x^{2}\bigl(2a^{2}-b^{2}-c^{2}\bigr)+y^{2}\bigl(2b^{2}-a^{2}-c^{2}\bigr)+z^{2}\bigl(2c^{2}-a^{2}-b^{2}\bigr)\Bigr]\;}
+\]
+\end{resolucion}
+
+\input{figuras/fig_sem_paralelepipedo}
+
+\begin{observacion}[Interpretación: el cubo y la paridad]\label{obs:sem-paralelepipedo}
+\begin{enumerate}[label=(\alph*)]
+  \item La corrección cuadrupolar es positiva en la dirección de la arista más larga (si $a>b,c$, $Q_{xx}>0$): la caja se comporta como una carga «alargada» según ese eje.
+  \item Para un \emph{cubo}, $a=b=c$, todas las componentes se anulan, $\Qt=0$: la simetría cúbica es suficiente para que el potencial no tenga corrección cuadrupolar, aunque la
+        distribución no sea esférica.
+  \item La distribución es simétrica frente a la inversión $\rp\to-\rp$, de modo que \emph{todos} los momentos de orden impar se anulan (sus integrandos, $r'^{\,\ell}\Pl{\ell}(\cosp)$
+        con $\ell$ impar, cambian de signo). El primer término despreciado no es, pues, el octupolar sino el hexadecapolar ($\ell=4$), y el error real es del orden de $(d/r)^{4}\sim10^{-4}$,
+        muy por debajo del $1\%$ exigido.
+\end{enumerate}
+\end{observacion}
+
+% =========================================================================
+\subsection{Problema 2.4. Esfera con densidad superficial \texorpdfstring{$\sigma_0\cos\theta$}{σ0 cos θ}}\label{sem:esfera-sigma}
+% =========================================================================
+\begin{ejercicio}[Momento dipolar de una esfera polarizada]\label{ejer:esfera-sigma}
+Calcular el momento dipolar de una distribución superficial de carga sobre una esfera de radio $a$ cuando la densidad varía con el ángulo $\theta$ de la forma
+$\sigma(\theta)=\sigma_0\cos\theta$.
+\end{ejercicio}
+
+\begin{resolucion}
+\textbf{Idea.} La carga es positiva en el hemisferio norte y negativa en el sur (\figpanel{fig:sem-esfera-sigma}{a}): esperamos un momento dipolar dirigido según $+\uz$. Antes de
+calcularlo comprobamos que la carga neta es nula, porque entonces el resultado no depende del origen y podemos tomar como referencia el centro de la esfera:
+con $\dSp=a^{2}\sen\theta'\,\dif\theta'\,\dif\varphi'$,
+\[
+  Q=\oiint_{S'}\sigma\,\dSp=\sigma_0a^{2}\int_{0}^{2\pi}\dif\varphi'\int_{0}^{\pi}\cos\theta'\sen\theta'\,\dif\theta'=\sigma_0a^{2}\cdot2\pi\cdot\Bigl[\frac{\sen^{2}\theta'}{2}\Bigr]_{0}^{\pi}=0 .
+\]
+
+\textbf{Paso 1: el momento dipolar de una distribución superficial.} El momento dipolar de una distribución volúmica es $\vp=\int_{V'}\rp\rho(\rp)\,\dVp$. Al pasar a una distribución
+estrictamente bidimensional sobre la superficie $S'$, sustituimos la densidad volúmica por la superficial y el diferencial de volumen por el de área:
+\[
+  \vp=\oiint_{S'}\rp\,\sigma(\theta')\,\dSp .
+\]
+\emph{Justificación mediante la delta de Dirac.} Una distribución superficial no es más que el caso límite de una volúmica en la que toda la carga está confinada en una capa de espesor
+nulo: en esféricas, $\rho(r',\theta',\varphi')=\sigma(\theta',\varphi')\,\delta(r'-a)$, dimensionalmente correcta porque $[\mathrm{C/m^{3}}]=[\mathrm{C/m^{2}}][\mathrm{m^{-1}}]$.
+Sustituyendo, con $\rp=r'\,\ur$,
+\[
+  \vp=\int_{0}^{2\pi}\!\!\int_{0}^{\pi}\!\!\int_{0}^{\infty}\bigl(r'\,\ur\bigr)\,\sigma(\theta',\varphi')\,\delta(r'-a)\,r'^{2}\sen\theta'\,\dif r'\,\dif\theta'\,\dif\varphi' .
+\]
+Reagrupando los factores radiales, la integral en $r'$ es $\int_{0}^{\infty}r'^{3}\delta(r'-a)\,\dif r'=a^{3}$, de modo que
+$\vp=\int_{0}^{2\pi}\!\int_{0}^{\pi}(a\,\ur)\,\sigma\,\bigl(a^{2}\sen\theta'\,\dif\theta'\,\dif\varphi'\bigr)=\oiint_{S'}\rp\big|_{r'=a}\,\sigma\,\dSp$, como queríamos.
+
+\textbf{Paso 2: parametrización.} Esta integral es \emph{vectorial} (no es un flujo $\iint\vc{F}\cdot\un\,\dsc$): cada componente cartesiana es una integral escalar. Usamos
+\[
+  \rp=a\,\ur=a\bigl(\sen\theta'\cos\varphi'\,\ux+\sen\theta'\sen\varphi'\,\uy+\cos\theta'\,\uz\bigr),\qquad \dSp=a^{2}\sen\theta'\,\dif\theta'\,\dif\varphi' .
+\]
+
+\textbf{Paso 3: componentes transversales.} Por el teorema de Fubini (producto de integrales simples iteradas),
+\begin{align*}
+  p_x&=\int_{0}^{2\pi}\!\!\int_{0}^{\pi}\bigl(a\sen\theta'\cos\varphi'\bigr)\bigl(\sigma_0\cos\theta'\bigr)\bigl(a^{2}\sen\theta'\bigr)\dif\theta'\,\dif\varphi'\\
+  &=a^{3}\sigma_0\int_{0}^{\pi}\sen^{2}\theta'\cos\theta'\,\dif\theta'\underbrace{\int_{0}^{2\pi}\cos\varphi'\,\dif\varphi'}_{[\sen\varphi']_{0}^{2\pi}=0}=0,
+\end{align*}
+\[
+  p_y=a^{3}\sigma_0\int_{0}^{\pi}\sen^{2}\theta'\cos\theta'\,\dif\theta'\underbrace{\int_{0}^{2\pi}\sen\varphi'\,\dif\varphi'}_{[-\cos\varphi']_{0}^{2\pi}=0}=0 .
+\]
+Las componentes transversales al eje de revolución se anulan idénticamente porque $\sigma=\sigma_0\cos\theta'$ tiene simetría azimutal perfecta (no depende de $\varphi'$),
+como asegura el \cref{teo:revolucion}.
+
+\textbf{Paso 4: componente axial.} Separando las variables angulares,
+\[
+  \vp=p_z\,\uz=a^{3}\sigma_0\,\uz\int_{0}^{2\pi}\dif\varphi'\int_{0}^{\pi}\cos^{2}\theta'\sen\theta'\,\dif\theta' .
+\]
+Con el cambio $u=\cos\theta'$, $\dif u=-\sen\theta'\,\dif\theta'$, que lleva $\theta'=0\mapsto u=1$ y $\theta'=\pi\mapsto u=-1$,
+\[
+  \int_{0}^{\pi}\cos^{2}\theta'\sen\theta'\,\dif\theta'=-\int_{1}^{-1}u^{2}\,\dif u=\int_{-1}^{1}u^{2}\,\dif u=\Bigl[\frac{u^{3}}{3}\Bigr]_{-1}^{1}=\frac13-\Bigl(-\frac13\Bigr)=\frac23 .
+\]
+Por tanto,
+\[
+  \boxed{\;\vp=a^{3}\sigma_0\,(2\pi)\,\frac23\,\uz=\frac43\pi a^{3}\sigma_0\,\uz\;}
+\]
+\end{resolucion}
+
+\input{figuras/fig_sem_esfera_sigma}
+
+\begin{observacion}[Interpretación: un dipolo exacto]\label{obs:sem-esfera-sigma}
+El momento es el de una esfera de volumen $\frac43\pi a^{3}$ con polarización uniforme $\vP=\sigma_0\,\uz$: en efecto, por el \cref{teo:cargas-pol}, una esfera uniformemente polarizada
+tiene $\rhoP=-\nabp\cdot\vP=0$ y $\sigP=\vP\cdot\ur=\sigma_0\cos\theta$, que es justamente nuestra distribución. Más aún, como $\sigma\propto\Pl{1}(\cos\theta')$, la ortogonalidad de los
+polinomios de Legendre hace que todos los momentos con $\ell\neq1$ se anulen, y el potencial es \emph{exactamente} dipolar fuera de la esfera y el de un campo uniforme
+dentro~\cite{GRIFFITHS}:
+\[
+  \phi(\vc{r})=\begin{cases}\dfrac{\sigma_0}{3\eo}\,r\cos\theta=\dfrac{\sigma_0}{3\eo}\,z,& r\le a,\\[10pt]
+  \dfrac{\sigma_0a^{3}}{3\eo}\,\dfrac{\cos\theta}{r^{2}}=\dfrac{\vp\cdot\ur}{4\pi\eo r^{2}},& r\ge a,\end{cases}
+  \qquad \vE_{\mathrm{int}}=-\frac{\sigma_0}{3\eo}\,\uz .
+\]
+Ambas expresiones coinciden en $r=a$, como exige la continuidad del potencial~\cite{TEMA1}, y la \figpanel{fig:sem-esfera-sigma}{b} muestra las líneas de campo
+correspondientes: dipolares fuera y paralelas dentro.
+\end{observacion}
+
+% =========================================================================
+\subsection{Problema 2.5. Distribución con simetría esférica}\label{sem:esfera-rho}
+% =========================================================================
+\begin{ejercicio}[Momentos de una distribución esféricamente simétrica]\label{ejer:esfera-rho}
+Demostrar que una distribución de carga esférica y esféricamente simétrica da lugar a momentos dipolar y cuadrupolar nulos cuando se elige un sistema de coordenadas centrado en la
+esfera.
+\end{ejercicio}
+
+\begin{resolucion}
+\textbf{Idea.} En una distribución esféricamente simétrica centrada en el origen la densidad de carga solo depende de la coordenada radial, $\rho=\rho(r')$. Sea la carga confinada en una
+esfera de radio $R$ (\cref{fig:sem-esfera-rho}). Expresamos el vector de posición del punto fuente y el elemento de volumen en esféricas,
+\[
+  \rp=r'\bigl(\sen\theta'\cos\varphi'\,\ux+\sen\theta'\sen\varphi'\,\uy+\cos\theta'\,\uz\bigr),\qquad \dVp=r'^{2}\sen\theta'\,\dif r'\,\dif\theta'\,\dif\varphi',
+\]
+y aprovechamos que todas las integrales se separan en un factor radial y dos angulares.
+
+\textbf{Momento dipolar.} Separando $\vp=\int_{V'}\rp\rho(r')\,\dVp$ en sus componentes cartesianas,
+\[
+  p_x=\Bigl[\int_{0}^{R}r'^{3}\rho(r')\,\dif r'\Bigr]\Bigl[\int_{0}^{\pi}\sen^{2}\theta'\,\dif\theta'\Bigr]\Bigl[\int_{0}^{2\pi}\cos\varphi'\,\dif\varphi'\Bigr]=0,
+\]
+porque la integral azimutal es $[\sen\varphi']_{0}^{2\pi}=0$ (es nula al ser una función sinusoidal integrada en un ciclo completo). Por la misma razón,
+$p_y\propto\int_{0}^{2\pi}\sen\varphi'\,\dif\varphi'=0$. En la componente $z$ es la integral \emph{polar} la que se anula:
+\[
+  p_z=\Bigl[\int_{0}^{R}r'^{3}\rho\,\dif r'\Bigr]\Bigl[\int_{0}^{\pi}\cos\theta'\sen\theta'\,\dif\theta'\Bigr]\Bigl[\int_{0}^{2\pi}\dif\varphi'\Bigr],
+\]
+\[
+  \int_{0}^{\pi}\cos\theta'\sen\theta'\,\dif\theta'=\Bigl[\frac{\sen^{2}\theta'}{2}\Bigr]_{0}^{\pi}=\frac12\bigl(\sen^{2}\pi-\sen^{2}0\bigr)=0,
+\]
+donde hemos usado $\frac{\dif}{\dif\theta'}\bigl(\sen^{2}\theta'\bigr)=2\sen\theta'\cos\theta'$ y el teorema fundamental del cálculo. Concluimos que $\vp=\vc{0}$.
+
+\textbf{Momento cuadrupolar.} Una distribución esféricamente simétrica tiene, en particular, simetría de revolución alrededor de $z$, así que por el \cref{teo:revolucion} (dos
+ligaduras: traza nula y $Q_{xx}=Q_{yy}$)
+\[
+  \Qjk=0\ (j\neq k),\qquad Q_{xx}=Q_{yy}=-\tfrac12Q_{zz}.
+\]
+(Se comprueba también directamente: por ejemplo, $Q_{xy}=3\int r'^{2}\sen^{2}\theta'\cos\varphi'\sen\varphi'\,\rho\,\dVp\propto\int_0^{2\pi}\cos\varphi'\sen\varphi'\,\dif\varphi'=0$.) Basta,
+pues, demostrar que $Q_{zz}=0$. Con $z'=r'\cos\theta'$ y $\delt{z}{z}=1$,
+\[
+  Q_{zz}=\int_{V'}\bigl(3z'^{2}-r'^{2}\bigr)\rho\,\dVp=\Bigl[\int_{0}^{R}r'^{4}\rho(r')\,\dif r'\Bigr]\Bigl[\int_{0}^{\pi}\bigl(3\cos^{2}\theta'-1\bigr)\sen\theta'\,\dif\theta'\Bigr]\Bigl[\int_{0}^{2\pi}\dif\varphi'\Bigr].
+\]
+El factor radial es finito y el azimutal vale $2\pi$; todo se decide en el factor polar. Con $u=\cos\theta'$,
+\[
+  \int_{0}^{\pi}\bigl(3\cos^{2}\theta'-1\bigr)\sen\theta'\,\dif\theta'=\int_{-1}^{1}\bigl(3u^{2}-1\bigr)\dif u=\bigl[u^{3}-u\bigr]_{-1}^{1}=0-0=0 .
+\]
+Concluimos que $Q_{zz}=0$ y, con ello, $Q_{xx}=Q_{yy}=-\frac12Q_{zz}=0$ y $\Qjk=0$ para todo $j,k$.
+\end{resolucion}
+
+\input{figuras/fig_sem_esfera_rho}
+
+\begin{observacion}[Interpretación: el teorema de Gauss, de nuevo]\label{obs:sem-esfera-rho}
+El factor polar del término cuadrupolar es $\int_{-1}^{1}\Pl{2}(u)\,\dif u=0$, y lo mismo ocurre para todo $\ell\ge1$: $\int_{-1}^{1}\Pl{\ell}(u)\,\dif u=\int_{-1}^{1}\Pl{\ell}\Pl{0}\,\dif u=0$ por la
+ortogonalidad de los polinomios de Legendre. Así, \emph{todos} los momentos multipolares con $\ell\ge1$ de una distribución esféricamente simétrica se anulan, y fuera de ella el
+potencial es exactamente $\phi=Q/(4\pi\eo r)$: el de una carga puntual en el centro. Es el mismo resultado que obtuvimos con la ley de Gauss en el Tema~1~\cite{TEMA1}, ahora
+deducido término a término.
+\end{observacion}
+
+% =========================================================================
+\subsection{Resumen de resultados}\label{sem:resumen}
+% =========================================================================
+\begin{table}[ht]
+\centering
+\caption{Resultados de los seminarios del Tema~2.}
+\label{tab:resultados}
+\renewcommand{\arraystretch}{1.75}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.76\textwidth}@{}}
+  \toprule
+  \textsc{Problema} & \textsc{Resultado}\\
+  \midrule
+  2.1 Barra ($r>10\ell$) & $\phi\simeq\dfrac{\lambda\ell}{4\pi\eo r}+\dfrac{\lambda\ell^{3}(3\cos^{2}\theta-1)}{96\pi\eo r^{3}}$\\
+                         & $\vE\simeq\Bigl[\dfrac{\lambda\ell}{4\pi\eo r^{2}}+\dfrac{\lambda\ell^{3}(3\cos^{2}\theta-1)}{32\pi\eo r^{4}}\Bigr]\ur+\dfrac{\lambda\ell^{3}\sen\theta\cos\theta}{16\pi\eo r^{4}}\,\uth$\\
+  2.2 Carga en $(a,b,c)$ & $Q=q$, \ $\vp=q(a\ux+b\uy+c\uz)$, \ $Q_{xx}=q(2a^{2}-b^{2}-c^{2})$ (y cíclicos), \ $Q_{xy}=3qab$, $Q_{xz}=3qac$, $Q_{yz}=3qbc$; con $-q$ en el origen solo cambia $Q\to0$\\
+  2.3 Paralelepípedo     & $\phi\simeq\dfrac{Q}{4\pi\eo r}+\dfrac{Q}{24\pi\eo r^{5}}\bigl[x^{2}(2a^{2}-b^{2}-c^{2})+y^{2}(2b^{2}-a^{2}-c^{2})+z^{2}(2c^{2}-a^{2}-b^{2})\bigr]$\\
+  2.4 Esfera $\sigma_0\cos\theta$ & $\vp=\frac43\pi a^{3}\sigma_0\,\uz$ (independiente del origen, porque $Q=0$)\\
+  2.5 Simetría esférica  & $\vp=\vc{0}$, \ $\Qjk=0$; en general, todos los momentos con $\ell\ge1$ son nulos\\
+  \bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,77 @@
+\documentclass[a4paper,11pt]{amsart}
+
+% =========================================================================
+%  Electromagnetismo I — Tema 2: Desarrollo multipolar
+%  Apuntes formalizados. Compilar con: pdflatex + biber + pdflatex ×2
+%  (o latexmk -pdf main.tex).  Todo el preámbulo está en preambulo.tex.
+%  Los datos numéricos de las figuras «tipo Mathematica» se regeneran con
+%  python3 scripts/generar_datos.py (ya se incluyen en figuras/datos/).
+% =========================================================================
+\input{preambulo}
+
+% =========================================================================
+%                     VARIABLES PARA LA PORTADA
+% =========================================================================
+\newcommand{\Universidad}{Universidad de Salamanca}
+\newcommand{\Facultad}{Facultad de Ciencias}
+\newcommand{\Titulacion}{Grado en Física}
+\newcommand{\Asignatura}{Electromagnetismo I}
+\newcommand{\NumTema}{Tema 2}
+\newcommand{\TituloTema}{Desarrollo\\multipolar}
+\newcommand{\tipotrabajo}{Apuntes formalizados con seminarios prácticos}
+\newcommand{\miNombre}{Daniel Martín Guerrero}
+\newcommand{\miProfesor}{Luis López Díaz}
+\newcommand{\SubtituloTema}{Dipolo eléctrico, polarización, momentos multipolares\\y estimación del error}
+\newcommand{\miUbicacion}{Salamanca, curso 2026/2027}
+
+% =========================================================================
+%                     DATOS DEL ARTÍCULO (cabecera)
+% =========================================================================
+\title{Desarrollo multipolar}
+\author{Daniel Martín Guerrero}
+\address{Grado en Física, Facultad de Ciencias, Universidad de Salamanca,
+         Salamanca, España}
+\date{}
+
+% =========================================================================
+%                                DOCUMENTO
+% =========================================================================
+\begin{document}
+% --- PORTADA ----------------------------------------------------------------
+\pagenumbering{alph}
+\input{portada}
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\begin{abstract}
+El potencial de una distribución de carga arbitraria es, en principio, una integral que rara vez
+sabemos resolver de forma cerrada. En este tema construimos su aproximación sistemática a grandes
+distancias. Empezamos por el sistema más sencillo con carga neta nula, el dipolo eléctrico, cuyos
+potencial y campo obtenemos por desarrollo de Taylor y expresamos en forma intrínseca; de él
+nacen la polarización y las densidades de carga ligada. Después desarrollamos $1/R$ en serie de
+polinomios de Legendre y obtenemos el desarrollo multipolar del potencial, cuyos tres primeros
+términos (monopolar, dipolar y cuadrupolar) definen la carga neta, el momento dipolar y el tensor
+cuadrupolar. Estudiamos cómo dependen del origen de coordenadas, las simetrías que reducen el número
+de componentes independientes y, por último, cómo acotar el error cometido al truncar la serie.
+Cada resultado se enuncia con rigor, se demuestra y se acompaña de gráficas; los seminarios finales
+resuelven, con todo detalle, los problemas de la lista del tema.
+\end{abstract}
+
+\maketitle
+\tableofcontents
+
+\input{secciones/01_introduccion}
+\input{secciones/02_dipolo}
+\input{secciones/03_polarizacion}
+\input{secciones/04_multipolar}
+\input{secciones/05_error}
+\input{secciones/06_seminarios}
+\input{secciones/07_apendice}
+
+% =========================================================================
+%                              BIBLIOGRAFÍA
+% =========================================================================
+\printbibliography[title={Referencias}]
+
+\end{document}

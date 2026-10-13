@@ -1,0 +1,82 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Portada formal (estilo tesis), idéntica en estructura a la de los temas
+% 0 y 1: logotipos, identificación institucional, título y autoría, con la
+% banda vertical a la derecha. Novedad del Tema 2: paleta magenta y un
+% emblema minimalista con las líneas de campo de un dipolo, r = k sen^2(θ).
+% Requiere en main.tex las macros \Universidad, \Facultad, \Titulacion,
+% \Asignatura, \NumTema, \TituloTema, \SubtituloTema, \tipotrabajo,
+% \miNombre, \miProfesor, \miUbicacion.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+\thispagestyle{empty}
+\pagecolor{white}
+
+\begin{tikzpicture}[remember picture, overlay]
+  \coordinate (O) at (current page.south west);
+
+  % Velo muy tenue en la mitad superior (cabecera institucional)
+  \shade[top color=magfondo, bottom color=white]
+    ($(O)+(0,18.5cm)$) rectangle ($(O)+(21cm,29.7cm)$);
+
+  % Banda vertical magenta, a la derecha del bloque de texto
+  \fill[magacero] ($(O)+(19.0cm,2.6cm)$) rectangle ($(O)+(19.14cm,27.4cm)$);
+
+  % Logotipos
+  \node[anchor=north west, inner sep=0] at ($(O)+(2.4cm,27.7cm)$)
+    {\includegraphics[height=1.55cm]{logo_usal.png}};
+  \node[anchor=north east, inner sep=0] at ($(O)+(17.4cm,27.7cm)$)
+    {\includegraphics[height=1.55cm]{logo_facultad.png}};
+  \draw[grispizarra!60, line width=0.4pt] ($(O)+(2.4cm,25.7cm)$) -- ($(O)+(17.4cm,25.7cm)$);
+
+  % Identificación institucional
+  \node[anchor=north, align=center, inner sep=0, text width=15cm] at ($(O)+(9.9cm,25.2cm)$)
+    {{\color{magprof}\scshape\Large\textls[120]{\Universidad}}\\[5pt]
+     {\color{grispizarra}\scshape\large\textls[80]{\Facultad}}\\[3pt]
+     {\color{grispizarra}\scshape\large\textls[80]{\Titulacion}}};
+
+  % Asignatura y título
+  \node[anchor=north, align=center, inner sep=0, text width=15cm] at ($(O)+(9.9cm,19.6cm)$)
+    {{\color{magacero}\scshape\Large\textls[160]{\Asignatura}}\\[4pt]
+     {\color{grispizarra}\scshape\large\textls[100]{\NumTema}}\\[22pt]
+     {\color{magprof}\fontsize{34}{40}\selectfont\bfseries\TituloTema}\\[14pt]
+     {\color{magacero}\rule{3.2cm}{0.8pt}}\\[14pt]
+     {\color{black!80}\itshape\large\SubtituloTema}};
+
+  % Emblema: líneas de campo de un dipolo puntual, r = k sen^2(θ)
+  \begin{scope}[shift={($(O)+(9.9cm,11.05cm)$)}, x=0.95cm, y=0.95cm]
+    \draw[magclaro!70, line width=0.35pt] (0,-1.15) -- (0,1.15);
+    \foreach \k in {0.55,0.95,1.5,2.3,3.4}{%
+      \foreach \s in {1,-1}{%
+        \draw[magclaro, line width=0.5pt, domain=4:176, samples=90, variable=\t]
+          plot ({\s*\k*sin(\t)^3},{\k*sin(\t)^2*cos(\t)});}}
+    \fill[white] (0,0) circle (0.24);
+    \draw[-{Stealth[length=4pt,width=3.4pt]}, magacero, line width=1.1pt] (0,-0.2) -- (0,0.24);
+  \end{scope}
+
+  % Epígrafe: las expresiones centrales del tema
+  \node[anchor=north, align=center, inner sep=0, text width=15cm] at ($(O)+(9.9cm,9.35cm)$)
+    {\color{grispizarra}\small
+     $\displaystyle\phi(\vc{r})=\frac{1}{4\pi\eo}\sum_{\ell=0}^{\infty}\frac{1}{r^{\ell+1}}
+        \int_{V'}r'^{\,\ell}\rho(\rp)\,\Pl{\ell}(\cosp)\,\dVp\qquad
+      \vp=\int_{V'}\rp\rho(\rp)\,\dVp\qquad
+      \frac{\phi_{n}}{\phi_{0}}<\Bigl(\frac{a}{r}\Bigr)^{n}$};
+
+  % Autoría y dirección
+  \draw[grispizarra!60, line width=0.4pt] ($(O)+(2.4cm,7.6cm)$) -- ($(O)+(17.4cm,7.6cm)$);
+  \node[anchor=north west, inner sep=0, text width=7cm, align=left] at ($(O)+(2.4cm,7.2cm)$)
+    {{\scshape\small\color{magacero}\textls[80]{Autor}}\\[4pt]
+     {\large\color{black!85}\miNombre}\\[2pt]
+     {\small\color{grispizarra}Grado en Física}};
+  \node[anchor=north west, inner sep=0, text width=7cm, align=left] at ($(O)+(10.4cm,7.2cm)$)
+    {{\scshape\small\color{magacero}\textls[80]{Profesor}}\\[4pt]
+     {\large\color{black!85}\miProfesor}\\[2pt]
+     {\small\color{grispizarra}\Asignatura}};
+
+  % Tipo de documento, lugar y curso
+  \node[anchor=south, align=center, inner sep=0, text width=15cm] at ($(O)+(9.9cm,2.9cm)$)
+    {{\color{magprof}\scshape\large\textls[100]{\tipotrabajo}}\\[4pt]
+     {\color{grispizarra}\scshape\small\textls[80]{\miUbicacion}}};
+\end{tikzpicture}
+
+\end{titlepage}

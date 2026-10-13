@@ -1,0 +1,312 @@
+% =========================================================================
+%  Electromagnetismo I — Tema 2: Desarrollo multipolar
+%  Estilo: artículo científico minimalista, idéntico al de los temas 0 y 1
+%  (amsart, Palatino, versalitas, enunciados numerados por sección), con la
+%  paleta cambiada a magentas y rojizos claros sobre grises sobrios. La
+%  notación vectorial es la de «Cálculo integral multivariable» (L. Navas) y
+%  la de los temas anteriores; las expresiones son las del formulario.
+% =========================================================================
+
+% --- IDIOMA Y CODIFICACIÓN ------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla,es-nodecimaldot,es-noshorthands]{babel}
+
+% --- TIPOGRAFÍA (Palatino, como en los temas 0 y 1) -------------------------
+\usepackage{mathpazo}
+\linespread{1.05}
+\emergencystretch=2em
+\usepackage[final]{microtype}
+
+% --- MATEMÁTICAS -------------------------------------------------------------
+\usepackage{amsmath, amssymb, mathtools}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{esint}
+
+% --- PÁGINA, COLORES Y GRÁFICOS --------------------------------------------
+\usepackage[a4paper,margin=2.6cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+% Paleta base del Tema 2: magentas sobrios y rojizos claros
+\definecolor{magprof}{HTML}{5B1A45}     % magenta muy oscuro (títulos, enunciados)
+\definecolor{magacero}{HTML}{A0306E}    % magenta medio (enlaces, banda de portada)
+\definecolor{magclaro}{HTML}{E2A6C4}    % magenta claro (marcos)
+\definecolor{magfondo}{HTML}{FDF3F8}    % fondo tenue de definiciones
+\definecolor{rosaclaro}{HTML}{F6D5DE}   % rosa pálido (rellenos)
+\definecolor{rojoclaro}{HTML}{D9645A}   % rojizo claro (acento)
+\definecolor{grispizarra}{HTML}{6B7280} % gris
+\definecolor{grisclaro}{HTML}{D4D8DE}   % gris claro
+\colorlet{acento}{rojoclaro}
+% Paleta ampliada para campos escalares y vectoriales (magnitud creciente:
+% índigo -> púrpura -> carmín -> naranja -> ámbar), la misma de los temas 0 y 1
+\definecolor{cm0}{RGB}{38,30,112}
+\definecolor{cm1}{RGB}{112,36,140}
+\definecolor{cm2}{RGB}{190,52,118}
+\definecolor{cm3}{RGB}{236,104,66}
+\definecolor{cm4}{RGB}{252,184,42}
+% Colores de apoyo de los diagramas geométricos (tonos sobrios)
+\definecolor{rojoteo}{HTML}{C2415B}     % vectores destacados, resultados (carmín suave)
+\definecolor{verdeteo}{HTML}{2F6F68}    % versores y normales (verde azulado, contraste)
+\definecolor{pizarra}{HTML}{3F4C6B}     % cargas negativas, ejes secundarios
+\colorlet{ocreteo}{rosaclaro}           % superficies y volúmenes (relleno)
+% Colores de las figuras clonadas de Mathematica (se conservan los originales)
+\definecolor{mmafondo}{HTML}{E6EEF8}    % fondo azul pálido de StreamPlot
+\definecolor{mmamarco}{HTML}{5B7DB8}    % marco de la región
+\definecolor{mmalinea}{HTML}{1E1E9A}    % líneas de campo
+\definecolor{mmaequi}{HTML}{4A4A4A}     % equipotenciales superpuestas
+\definecolor{mmarojo}{HTML}{C00000}     % vector dipolar y cargas
+\definecolor{mmaazul}{HTML}{3E7CB1}     % serie 1 (Mathematica 97)
+\definecolor{mmanaranja}{HTML}{E1A027}  % serie 2
+\definecolor{mmaverde}{HTML}{8FA93C}    % serie 3
+\definecolor{mmarojizo}{HTML}{E0644A}   % serie 4
+\definecolor{mmavioleta}{HTML}{8A7DB8}  % serie 5
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{babel, arrows.meta, calc, positioning, decorations.pathmorphing,
+                decorations.markings, patterns, 3d, intersections, angles, quotes,
+                fadings, shapes.geometric, spy}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{colormaps, patchplots, fillbetween}
+\pgfplotsset{colormap={campo}{
+  rgb255=(38,30,112) rgb255=(112,36,140) rgb255=(190,52,118)
+  rgb255=(236,104,66) rgb255=(252,184,42) rgb255=(255,226,110)}}
+\pgfplotsset{colormap={magenta}{
+  rgb255=(253,243,248) rgb255=(226,166,196) rgb255=(160,48,110) rgb255=(91,26,69)}}
+\usepackage{booktabs}
+\usepackage{needspace}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.6em, itemsep=2pt, topsep=4pt}
+\setlist[enumerate]{leftmargin=1.8em, itemsep=2pt, topsep=4pt}
+
+% --- ENLACES Y REFERENCIAS CRUZADAS ----------------------------------------
+\usepackage[colorlinks=true, linkcolor=magacero, citecolor=magacero,
+            urlcolor=magacero, plainpages=false, pdfusetitle=false,
+            pdftitle={Tema 2. Desarrollo multipolar},
+            pdfauthor={Daniel Martín Guerrero}]{hyperref}
+\usepackage[spanish,nameinlink]{cleveref}
+
+% --- BIBLIOGRAFÍA -----------------------------------------------------------
+\usepackage{csquotes}
+\usepackage[backend=biber, style=numeric, sorting=none, giveninits=true,
+            maxbibnames=6, minbibnames=3, doi=true, url=true,
+            isbn=false]{biblatex}
+\addbibresource{referencias.bib}
+\DeclareFieldFormat[article,techreport,unpublished,book,inproceedings]{title}{#1\isdot}
+\DeclareFieldFormat{url}{\url{#1}}
+\renewcommand*{\bibfont}{\small}
+\setlength{\bibitemsep}{3pt}
+
+% --- CABECERAS ---------------------------------------------------------------
+\pagestyle{headings}
+\makeatletter
+\def\ps@headings{%
+  \let\@mkboth\markboth
+  \def\@evenhead{\small\scshape\normalfont\thepage\hfil Electromagnetismo I}%
+  \def\@oddhead{\small\scshape\normalfont Tema 2. Desarrollo multipolar\hfil\thepage}%
+  \let\@evenfoot\@empty \let\@oddfoot\@empty}
+\makeatother
+\numberwithin{equation}{section}
+% Subsecciones como títulos en bloque (no «run-in»), con aire antes y después
+\usepackage{titlesec}
+\titleformat{\subsection}[block]{\normalfont\bfseries\color{magprof}}{\thesubsection.}{0.6em}{}
+\titlespacing*{\subsection}{0pt}{3ex plus 1ex minus .5ex}{1.6ex plus .4ex}
+\setcounter{tocdepth}{2}
+\makeatletter
+\def\@@and{y}
+\renewcommand{\keywordsname}{Palabras clave}
+% Índice con sangrías fijas: el número de sección nunca se monta sobre el título
+\def\l@section{\@tocline{1}{5pt plus 1pt}{0pt}{1.9em}{\bfseries\color{magprof}}}
+\def\l@subsection{\@tocline{2}{0pt}{1.9em}{2.7em}{}}
+\renewcommand{\tocsection}[3]{\indentlabel{\@ifnotempty{#2}{\makebox[1.9em][l]{#2.}}}#3}
+\renewcommand{\tocsubsection}[3]{\indentlabel{\@ifnotempty{#2}{\makebox[2.7em][l]{#2.}}}#3}
+\makeatother
+
+% =========================================================================
+%               NOTACIÓN Y MACROS DE USO FRECUENTE
+% =========================================================================
+% --- Diferencial, derivadas parciales y números -----------------------------
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdd}[2]{\frac{\partial^{2} #1}{\partial #2^{2}}}
+\newcommand{\pdm}[3]{\frac{\partial^{2} #1}{\partial #2\,\partial #3}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\eul}{\mathrm{e}}
+
+% --- Vectores, versores y operador nabla ---------------------------------
+\newcommand{\vc}[1]{\vec{#1}}                       % vector con flecha
+\newcommand{\uh}[1]{\hat{u}_{#1}}                   % versor û_#1
+\newcommand{\ux}{\uh{x}}\newcommand{\uy}{\uh{y}}\newcommand{\uz}{\uh{z}}
+\newcommand{\ur}{\uh{r}}\newcommand{\uth}{\uh{\theta}}\newcommand{\uph}{\uh{\varphi}}
+\newcommand{\urho}{\uh{\rho}}\newcommand{\uR}{\uh{R}}\newcommand{\un}{\hat{n}}
+\newcommand{\nab}{\vec{\nabla}}                     % ∇⃗
+\newcommand{\nabp}{\vec{\nabla}'}                   % ∇⃗′ (coordenadas fuente)
+\newcommand{\Lap}{\nabla^{2}}                       % laplaciano
+\newcommand{\Lapp}{\nabla'^{2}}                     % laplaciano en coordenadas fuente
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\prodesc}[2]{\langle #1,#2\rangle}
+\newcommand{\rp}{\vc{r}\,'}                         % r⃗′ punto fuente
+\newcommand{\dl}{\dif\vc{\ell}}                     % elemento de línea dirigido
+\newcommand{\dS}{\dif\vc{S}}                        % elemento de área dirigido
+\newcommand{\dsc}{\dif S}                           % elemento de área escalar
+\newcommand{\dV}{\dif V}                            % elemento de volumen
+\newcommand{\defeq}{\mathrel{\overset{\mathrm{def}}{=}}}
+\newcommand{\bordeS}{\partial S}
+\newcommand{\bordeV}{\partial V}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\dive}{div}
+\DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\senh}{senh}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Tr}{Tr}
+\renewcommand{\sin}{\sen}                            % «sen» en todo el texto
+% Tensor de Levi-Civita y delta de Kronecker
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dpart}[1]{\partial_{#1}}
+
+% --- Notación de electrostática (Tema 1) -------------------------------------
+\newcommand{\eo}{\varepsilon_{0}}                    % permitividad del vacío
+\newcommand{\qp}{q\,'}                              % carga fuente q'
+\newcommand{\pot}{\phi}                              % potencial electrostático
+\newcommand{\Qenc}{Q_{\mathrm{enc}}}                 % carga encerrada
+\newcommand{\Ke}{\frac{1}{4\pi\eo}}                  % constante de Coulomb 1/(4 pi eps0)
+\newcommand{\vE}{\vc{E}}
+\newcommand{\vF}{\vc{F}}
+\newcommand{\dlp}{\dif \ell\,'}                     % elemento de longitud fuente
+\newcommand{\dSp}{\dif S\,'}                        % elemento de superficie fuente
+\newcommand{\dVp}{\dif V\,'}                        % elemento de volumen fuente
+\newcommand{\ent}[1]{\bigl\lvert #1\bigr\rvert}    % módulo grande
+
+% --- Notación específica del Tema 2 (desarrollo multipolar) ------------------
+\newcommand{\vp}{\vc{p}}                             % momento dipolar
+\newcommand{\vl}{\vc{\ell}}                          % separación del dipolo (de -q a +q)
+\newcommand{\vP}{\vc{P}}                             % polarización
+\newcommand{\rhoP}{\rho_{P}}                         % densidad volúmica de polarización
+\newcommand{\sigP}{\sigma_{P}}                       % densidad superficial de polarización
+\newcommand{\Pl}[1]{P_{#1}}                          % polinomio de Legendre P_ℓ
+\newcommand{\cosp}{\cos\theta'}                      % coseno del ángulo entre r⃗ y r⃗′
+\newcommand{\Qt}{\mathsf{Q}}                         % tensor cuadrupolar (matriz)
+\newcommand{\Qjk}{Q_{jk}}                            % componentes del tensor cuadrupolar
+\newcommand{\cd}[1]{\ell_{#1}}                       % cosenos directores ℓ_x, ℓ_y, ℓ_z
+\newcommand{\phimul}[1]{\phi_{#1}}                   % término ℓ-ésimo del desarrollo
+\newcommand{\OOp}{\overrightarrow{OO'}}              % traslación del origen
+\newcommand{\delt}[2]{\delta_{#1#2}}                 % delta de Kronecker
+\newcommand{\ord}{\mathcal{O}}                       % símbolo de orden de Landau
+
+% Estilos de cargas puntuales para los diagramas
+\tikzset{
+  cargapos/.style={circle, fill=rojoteo, draw=magprof, line width=0.4pt, inner sep=0pt,
+                   minimum size=9pt, text=white, font=\scriptsize\bfseries},
+  carganeg/.style={circle, fill=pizarra, draw=pizarra!70!black, line width=0.4pt, inner sep=0pt,
+                   minimum size=9pt, text=white, font=\scriptsize\bfseries},
+  cargapru/.style={circle, fill=white, draw=magprof, line width=0.6pt, inner sep=0pt,
+                   minimum size=9pt, text=magprof, font=\scriptsize\bfseries},
+}
+
+% =========================================================================
+%        ENTORNOS FORMALES (enunciados numerados, estilo artículo)
+% =========================================================================
+\usepackage{amsthm}
+\usepackage[most]{tcolorbox}
+
+% Enunciados en cursiva (resultados generales)
+\newtheoremstyle{cienplano}{10pt}{10pt}{\itshape}{}%
+  {\bfseries\color{magprof}}{.}{0.6em}%
+  {\thmname{#1}\thmnumber{ #2}\thmnote{\normalfont\upshape\ (#3)}}
+% Definiciones, cálculos y ejemplos (cuerpo en redonda)
+\newtheoremstyle{ciendef}{10pt}{10pt}{\normalfont}{}%
+  {\bfseries\color{magprof}}{.}{0.6em}%
+  {\thmname{#1}\thmnumber{ #2}\thmnote{\normalfont\upshape\ (#3)}}
+% Observaciones y notas (encabezado en cursiva)
+\newtheoremstyle{cienobs}{8pt}{8pt}{\normalfont}{}%
+  {\itshape\color{magprof}}{.}{0.6em}%
+  {\thmname{#1}\thmnumber{ #2}\thmnote{\normalfont\upshape\ (#3)}}
+
+\theoremstyle{cienplano}
+\newtheorem{proposicion}{Proposición}[section]
+\newtheorem{teorema}[proposicion]{Teorema}
+\newtheorem{lema}[proposicion]{Lema}
+\newtheorem{corolario}[proposicion]{Corolario}
+\theoremstyle{ciendef}
+\newtheorem{notacion}[proposicion]{Notación}
+\newtheorem{ejemplo}[proposicion]{Ejemplo}
+\newtheorem{ejercicio}[proposicion]{Ejercicio}
+% Definiciones: único entorno enmarcado (como en los temas 0 y 1): caja fina con
+% fondo tenue y título sobre el borde. Comparte contador con los enunciados.
+\newcounter{definicion}
+\renewcommand{\thedefinicion}{\theproposicion}
+\newtcolorbox{definicionbox}[1]{%
+  enhanced, breakable, sharp corners,
+  colback=magfondo, colframe=magclaro, boxrule=0.4pt,
+  left=9pt, right=9pt, top=5pt, bottom=5pt,
+  before skip=12pt, after skip=12pt,
+  attach boxed title to top left={yshift*=-\tcboxedtitleheight/2, xshift=8pt},
+  boxed title style={colback=white, colframe=white, sharp corners, boxrule=0pt,
+                     left=3pt, right=3pt, top=1pt, bottom=1pt},
+  fonttitle=\bfseries\color{magprof}, coltitle=magprof,
+  title={Definición~\thedefinicion\ifx\relax#1\relax\else\ (#1)\fi}}
+\newenvironment{definicion}[1][]
+  {\par\stepcounter{proposicion}\refstepcounter{definicion}\begin{definicionbox}{#1}}
+  {\end{definicionbox}}
+
+\theoremstyle{cienobs}
+\newtheorem{observacion}[proposicion]{Observación}
+
+% Resolución de ejercicios: misma maquinaria que «proof», con otro rótulo
+\renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
+\newenvironment{resolucion}[1][Resolución]
+  {\begin{proof}[\itshape\color{magprof}#1]}{\end{proof}}
+
+\crefname{proposicion}{proposición}{proposiciones}
+\Crefname{proposicion}{Proposición}{Proposiciones}
+\crefname{teorema}{teorema}{teoremas}
+\Crefname{teorema}{Teorema}{Teoremas}
+\crefname{lema}{lema}{lemas}
+\Crefname{lema}{Lema}{Lemas}
+\crefname{corolario}{corolario}{corolarios}
+\Crefname{corolario}{Corolario}{Corolarios}
+\crefname{definicion}{definición}{definiciones}
+\Crefname{definicion}{Definición}{Definiciones}
+\crefname{notacion}{notación}{notaciones}
+\Crefname{notacion}{Notación}{Notaciones}
+\crefname{ejemplo}{ejemplo}{ejemplos}
+\Crefname{ejemplo}{Ejemplo}{Ejemplos}
+\crefname{ejercicio}{ejercicio}{ejercicios}
+\Crefname{ejercicio}{Ejercicio}{Ejercicios}
+\crefname{observacion}{observación}{observaciones}
+\Crefname{observacion}{Observación}{Observaciones}
+\crefname{section}{sección}{secciones}
+\Crefname{section}{Sección}{Secciones}
+\crefname{subsection}{sección}{secciones}
+\Crefname{subsection}{Sección}{Secciones}
+\crefname{table}{tabla}{tablas}
+\Crefname{table}{Tabla}{Tablas}
+\crefname{figure}{figura}{figuras}
+\Crefname{figure}{Figura}{Figuras}
+\crefname{equation}{ecuación}{ecuaciones}
+\Crefname{equation}{Ecuación}{Ecuaciones}
+\crefformat{equation}{ecuación~(#2#1#3)}
+\Crefformat{equation}{Ecuación~(#2#1#3)}
+\crefrangeformat{equation}{ecuaciones~(#3#1#4)--(#5#2#6)}
+\crefmultiformat{equation}{ecuaciones~(#2#1#3)}{ y~(#2#1#3)}{, (#2#1#3)}{ y~(#2#1#3)}
+
+% Referencia a un panel de figura: «figura 5\,(b)», enlazada en bloque
+\newcommand{\figpanel}[2]{\hyperref[#1]{figura~\ref*{#1}\,\textup{(#2)}}}
+\newcommand{\Figpanel}[2]{\hyperref[#1]{Figura~\ref*{#1}\,\textup{(#2)}}}
+
+% Pies de figura y tabla, en la línea de los temas anteriores
+\usepackage[font=small, labelfont={sc,color=magprof}, labelsep=period,
+            margin=0.6cm, justification=justified]{caption}
+
+% =========================================================================
+%        ESTILOS GRÁFICOS COMUNES (TikZ / pgfplots)
+% =========================================================================
+\input{figuras/estilos}

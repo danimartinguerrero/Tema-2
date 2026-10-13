@@ -1,0 +1,98 @@
+% =========================================================================
+\section{Introducción: el problema de calcular el potencial}\label{sec:intro}
+% =========================================================================
+En el tema anterior~\cite{TEMA1} obtuvimos las leyes que permiten calcular el campo y el potencial creados por
+\emph{cualquier} distribución de carga en \emph{cualquier} punto del espacio. Conviene tenerlas a la vista,
+porque este tema no añade ninguna ley nueva: se ocupa de cómo \emph{evaluar} en la práctica una de ellas.
+
+% -------------------------------------------------------------------------
+\subsection{Las tres descripciones de la electrostática}\label{sec:triangulo}
+% -------------------------------------------------------------------------
+La densidad de carga $\rho$, el potencial $\phi$ y el campo $\vE$ son tres descripciones equivalentes de un mismo problema
+electrostático: conocida una de ellas, las otras dos quedan determinadas (\cref{fig:triangulo}).
+
+\begin{proposicion}[Relaciones fundamentales de la electrostática~\cite{TEMA1}]\label{prop:triangulo}
+Sea $\rho(\rp)$ una distribución de carga localizada en un volumen $V'$, y tomemos el origen de potencial en el infinito. Entonces,
+para todo punto campo $\vc{r}$,
+\begin{align}
+  \phi(\vc{r})&=\frac{1}{4\pi\eo}\int_{V'}\frac{\rho(\rp)}{R}\,\dVp, &
+  \vE(\vc{r})&=\frac{1}{4\pi\eo}\int_{V'}\frac{\rho(\rp)}{R^{3}}\,\vc{R}\,\dVp,\label{eq:integrales}\\[2pt]
+  \vE(\vc{r})&=-\nab\phi(\vc{r}), &
+  \phi(\vc{r})-\phi(\vc{r}_0)&=-\int_{\vc{r}_0}^{\vc{r}}\vE\cdot\dl,\label{eq:E-phi}\\[2pt]
+  \nab\cdot\vE&=\frac{\rho}{\eo}, &
+  \Lap\phi&=-\frac{\rho}{\eo},\label{eq:poisson}
+\end{align}
+donde $\vc{R}=\vc{r}-\rp$ y $R=\norm{\vc{R}}$.
+\end{proposicion}
+
+\input{figuras/fig_triangulo}
+
+\begin{observacion}[Por qué preferimos el potencial]\label{obs:potencial-escalar}
+De las dos integrales de \cref{eq:integrales}, la del potencial es siempre la más sencilla: su integrando es escalar (un número por
+punto en lugar de tres) y decae como $1/R$ en lugar de como $1/R^{2}$. Por eso, en todo el tema calcularemos primero el potencial y
+obtendremos después el campo derivando, $\vE=-\nab\phi$.
+\end{observacion}
+
+% -------------------------------------------------------------------------
+\subsection{Planteamiento: una aproximación a grandes distancias}\label{sec:planteamiento}
+% -------------------------------------------------------------------------
+Aun así, la integral
+\begin{equation}\label{eq:pot-integral}
+  \phi(\vc{r})=\frac{1}{4\pi\eo}\int_{V'}\frac{\rho(\rp)}{\norm{\vc{r}-\rp}}\,\dVp
+\end{equation}
+es, en general, \emph{difícil de calcular en la práctica}: solo para distribuciones muy simétricas (esferas, cilindros, planos) admite una
+expresión cerrada, y en los casos más generales ni siquiera conocemos con detalle $\rho$. Lo que sí sabemos es que si nos alejamos
+suficientemente de la distribución, sus detalles dejan de importar y toda ella se ve como una \emph{carga puntual}. Entre ambos extremos
+(conocer $\rho$ punto a punto o verla como un punto) hay un camino intermedio: caracterizar la distribución mediante unas pocas
+cantidades, que dependen solo de \emph{algunos} detalles de la misma, y que bastan para obtener el potencial con la precisión deseada.
+
+\begin{definicion}[Momentos multipolares]\label{def:multipolos}
+Llamamos \emph{momentos multipolares} (o \emph{multipolos eléctricos}) de una distribución de carga a las cantidades
+\[
+  \int_{V'}\rho(\rp)\,\dVp,\qquad \int_{V'}\rho(\rp)\,\rp\,\dVp,\qquad \int_{V'}\rho(\rp)\bigl(3x'_jx'_k-\delt{j}{k}r'^{2}\bigr)\dVp,\ \dots
+\]
+(carga neta, momento dipolar, tensor cuadrupolar, \dots), que solo dependen de la distribución y del origen elegido, pero \emph{no} del
+punto campo. El \emph{desarrollo multipolar} es la expresión del potencial como una serie cuyos términos son productos de un momento
+multipolar por una función sencilla del punto campo, y que decaen cada vez más deprisa con la distancia.
+\end{definicion}
+
+El desarrollo permite así sustituir una integral distinta para cada punto campo por unas pocas integrales, calculadas una sola vez, y
+\emph{sacar} las coordenadas del punto campo fuera de la integral. Construiremos el desarrollo en dos etapas. Primero estudiaremos el sistema más
+sencillo de carga neta nula, el \emph{dipolo eléctrico} (\cref{sec:dipolo}), y su generalización a distribuciones continuas de dipolos, la
+\emph{polarización} (\cref{sec:polarizacion}). Después desarrollaremos $1/R$ en serie de potencias de $r'/r$ y obtendremos el desarrollo
+completo (\cref{sec:multipolar}), cuyo error de truncamiento acotaremos en la \cref{sec:error}. Los seminarios (\cref{sec:seminarios}) aplican
+todo ello a los problemas de la lista del tema~\cite{PROBLEMAS-T2}. El desarrollo sigue los apuntes de teoría de la asignatura~\cite{APUNTES-T2}; como
+bibliografía de apoyo, el dipolo eléctrico se trata en~\cite[cap.~3]{GRIFFITHS}, \cite[cap.~8]{WANGSNESS} y~\cite[cap.~4]{VICTORIANO}, y las expresiones multipolares en las
+mismas referencias y, con más profundidad, en~\cite{JACKSON}.
+
+% -------------------------------------------------------------------------
+\subsection{Notación y convenios del tema}\label{sec:notacion}
+% -------------------------------------------------------------------------
+\begin{notacion}[Puntos campo y fuente]\label{not:puntos}
+Seguimos la notación de los temas anteriores~\cite{TEMA0,TEMA1}, que a su vez adopta la de~\cite{NAVAS}:
+\begin{itemize}
+  \item $\vc{r}=(x,y,z)$ es el \emph{punto campo}, donde se evalúan $\phi$ y $\vE$, con coordenadas esféricas $(r,\theta,\varphi)$ y
+        versores $\{\ur,\uth,\uph\}$; las magnitudes primadas, $\rp=(x',y',z')$, $r'=\norm{\rp}$, $\dVp$, $\nabp$, se refieren
+        al \emph{punto fuente}.
+  \item $\vc{R}=\vc{r}-\rp$ es el vector que va de la fuente al punto campo, $R=\norm{\vc{R}}$ y $\uR=\vc{R}/R$.
+  \item $\theta'$ es el ángulo que forman $\vc{r}$ y $\rp$, de modo que $\vc{r}\cdot\rp=rr'\cosp$.
+  \item $\cd{x},\cd{y},\cd{z}$ son los \emph{cosenos directores} del punto campo, es decir, las componentes cartesianas de $\ur$:
+        \[
+          \ur=\cd{x}\,\ux+\cd{y}\,\uy+\cd{z}\,\uz,\qquad
+          \cd{x}=\frac{x}{r}=\sen\theta\cos\varphi,\quad \cd{y}=\frac{y}{r}=\sen\theta\sen\varphi,\quad \cd{z}=\frac{z}{r}=\cos\theta,
+        \]
+        que verifican $\cd{x}^{2}+\cd{y}^{2}+\cd{z}^{2}=1$.
+  \item Los índices latinos $j,k\in\{x,y,z\}$ recorren las componentes cartesianas; $x'_j$ denota $x',y',z'$, y $\delt{j}{k}$ es la delta de
+        Kronecker. Las sumas se escriben siempre de forma explícita, $\sum_{j,k}$.
+\end{itemize}
+\end{notacion}
+
+\begin{observacion}[Tres usos de la letra $\ell$]\label{obs:ell}
+Por fidelidad al formulario del curso~\cite{FORMULARIO}, la letra $\ell$ aparece en tres papeles que el contexto distingue sin ambigüedad:
+como \emph{índice} del desarrollo ($\ell=0,1,2,\dots$, orden del multipolo), como \emph{vector} $\vl$ de separación de las cargas de un
+dipolo (siempre con flecha) y como \emph{coseno director} $\cd{j}$ (siempre con subíndice cartesiano). En los seminarios, además, $\ell$ es
+la longitud de una barra.
+\end{observacion}
+
+Como en el Tema~1, la constante de Coulomb es $1/(4\pi\eo)\simeq8{,}988\cdot10^{9}\,\mathrm{N\,m^{2}\,C^{-2}}$~\cite{CODATA} y todas las
+distribuciones se suponen \emph{localizadas} (contenidas en una esfera de radio finito), de modo que el potencial se anula en el infinito.

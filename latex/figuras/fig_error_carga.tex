@@ -1,0 +1,43 @@
+% =========================================================================
+% Figura: error relativo e_1 (términos monopolar + dipolar) del potencial de
+% una carga q en a u_z, en función de r/a, para theta = 0, pi/4, pi/2 (escala
+% logarítmica). Datos exactos: figuras/datos/error_carga.dat.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{minipage}[c]{0.3\textwidth}\centering
+\begin{tikzpicture}[x=0.88cm, y=0.88cm, >=Stealth]
+  \draw[eje] (0,-0.3) -- (0,2.6) node[above, etiq] {$z$};
+  \draw[eje] (-0.3,0) -- (2.9,0) node[right, etiq] {$y$};
+  \draw[eje] (0,0) -- (-0.8,-0.7) node[below left=-2pt, etiq] {$x$};
+  \coordinate (O) at (0,0);
+  \coordinate (Q) at (0,1.0);
+  \coordinate (P) at (2.5,1.7);
+  \draw[vect, rojoteo] (O) -- (Q) node[pos=0.5, left=1pt, etiq, text=rojoteo] {$\rp=a\,\uz$};
+  \draw[vect] (O) -- (P) node[pos=0.55, below right=-2pt, etiq] {$\vc{r}$};
+  \draw[->, line width=0.6pt, grispizarra, densely dashed] (Q) -- (P) node[pos=0.5, above=1pt, etiq] {$\vc{R}$};
+  \pic[draw=magacero, line width=0.5pt, angle radius=0.55cm, "$\theta$", angle eccentricity=1.45, font=\small] {angle=P--O--Q};
+  \node[cargapos] at (Q) {$+$};
+  \fill[magprof] (P) circle (1.5pt) node[right=2pt, etiq] {$P$};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.68\textwidth}\centering
+\begin{tikzpicture}
+\begin{loglogaxis}[marcoMMA, width=8.2cm, height=5.6cm, xmin=1.5, xmax=1000, ymin=1e-5, ymax=60,
+                   xlabel={$r/a$}, ylabel={$e_{1}$ (\%)}, every axis plot/.style={line width=1.1pt},
+                   log basis y=10, ytick={1e-4,1e-2,1,10}, xtick={2,10,100,1000},
+                   xticklabels={$2$,$10$,$100$,$1000$},
+                   legend pos=north east, legend cell align=left]
+  \addplot[mmaverde!85!black] table[x=x, y=e0]  {figuras/datos/error_carga.dat};
+  \addplot[mmanaranja]        table[x=x, y=e45] {figuras/datos/error_carga.dat};
+  \addplot[mmaazul]           table[x=x, y=e90] {figuras/datos/error_carga.dat};
+  \legend{$\theta=0$, $\theta=\pi/4$, $\theta=\pi/2$}
+\end{loglogaxis}
+\end{tikzpicture}
+\end{minipage}
+\caption{Error relativo $e_{1}$ al aproximar el potencial de una carga puntual situada en $a\,\uz$ por sus términos monopolar y dipolar (\cref{ej:carga-fuera}). En escala
+doble logarítmica las curvas son rectas de pendiente $-2$: el error decrece como $(a/r)^{2}$, con un coeficiente $\abs{\Pl{2}(\cos\theta)}$ que vale $1$ sobre el eje, $1/4$
+para $\theta=\pi/4$ y $1/2$ en el plano ecuatorial. La curva $\theta=0$ coincide con la cota $100\,(a/r)^{2}$ del primer término despreciado, y la caída brusca de la curva $\theta=\pi/4$ cerca de $r=2a$ corresponde a un cambio de signo del error. Los valores para $r=10a,100a,1000a$ son los de la
+\cref{tab:error-carga}.}
+\label{fig:error-carga}
+\end{figure}

@@ -1,0 +1,28 @@
+% =========================================================================
+% Figura (apuntes manuscritos, pág. 11): líneas de campo del cuadrupolo plano
+% de cuatro cargas (+q en (+-a,0), -q en (0,+-a)), en el plano z = 0, con la
+% paleta del documento. Datos: figuras/datos/cua_plano_*.tex (L = 4a).
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=0.78cm, y=0.78cm]
+  \renewcommand{\LC}[1]{\draw[magacero, line width=0.5pt] plot coordinates {#1};}
+  \renewcommand{\FL}[3]{\draw[-{Stealth[length=3.6pt,width=3pt]}, magacero, line width=0.5pt] (#1,#2) -- ++(#3:0.01);}
+  \fill[magfondo] (-4,-4) rectangle (4,4);
+  \begin{scope}\clip (-4,-4) rectangle (4,4);
+    \draw[pizarra!60, line width=0.45pt, densely dashed] (-4,-4) -- (4,4) (-4,4) -- (4,-4);
+    \input{figuras/datos/cua_plano_lc.tex}
+    \input{figuras/datos/cua_plano_fl.tex}
+  \end{scope}
+  \node[cargapos] at (1,0) {$+$};
+  \node[cargapos] at (-1,0) {$+$};
+  \node[carganeg] at (0,1) {$-$};
+  \node[carganeg] at (0,-1) {$-$};
+  \colorlet{marcoc}{grispizarra!70}
+  \marcoMMA{4}{2}{$x/a$}{$y/a$}
+\end{tikzpicture}
+\caption{Cuadrupolo plano del \cref{ej:cuadrupolo-plano}: $+q$ en $(\pm a,0,0)$ y $-q$ en $(0,\pm a,0)$, en el plano $z=0$. Líneas de campo (magenta, con su sentido), trazadas desde las cargas positivas a
+intervalos angulares iguales y completadas con las líneas que llegan desde lejos; las diagonales $y=\pm x$ (a trazos) forman la equipotencial nula. El campo se «estira» según $x$ (donde están las cargas positivas, $Q_{xx}>0$) y se «comprime» según
+$y$ ($Q_{yy}<0$).}
+\label{fig:cuadrupolo-plano}
+\end{figure}

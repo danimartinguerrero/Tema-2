@@ -1,0 +1,288 @@
+% =========================================================================
+\section{El dipolo eléctrico}\label{sec:dipolo}
+% =========================================================================
+Empezamos por la distribución más sencilla cuyo potencial a grandes distancias \emph{no} es el de una carga puntual: dos cargas
+iguales y de signo contrario. Su carga neta es nula, de modo que el término $1/r$ desaparece, y lo que queda es el primer término
+que codifica cómo está \emph{repartida} la carga.
+
+% -------------------------------------------------------------------------
+\subsection{Definición: dipolo físico y dipolo puntual}\label{sec:dipolo-def}
+% -------------------------------------------------------------------------
+\begin{definicion}[Dipolo eléctrico y momento dipolar]\label{def:dipolo}
+Un \emph{dipolo eléctrico} (o \emph{dipolo físico}) es un sistema formado por dos cargas puntuales de igual módulo y signo contrario,
+$+q$ y $-q$ ($q>0$), separadas una distancia $\ell$. Si $\vl$ es el vector que va de la carga negativa a la positiva, se llama
+\emph{momento dipolar} del sistema al vector
+\begin{equation}\label{eq:momento-dipolar}
+  \boxed{\;\vp=q\,\vl\;}
+\end{equation}
+cuya unidad en el Sistema Internacional es el $\mathrm{C\,m}$.
+\end{definicion}
+
+\begin{definicion}[Dipolo puntual o elemental]\label{def:dipolo-puntual}
+Se llama \emph{dipolo puntual} (o \emph{elemental}) al límite de un dipolo físico en el que la separación se anula y la carga crece
+sin límite, de forma que su producto permanece constante:
+\begin{equation}\label{eq:dipolo-puntual}
+  \vp=\lim_{\substack{q\to\infty\\ \ell\to0}}q\,\vl .
+\end{equation}
+\end{definicion}
+
+\begin{observacion}[Órdenes de magnitud]\label{obs:debye}
+Los dipolos aparecen de forma natural en la materia: en muchas moléculas el centro de las cargas negativas (los electrones) no coincide con
+el de las positivas (los núcleos). Las distancias involucradas son atómicas, del orden de $10^{-10}\,\mathrm{m}$, y por eso los momentos
+moleculares se miden en \emph{debyes}, $1\,\mathrm{D}\simeq3{,}336\cdot10^{-30}\,\mathrm{C\,m}$, que es el momento de dos cargas elementales
+separadas $0{,}21\,\text{\AA}$. La molécula de agua, por ejemplo, tiene $p\simeq1{,}85\,\mathrm{D}\simeq6{,}2\cdot10^{-30}\,\mathrm{C\,m}$. Vista
+desde distancias macroscópicas, $r\gg\ell$, una molécula polar es, a todos los efectos, un dipolo puntual.
+\end{observacion}
+
+% -------------------------------------------------------------------------
+\subsection{Potencial del dipolo}\label{sec:dipolo-potencial}
+% -------------------------------------------------------------------------
+Situamos la carga $-q$ en el origen y la carga $+q$ en el extremo de $\vl$ (\figpanel{fig:dipolo-geom}{a}), y llamamos $\alpha$ al ángulo
+que forman $\vl$ y $\vc{r}$, de modo que $\vl\cdot\vc{r}=\ell r\cos\alpha$. Por el principio de superposición,
+\begin{equation}\label{eq:pot-dipolo-exacto}
+  \phi_{d}(\vc{r})=\phi_{+q}(\vc{r})+\phi_{-q}(\vc{r})=\frac{q}{4\pi\eo}\Bigl(\frac{1}{\norm{\vc{r}-\vl}}-\frac{1}{r}\Bigr).
+\end{equation}
+Esta expresión es exacta, pero nos interesa su comportamiento a distancias grandes comparadas con la separación, $\ell/r\ll1$.
+
+\input{figuras/fig_dipolo_geom}
+
+\begin{lema}[Aproximación de primer orden]\label{lem:taylor}
+Sea $a\in[-1,1]$ y $f(x)=(1+x^{2}-2ax)^{-1/2}$. Entonces, cuando $x\to0$,
+\begin{equation}\label{eq:lema-taylor}
+  f(x)=1+a\,x+\ord(x^{2}).
+\end{equation}
+\end{lema}
+\begin{proof}
+La función es de clase $C^{\infty}$ en un entorno de $x=0$, porque allí $1+x^{2}-2ax>0$. Su derivada es
+\[
+  f'(x)=-\frac{1}{2}\,(1+x^{2}-2ax)^{-3/2}\,(2x-2a),
+\]
+de modo que $f(0)=1$ y $f'(0)=-\frac12\,(1)^{-3/2}(-2a)=a$. El polinomio de Taylor de primer orden alrededor de $x=0$ (de Maclaurin) es
+$f(0)+f'(0)\,x=1+ax$, y el resto es $\ord(x^{2})$ por el teorema de Taylor.
+\end{proof}
+
+\begin{proposicion}[Potencial de un dipolo]\label{prop:pot-dipolo}
+A distancias $r\gg\ell$, el potencial del dipolo es
+\begin{equation}\label{eq:pot-dipolo}
+  \boxed{\;\phi_{d}(\vc{r})=\frac{\vp\cdot\ur}{4\pi\eo\,r^{2}}=\frac{\vp\cdot\vc{r}}{4\pi\eo\,r^{3}}\;}
+\end{equation}
+salvo términos de orden $q\ell^{2}/r^{3}=p\,\ell/r^{3}$. En particular, \cref{eq:pot-dipolo} es \emph{exacta} para un dipolo puntual.
+\end{proposicion}
+\begin{proof}
+Desarrollamos el cuadrado del módulo y sacamos factor común $r^{2}$:
+\[
+  \frac{1}{\norm{\vc{r}-\vl}}=\bigl[(\vc{r}-\vl)^{2}\bigr]^{-1/2}=\bigl(r^{2}+\ell^{2}-2\,\vl\cdot\vc{r}\bigr)^{-1/2}
+  =\frac{1}{r}\Bigl[1+\Bigl(\frac{\ell}{r}\Bigr)^{2}-2\cos\alpha\,\frac{\ell}{r}\Bigr]^{-1/2}.
+\]
+Es la función del \cref{lem:taylor} con $x=\ell/r$ y $a=\cos\alpha$, luego
+\[
+  \frac{1}{\norm{\vc{r}-\vl}}=\frac{1}{r}\Bigl(1+\frac{\ell}{r}\cos\alpha\Bigr)+\ord\Bigl(\frac{\ell^{2}}{r^{3}}\Bigr)
+  =\frac{1}{r}\Bigl(1+\frac{\vl\cdot\ur}{r}\Bigr)+\ord\Bigl(\frac{\ell^{2}}{r^{3}}\Bigr).
+\]
+Sustituyendo en \cref{eq:pot-dipolo-exacto}, el término $1/r$ se cancela con el de la carga negativa:
+\[
+  \phi_{d}(\vc{r})=\frac{q}{4\pi\eo}\Bigl[\frac{1}{r}\Bigl(1+\frac{\vl\cdot\ur}{r}\Bigr)-\frac{1}{r}\Bigr]+\ord\Bigl(\frac{q\ell^{2}}{r^{3}}\Bigr)
+  =\frac{q\,\vl\cdot\ur}{4\pi\eo\,r^{2}}+\ord\Bigl(\frac{p\,\ell}{r^{3}}\Bigr)=\frac{\vp\cdot\ur}{4\pi\eo\,r^{2}}+\ord\Bigl(\frac{p\,\ell}{r^{3}}\Bigr).
+\]
+En el límite del dipolo puntual, $p$ permanece fijo y $\ell\to0$, de modo que el resto se anula. La segunda forma de \cref{eq:pot-dipolo} se
+sigue de $\ur=\vc{r}/r$.
+\end{proof}
+
+\begin{corolario}[Simetría de revolución]\label{cor:pot-dipolo-z}
+Si el momento dipolar apunta según el eje $z$, $\vp=p\,\uz$, entonces $\vp\cdot\ur=p\cos\theta$ y
+\begin{equation}\label{eq:pot-dipolo-z}
+  \phi_{d}(r,\theta)=\frac{p\cos\theta}{4\pi\eo\,r^{2}} .
+\end{equation}
+El potencial no depende del ángulo azimutal $\varphi$: tiene simetría de revolución alrededor del eje del dipolo.
+\end{corolario}
+\begin{proof}
+En la base esférica (\figpanel{fig:dipolo-geom}{b}), $\uz=\cos\theta\,\ur-\sen\theta\,\uth$, luego
+$\uz\cdot\ur=(\cos\theta\,\ur-\sen\theta\,\uth)\cdot\ur=\cos\theta$, pues $\{\ur,\uth,\uph\}$ es ortonormal.
+\end{proof}
+
+\begin{observacion}[Decae más deprisa que el de una carga]\label{obs:decaimiento}
+El potencial dipolar decae como $1/r^{2}$, más deprisa que el de una carga puntual, $q/(4\pi\eo r)$, que tiene simetría esférica. Es la
+huella de la cancelación entre las dos cargas: vistas desde muy lejos casi se superponen, y solo sobrevive el efecto de su pequeña
+separación. Además, $\phi_{d}$ ya no es isótropo: es positivo en el hemisferio hacia el que apunta $\vp$ ($\cos\theta>0$), negativo en el
+opuesto y nulo en todo el plano ecuatorial $\theta=\pi/2$.
+\end{observacion}
+
+% -------------------------------------------------------------------------
+\subsection{Campo eléctrico del dipolo}\label{sec:dipolo-campo}
+% -------------------------------------------------------------------------
+\begin{teorema}[Campo de un dipolo]\label{teo:campo-dipolo}
+El campo eléctrico creado por un dipolo puntual $\vp$ situado en el origen es
+\begin{equation}\label{eq:campo-dipolo}
+  \boxed{\;\vE_{d}(\vc{r})=\frac{1}{4\pi\eo\,r^{3}}\bigl[3(\vp\cdot\ur)\,\ur-\vp\bigr]\;}
+\end{equation}
+y, si $\vp=p\,\uz$, en coordenadas esféricas,
+\begin{equation}\label{eq:campo-dipolo-esf}
+  \vE_{d}(\vc{r})=\frac{p}{4\pi\eo\,r^{3}}\bigl(2\cos\theta\,\ur+\sen\theta\,\uth\bigr).
+\end{equation}
+La forma \cref{eq:campo-dipolo} es intrínseca: no depende de la orientación del dipolo ni del sistema de coordenadas.
+\end{teorema}
+\begin{proof}[Demostración (en esféricas)]
+Partimos de \cref{eq:pot-dipolo-z} y del gradiente en esféricas~\cite{TEMA0},
+$\nab f=\pd{f}{r}\,\ur+\frac{1}{r}\pd{f}{\theta}\,\uth+\frac{1}{r\sen\theta}\pd{f}{\varphi}\,\uph$. Como $\phi_{d}$ no depende de $\varphi$,
+\begin{align*}
+  \vE_{d}&=-\nab\phi_{d}=-\pd{\phi_{d}}{r}\,\ur-\frac{1}{r}\pd{\phi_{d}}{\theta}\,\uth
+  =-\frac{p\cos\theta}{4\pi\eo}\Bigl(-\frac{2}{r^{3}}\Bigr)\ur-\frac{1}{r}\,\frac{p}{4\pi\eo r^{2}}\,(-\sen\theta)\,\uth\\
+  &=\frac{p}{4\pi\eo r^{3}}\bigl(2\cos\theta\,\ur+\sen\theta\,\uth\bigr).
+\end{align*}
+Para llegar a la forma intrínseca escribimos $2\cos\theta\,\ur=3\cos\theta\,\ur-\cos\theta\,\ur$ y usamos $\uz=\cos\theta\,\ur-\sen\theta\,\uth$:
+\[
+  2\cos\theta\,\ur+\sen\theta\,\uth=3\cos\theta\,\ur-\underbrace{\bigl(\cos\theta\,\ur-\sen\theta\,\uth\bigr)}_{\uz}=3\cos\theta\,\ur-\uz .
+\]
+Multiplicando por $p$ y recordando que $p\cos\theta=\vp\cdot\ur$ y $p\,\uz=\vp$ se obtiene \cref{eq:campo-dipolo}. Esta última ya no hace referencia
+al eje $z$; como ambos miembros son vectores, vale para cualquier orientación de $\vp$.
+\end{proof}
+
+La forma intrínseca puede obtenerse también directamente, sin elegir ejes, derivando $\phi_{d}=\vp\cdot\vc{r}/(4\pi\eo r^{3})$. Es un buen
+ejercicio de cálculo vectorial~\cite{TEMA0}.
+
+\begin{proof}[Demostración (vectorial)]
+Por la regla del producto $\nab(fg)=f\nab g+g\nab f$,
+\[
+  \vE_{d}=-\frac{1}{4\pi\eo}\,\nab\Bigl[(\vp\cdot\vc{r})\,\frac{1}{r^{3}}\Bigr]
+  =-\frac{1}{4\pi\eo}\Bigl[\frac{1}{r^{3}}\,\nab(\vp\cdot\vc{r})+(\vp\cdot\vc{r})\,\nab\Bigl(\frac{1}{r^{3}}\Bigr)\Bigr].
+\]
+\emph{Primer gradiente.} Como $\vp$ es constante, en componentes, $\bigl[\nab(\vp\cdot\vc{r})\bigr]_{j}=\pd{}{x_j}\sum_{i}p_i x_i=\sum_i p_i\,\pd{x_i}{x_j}
+=\sum_i p_i\,\delt{i}{j}=p_j$, es decir, $\nab(\vp\cdot\vc{r})=\vp$. (Equivalentemente: $\nab(\vp\cdot\vc{r})=(\vp\cdot\nab)\vc{r}=\vp$, porque
+$\nab\times\vc{r}=\vc{0}$ y las derivadas de $\vp$ son nulas.)
+
+\emph{Segundo gradiente.} Para una función radial, $\nab f(r)=f'(r)\,\ur$, luego $\nab\bigl(r^{-3}\bigr)=-3r^{-4}\,\ur$.
+
+Sustituyendo, y escribiendo $\vp\cdot\vc{r}=r\,(\vp\cdot\ur)$,
+\[
+  \vE_{d}=-\frac{1}{4\pi\eo}\Bigl[\frac{\vp}{r^{3}}-\frac{3\,r\,(\vp\cdot\ur)}{r^{4}}\,\ur\Bigr]=\frac{1}{4\pi\eo r^{3}}\bigl[3(\vp\cdot\ur)\,\ur-\vp\bigr].\qedhere
+\]
+\end{proof}
+
+\begin{observacion}[Estructura del campo dipolar]\label{obs:estructura}
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{Dos contribuciones.} El campo es la suma de una componente paralela a $\ur$ (la dirección del punto campo) y otra
+        \emph{antiparalela} a $\vp$.
+  \item \emph{Ejes y ecuador.} $E_{r}=0$ en el plano ecuatorial, $\theta=\pi/2$, donde $\vE_{d}=-\vp/(4\pi\eo r^{3})$ es antiparalelo al momento;
+        $E_{\theta}=0$ sobre el eje, $\theta=0,\pi$, donde $\vE_{d}=2\vp/(4\pi\eo r^{3})$ es paralelo al momento y \emph{el doble} de intenso que en el
+        ecuador a la misma distancia.
+  \item \emph{Decaimiento.} El campo dipolar cae como $1/r^{3}$, mucho más deprisa que el de una carga puntual, que lo hace como $1/r^{2}$
+        (\cref{fig:potencias}). Si tuviésemos una carga puntual y un dipolo elemental en el mismo punto, a distancias inferiores a una dada
+        prevalecería la contribución dipolar, mientras que a grandes distancias dominaría la de la carga.
+\end{enumerate}
+\end{observacion}
+
+\input{figuras/fig_potencias}
+
+Las expresiones anteriores suponen el dipolo en el origen. Si está en un punto arbitrario $\rp$, basta sustituir $\vc{r}$ por la posición
+relativa $\vc{R}=\vc{r}-\rp$; también puede comprobarse directamente sumando los campos de las dos cargas.
+
+\begin{proposicion}[Dipolo en una posición arbitraria]\label{prop:dipolo-Rp}
+El potencial y el campo de un dipolo puntual $\vp$ situado en $\rp$ son
+\begin{equation}\label{eq:dipolo-R}
+  \phi(\vc{r})=\frac{1}{4\pi\eo}\,\frac{\vp\cdot\vc{R}}{R^{3}},\qquad
+  \vE(\vc{r})=\frac{1}{4\pi\eo}\Bigl[\frac{3(\vp\cdot\vc{R})\,\vc{R}}{R^{5}}-\frac{\vp}{R^{3}}\Bigr],\qquad \vc{R}=\vc{r}-\rp .
+\end{equation}
+\end{proposicion}
+\begin{proof}
+Sea $-q$ en $\rp$ y $+q$ en $\rp+\vc{d}$, con $\vp=q\vc{d}$. Por superposición de dos campos coulombianos,
+\[
+  \vE=\frac{q}{4\pi\eo}\Biggl[\frac{\vc{r}-(\rp+\vc{d})}{\norm{\vc{r}-(\rp+\vc{d})}^{3}}-\frac{\vc{r}-\rp}{\norm{\vc{r}-\rp}^{3}}\Biggr]
+  =\frac{q}{4\pi\eo}\Biggl[\frac{\vc{R}-\vc{d}}{\norm{\vc{R}-\vc{d}}^{3}}-\frac{\vc{R}}{R^{3}}\Biggr].
+\]
+Si $d\ll R$, el término cuadrático $d^{2}/R^{2}$ es despreciable y, por el desarrollo binomial $(1+x)^{n}=1+nx+\ord(x^{2})$ con $n=-\frac32$,
+\[
+  \norm{\vc{R}-\vc{d}}^{-3}=\bigl[R^{2}+d^{2}-2\vc{R}\cdot\vc{d}\bigr]^{-3/2}=R^{-3}\Bigl[1-2\,\frac{\vc{R}\cdot\vc{d}}{R^{2}}+\frac{d^{2}}{R^{2}}\Bigr]^{-3/2}
+  \simeq R^{-3}\Bigl[1+3\,\frac{\vc{R}\cdot\vc{d}}{R^{2}}\Bigr].
+\]
+Sustituyendo y despreciando de nuevo los términos de orden $d^{2}$,
+\[
+  \vE\simeq\frac{q}{4\pi\eo}\Bigl[(\vc{R}-\vc{d})\Bigl(\frac{1}{R^{3}}+\frac{3\,\vc{R}\cdot\vc{d}}{R^{5}}\Bigr)-\frac{\vc{R}}{R^{3}}\Bigr]
+  \simeq\frac{q}{4\pi\eo}\Bigl[\frac{3(\vc{R}\cdot\vc{d})\,\vc{R}}{R^{5}}-\frac{\vc{d}}{R^{3}}\Bigr],
+\]
+y el límite $q\to\infty$, $d\to0$ con $q\vc{d}=\vp$ da el campo de \cref{eq:dipolo-R}. Para el potencial se procede igual con
+$\norm{\vc{R}-\vc{d}}^{-1}\simeq R^{-1}\bigl[1+\vc{R}\cdot\vc{d}/R^{2}\bigr]$, lo que da
+$\phi\simeq\frac{q}{4\pi\eo}\,\frac{\vc{R}\cdot\vc{d}}{R^{3}}\to\frac{1}{4\pi\eo}\frac{\vp\cdot\vc{R}}{R^{3}}$. Puede comprobarse que $\vE=-\nab\phi$.
+\end{proof}
+
+% -------------------------------------------------------------------------
+\subsection{Líneas de campo y superficies equipotenciales}\label{sec:dipolo-lineas}
+% -------------------------------------------------------------------------
+\begin{proposicion}[Geometría del campo dipolar]\label{prop:lineas-dipolo}
+Para un dipolo puntual $\vp=p\,\uz$, en cualquier plano meridiano:
+\begin{enumerate}[label=(\roman*)]
+  \item las equipotenciales $\phi_{d}=\phi_0\neq0$ son las curvas $r^{2}=K\cos\theta$, con $K=p/(4\pi\eo\phi_0)$, y la equipotencial $\phi_{d}=0$ es el plano
+        ecuatorial;
+  \item las líneas de campo son las curvas $r=C\sen^{2}\theta$, con $C>0$, más el propio eje $z$.
+\end{enumerate}
+Ambas familias son ortogonales en todo punto.
+\end{proposicion}
+\begin{proof}
+(i) Es \cref{eq:pot-dipolo-z} igualada a $\phi_0$. (ii) Una línea de campo es tangente a $\vE$ en cada punto; en el plano meridiano, el desplazamiento
+$\dif\vc{r}=\dif r\,\ur+r\,\dif\theta\,\uth$ ha de ser paralelo a $\vE$, es decir, $\dif r/E_r=r\,\dif\theta/E_\theta$. Con \cref{eq:campo-dipolo-esf},
+\[
+  \frac{\dif r}{r}=\frac{E_r}{E_\theta}\,\dif\theta=\frac{2\cos\theta}{\sen\theta}\,\dif\theta
+  \;\Longrightarrow\;\ln r=2\ln(\sen\theta)+\text{cte}\;\Longrightarrow\; r=C\sen^{2}\theta .
+\]
+La ortogonalidad es general: $\vE=-\nab\phi$ es perpendicular a las superficies de nivel de $\phi$~\cite{TEMA1}.
+\end{proof}
+
+La \cref{fig:dipolo-mma} reproduce las representaciones del dipolo de las figuras del tema~\cite{FIGURAS-T2}: las equipotenciales,
+las líneas de campo superpuestas a ellas y el campo vectorial, cuya intensidad decrece rápidamente con la distancia.
+
+\input{figuras/fig_dipolo_mma}
+
+% -------------------------------------------------------------------------
+\subsection{Dipolo físico frente a dipolo puntual}\label{sec:fisico-puntual}
+% -------------------------------------------------------------------------
+Un dipolo real tiene una separación $\ell$ finita. ¿Hasta qué punto se parece su campo al del dipolo puntual? Fuera de una región de
+tamaño comparable a $\ell$, las líneas de campo de ambos son prácticamente indistinguibles (\cref{fig:esquema-dipolo,fig:fisico-puntual}); solo
+cerca de las cargas el dipolo físico revela su estructura. La siguiente proposición lo cuantifica.
+
+\input{figuras/fig_esquema_dipolo}
+
+\begin{proposicion}[Discrepancia entre el dipolo físico y el puntual]\label{prop:discrepancia}
+Sea un dipolo físico con $+q$ en $z=\ell/2$ y $-q$ en $z=-\ell/2$, y sea $\vE_{p}$ el campo del dipolo puntual equivalente, $\vp=q\ell\,\uz$, en el
+origen. Definimos la discrepancia relativa
+\[
+  \varepsilon(r,\theta)=\frac{\norm{\vE_{p}-\vE_{f}}}{\norm{\vE_{f}}},
+\]
+donde $\vE_{f}$ es el campo exacto del dipolo físico. Sobre el eje ($\theta=0$) y en el plano ecuatorial ($\theta=\pi/2$), para $r>\ell/2$,
+\begin{equation}\label{eq:discrepancia}
+\begin{aligned}
+  \varepsilon(r,0)&=1-\Bigl(1-\frac{\ell^{2}}{4r^{2}}\Bigr)^{2}=\frac{\ell^{2}}{2r^{2}}-\frac{\ell^{4}}{16r^{4}},\\
+  \varepsilon\Bigl(r,\frac{\pi}{2}\Bigr)&=\Bigl(1+\frac{\ell^{2}}{4r^{2}}\Bigr)^{3/2}-1=\frac{3\ell^{2}}{8r^{2}}+\ord\Bigl(\frac{\ell^{4}}{r^{4}}\Bigr).
+\end{aligned}
+\end{equation}
+En particular, la discrepancia es de orden $(\ell/r)^{2}$ y se anula cuando $r/\ell\to\infty$.
+\end{proposicion}
+\begin{proof}
+\emph{Eje.} En $\vc{r}=r\,\uz$ los dos campos son paralelos a $\uz$. El del dipolo físico es
+\[
+  E_{f}=\frac{q}{4\pi\eo}\Bigl[\frac{1}{(r-\ell/2)^{2}}-\frac{1}{(r+\ell/2)^{2}}\Bigr]=\frac{q}{4\pi\eo}\,\frac{2r\ell}{(r^{2}-\ell^{2}/4)^{2}},
+\]
+y el del puntual, por \cref{obs:estructura}, $E_{p}=2q\ell/(4\pi\eo r^{3})$. Entonces $E_{p}/E_{f}=(r^{2}-\ell^{2}/4)^{2}/r^{4}=(1-\ell^{2}/4r^{2})^{2}<1$ y
+$\varepsilon=1-E_{p}/E_{f}$.
+
+\emph{Ecuador.} En $\vc{r}=r\,\ux$, las dos cargas están a la distancia $(r^{2}+\ell^{2}/4)^{1/2}$; las componentes $x$ de sus campos se cancelan y
+las componentes $z$ se suman, de modo que $\vE_{f}=-\frac{q}{4\pi\eo}\,\frac{\ell}{(r^{2}+\ell^{2}/4)^{3/2}}\,\uz$, mientras que
+$\vE_{p}=-\frac{q\ell}{4\pi\eo r^{3}}\,\uz$. Por tanto $\varepsilon=E_{p}/E_{f}-1=(1+\ell^{2}/4r^{2})^{3/2}-1$. Los desarrollos se obtienen con el binomio
+de Newton.
+\end{proof}
+
+\input{figuras/fig_fisico_puntual}
+
+\begin{observacion}[Lectura de la figura]\label{obs:discrepancia}
+La \cref{fig:discrepancia} representa $\varepsilon$ a lo largo de tres semirrectas que parten del origen, $\theta=0$, $\pi/4$ y $\pi/2$. Cerca del
+dipolo ($r\sim\ell$) la discrepancia es de decenas por ciento, pero cae rápidamente: en el peor de los casos (sobre el eje) es del $2\%$ a
+$r=5\ell$ y del $0{,}5\%$ a $r=10\ell$. En todas las direcciones decrece como $(\ell/r)^{2}$, aunque con un coeficiente que depende de $\theta$. La
+razón la veremos en la \cref{sec:multipolar}: el dipolo físico es un dipolo puntual \emph{más} una serie de multipolos de orden superior
+(los de orden par se anulan por simetría), el primero de los cuales, el octupolar $\ell=3$, pesa $(\ell/r)^{2}$ respecto del dipolar. Haciendo la
+cuenta con el polinomio de Legendre $\Pl{3}$ (\cref{def:legendre}) se obtiene
+\[
+  \varepsilon(r,\theta)=\frac{\ell^{2}}{r^{2}}\,\frac{\sqrt{\Pl{3}(\cos\theta)^{2}+\frac{1}{16}\sen^{2}\theta\,\Pl{3}'(\cos\theta)^{2}}}{\sqrt{1+3\cos^{2}\theta}}
+  +\ord\Bigl(\frac{\ell^{4}}{r^{4}}\Bigr),
+\]
+cuyo coeficiente vale $1/2$, $0{,}275$ y $3/8$ para $\theta=0$, $\pi/4$ y $\pi/2$, de acuerdo con \cref{eq:discrepancia} y con la figura.
+\end{observacion}
+
+\input{figuras/fig_discrepancia}

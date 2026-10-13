@@ -1,0 +1,25 @@
+% =========================================================================
+% Figura (apuntes de teoría, pág. II-3): decaimiento 1/r^2 frente a 1/r^3.
+% Se cortan en r = 1: más cerca domina el término más rápido; más lejos,
+% el más lento.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[tema, width=8.6cm, height=5.2cm, xmin=0.4, xmax=4, ymin=0, ymax=4.2,
+             xlabel={$r$ (u.\,arb.)}, ylabel={campo (u.\,arb.)}, grid=major,
+             xtick={0.5,1,...,4}, ytick={0,1,...,4}, clip=true,
+             legend pos=north east, legend cell align=left]
+  \addplot[mmaazul, line width=1.1pt, domain=0.45:4, samples=150] {1/x^2};
+  \addlegendentry{$1/r^{2}$ (carga)}
+  \addplot[mmanaranja!90!black, line width=1.1pt, domain=0.6:4, samples=150] {1/x^3};
+  \addlegendentry{$1/r^{3}$ (dipolo)}
+  \draw[punteado] (axis cs:1,0) -- (axis cs:1,1);
+  \node[font=\scriptsize, text=grispizarra, anchor=south west] at (axis cs:1.05,1.05) {$r=1$};
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación del decaimiento de una contribución monopolar ($1/r^{2}$, campo de una carga) y otra dipolar ($1/r^{3}$, campo de
+un dipolo) con la misma intensidad en $r=1$. Para $r<1$ domina el término dipolar; para $r>1$, el de la carga, y la diferencia se agranda
+rápidamente con la distancia.}
+\label{fig:potencias}
+\end{figure}

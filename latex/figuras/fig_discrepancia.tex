@@ -1,0 +1,59 @@
+% =========================================================================
+% Figura (clon de «Tema 2. Figuras», diapositiva «Discrepancia entre dipolo
+% físico y puntual»): semirrectas theta = 0, pi/4, pi/2 sobre el campo del
+% dipolo puntual y discrepancia relativa |E_p - E_f|/|E_f| (en %) a lo largo
+% de ellas. Datos: figuras/datos/discrepancia.dat (exactos, no ajustados).
+% =========================================================================
+\begin{figure}[t]
+\centering
+\begin{minipage}[c]{0.5\textwidth}\centering
+\begin{tikzpicture}[x=0.31cm, y=0.31cm]
+  \panelMMA{10}{mmafondo}{1.2}{%
+    \input{figuras/datos/dip_puntual_eq.tex}
+    \draw[mmaEQ] (-10,0) -- (10,0);
+    \input{figuras/datos/dip_puntual_lc.tex}
+    \input{figuras/datos/dip_puntual_fl.tex}
+    \draw[mmaverde!85!black, line width=2.1pt, dash pattern=on 4pt off 2.5pt] (0,1.2) -- (0,9.4);
+    \draw[mmanaranja, line width=2.1pt, dash pattern=on 4pt off 2.5pt] (0.85,0.85) -- (6.6,6.6);
+    \draw[mmaazul, line width=2.1pt, dash pattern=on 4pt off 2.5pt] (1.2,0) -- (9.4,0);
+    \node[fill=mmafondo, inner sep=1pt, font=\scriptsize, text=mmaverde!70!black] at (1.75,8.6) {$\theta=0$};
+    \node[fill=mmafondo, inner sep=1pt, font=\scriptsize, text=mmanaranja!80!black] at (7.4,5.6) {$\theta=\pi/4$};
+    \node[fill=mmafondo, inner sep=1pt, font=\scriptsize, text=mmaazul!80!black] at (7.6,1.15) {$\theta=\pi/2$};}
+  \dipoloRojo{0.85}
+  \marcoMMA{10}{5}{$x/\ell$}{$z/\ell$}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.48\textwidth}\centering
+\begin{tikzpicture}
+\begin{axis}[marcoMMA, width=6.6cm, height=4.3cm, xmin=1, xmax=10.5, ymin=0, ymax=34,
+             ylabel={$\varepsilon$ (\%)}, xlabel={$r/\ell$}, ylabel style={yshift=-4pt},
+             xtick={2,4,6,8,10}, ytick={0,10,20,30}, every axis plot/.style={line width=1pt}]
+  \addplot[mmaazul]              table[x=r, y=e90] {figuras/datos/discrepancia.dat};
+  \addplot[mmanaranja]           table[x=r, y=e45] {figuras/datos/discrepancia.dat};
+  \addplot[mmaverde!85!black]    table[x=r, y=e0]  {figuras/datos/discrepancia.dat};
+  \draw[pizarra, densely dashed, line width=0.6pt] (axis cs:5,-0.6) rectangle (axis cs:10.3,3.0);
+  \node[font=\scriptsize, text=mmaverde!70!black, anchor=west] at (axis cs:1.75,27) {$\theta=0$};
+  \node[font=\scriptsize, text=mmaazul!80!black, anchor=west] at (axis cs:2.4,15) {$\theta=\pi/2$};
+  \node[font=\scriptsize, text=mmanaranja!80!black, anchor=west] at (axis cs:1.3,3.2) {$\theta=\pi/4$};
+\end{axis}
+\end{tikzpicture}\\[4pt]
+\begin{tikzpicture}
+\begin{axis}[marcoMMA, width=6.6cm, height=4.3cm, xmin=5, xmax=15, ymin=0, ymax=2.1,
+             ylabel={$\varepsilon$ (\%)}, xlabel={$r/\ell$}, ylabel style={yshift=-4pt},
+             xtick={6,8,...,14}, ytick={0,0.5,1,1.5,2}, every axis plot/.style={line width=1pt},
+             y tick label style={/pgf/number format/.cd, fixed, precision=1, use comma}]
+  \addplot[mmaazul]              table[x=r, y=e90] {figuras/datos/discrepancia.dat};
+  \addplot[mmanaranja]           table[x=r, y=e45] {figuras/datos/discrepancia.dat};
+  \addplot[mmaverde!85!black]    table[x=r, y=e0]  {figuras/datos/discrepancia.dat};
+  \node[font=\scriptsize, text=mmaverde!70!black, anchor=west] at (axis cs:6.1,1.55) {$\theta=0$};
+  \node[font=\scriptsize, text=mmaazul!80!black, anchor=south west] at (axis cs:7.4,0.78) {$\theta=\pi/2$};
+  \node[font=\scriptsize, text=mmanaranja!80!black, anchor=north west] at (axis cs:8.2,0.27) {$\theta=\pi/4$};
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\caption{Discrepancia entre el dipolo físico y el puntual. Izquierda: campo del dipolo puntual con las tres semirrectas sobre las que se
+evalúa. Derecha: discrepancia relativa $\varepsilon=\norm{\vE_{p}-\vE_{f}}/\norm{\vE_{f}}$ (\cref{prop:discrepancia}) en función de la distancia; el
+panel inferior amplía la región recuadrada y la prolonga hasta $r=15\ell$. La discrepancia cae como $(\ell/r)^{2}$ y es inferior al $0{,}5\%$
+para $r>10\ell$ en cualquier dirección. Recreación de~\cite{FIGURAS-T2} con los valores exactos.}
+\label{fig:discrepancia}
+\end{figure}

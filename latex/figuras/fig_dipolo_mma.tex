@@ -1,0 +1,52 @@
+% =========================================================================
+% Figura (clon de «Tema 2. Figuras», diapositiva «Dipolo eléctrico»):
+% (a) equipotenciales (ContourPlot), (b) equipotenciales y líneas de campo
+% (StreamPlot) y (c) campo eléctrico (VectorPlot) de un dipolo puntual
+% p = q l u_z. Datos: figuras/datos/dip_puntual_*.tex. Se conservan los
+% colores originales de Mathematica.
+% =========================================================================
+\begin{figure}[t]
+\centering
+\begin{minipage}[t]{0.325\textwidth}\centering
+{\footnotesize Equipotenciales}\\[3pt]
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \renewcommand{\EQ}[1]{\draw[mmaEQsolo] plot coordinates {#1};}%
+  \panelMMA{10}{white}{0}{%
+    \input{figuras/datos/dip_puntual_eq.tex}
+    \draw[mmaEQsolo] (-10,0) -- (10,0);}
+  \fill[white] (0,0) circle (2.0);
+  \draw[-{Stealth[length=3.4pt,width=3pt]}, mmarojo, line width=1pt] (0,-1.15) -- (0,1.2);
+  \fill (0,1.45) circle (0.3) node[right=1pt, font=\tiny, inner sep=0.5pt] {$q$};
+  \fill (0,-1.45) circle (0.3) node[right=1pt, font=\tiny, inner sep=0.5pt] {$-q$};
+  \colorlet{marcoc}{grispizarra!60}
+  \marcoMMA{10}{5}{$x/\ell$}{$z/\ell$}
+\end{tikzpicture}\\[1pt]{\small\scshape (a)}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.325\textwidth}\centering
+{\footnotesize Equipotenciales y líneas de campo}\\[3pt]
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \panelMMA{10}{mmafondo}{1.2}{%
+    \input{figuras/datos/dip_puntual_eq.tex}
+    \draw[mmaEQ] (-10,0) -- (10,0);
+    \input{figuras/datos/dip_puntual_lc.tex}
+    \input{figuras/datos/dip_puntual_fl.tex}}
+  \dipoloRojo{0.85}
+  \marcoMMA{10}{5}{$x/\ell$}{$z/\ell$}
+\end{tikzpicture}\\[1pt]{\small\scshape (b)}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.325\textwidth}\centering
+{\footnotesize Campo eléctrico}\\[3pt]
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \panelMMA{10}{mmafondo}{1.2}{\input{figuras/datos/dip_puntual_vf.tex}}
+  \marcoMMA{10}{5}{$x/\ell$}{$z/\ell$}
+\end{tikzpicture}\\[1pt]{\small\scshape (c)}
+\end{minipage}
+\caption{Dipolo eléctrico puntual $\vp=q\vl=p\,\uz$, en el plano meridiano $y=0$ (longitudes en unidades de $\ell$).
+(a)~Equipotenciales $\phi=\text{cte}$, a intervalos iguales de potencial: se apiñan hacia el plano ecuatorial $z=0$, que es la
+equipotencial $\phi=0$. (b)~Equipotenciales (gris) y líneas de campo (azul) con su sentido: salen del polo positivo, se curvan y
+cortan ortogonalmente a las equipotenciales. (c)~Campo eléctrico: la longitud y el color de cada flecha crecen con
+$\norm{\vE}$ (escala logarítmica, de azul a amarillo). El disco blanco central excluye la región $r\lesssim\ell$, donde la
+aproximación de dipolo puntual pierde sentido. Recreación de~\cite{FIGURAS-T2}; las líneas de campo, con separación uniforme como en Mathematica, se han
+calculado con el algoritmo de Jobard y Lefer~\cite{JOBARD}.}
+\label{fig:dipolo-mma}
+\end{figure}

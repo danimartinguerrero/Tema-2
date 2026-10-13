@@ -1,0 +1,31 @@
+% =========================================================================
+% Figura (apuntes manuscritos, pág. 6; teoría, pág. II-5): geometría del
+% desarrollo multipolar. theta' es el ángulo entre r (punto campo) y r'
+% (punto fuente); R = |r - r'|.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
+  \draw[eje] (0,0) -- (0,3.3) node[above, etiq] {$z$};
+  \draw[eje] (0,0) -- (6.4,0) node[right, etiq] {$y$};
+  \draw[eje] (0,0) -- (-1.4,-1.2) node[below left=-2pt, etiq] {$x$};
+  \draw[magacero, line width=0.7pt, fill=rosaclaro!55]
+    plot[smooth cycle, tension=0.8] coordinates {(-1.2,0.6) (-0.5,2.2) (0.9,2.6) (1.9,1.9) (1.6,0.5) (0.5,-0.3) (-0.8,-0.4)};
+  \node[etiq, text=magprof] at (-0.95,1.9) {$V'$};
+  \coordinate (O) at (0,0);
+  \coordinate (Q) at (0.75,1.6);
+  \coordinate (P) at (6.0,2.2);
+  \draw[magprof, line width=0.5pt, fill=white] ($(Q)+(-0.12,-0.12)$) rectangle ($(Q)+(0.12,0.12)$);
+  \node[etiq, font=\footnotesize, anchor=south] at ($(Q)+(0,0.16)$) {$\dif q=\rho\,\dVp$};
+  \draw[vect] (0,0) -- (Q) node[pos=0.5, left=1pt, etiq] {$\rp$};
+  \draw[vect] (0,0) -- (P) node[pos=0.55, below right=-2pt, etiq] {$\vc{r}$};
+  \draw[vectrojo] ($(Q)+(0.13,0)$) -- (P) node[pos=0.55, above=2pt, etiq, text=rojoteo] {$\vc{R}=\vc{r}-\rp$};
+  \pic[draw=magacero, line width=0.5pt, angle radius=0.85cm, "$\theta'$", angle eccentricity=1.38, font=\small] {angle=P--O--Q};
+  \fill[magprof] (P) circle (1.5pt) node[right=2pt, etiq] {$P$};
+  \node[cuadro, anchor=west, font=\footnotesize, align=left] at (7.0,1.1)
+     {$R^{2}=r^{2}+r'^{2}-2rr'\cos\theta'$\\[3pt] $\vc{r}\cdot\rp=rr'\cos\theta'$};
+\end{tikzpicture}
+\caption{Geometría del desarrollo multipolar: el elemento de carga $\dif q=\rho\,\dVp$, en $\rp$, y el punto campo $P$, en $\vc{r}$, forman con el origen el ángulo
+$\theta'$. Cuando $r'\ll r$, el vector $\vc{R}$ es casi paralelo a $\vc{r}$ y $1/R$ admite un desarrollo en potencias de $r'/r$.}
+\label{fig:multipolar-geom}
+\end{figure}

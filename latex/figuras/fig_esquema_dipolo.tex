@@ -1,0 +1,38 @@
+% =========================================================================
+% Figura (clon de «Tema 2. Figuras», diapositiva «Dipolo físico y dipolo
+% puntual»): fuera de una esfera que oculta las fuentes, las líneas de
+% campo de ambos dipolos son casi idénticas. Las líneas son curvas de nivel
+% de la función de corriente de Stokes (flujo constante entre dos
+% consecutivas). Datos: figuras/datos/esq_dip_*_lc.tex.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\newcommand{\esquema}[2]{%
+  \begin{tikzpicture}[x=0.82cm, y=0.82cm]
+    \renewcommand{\LC}[1]{\draw[black, line width=0.5pt] plot coordinates {##1};}%
+    \begin{scope}\clip (-3,-3) rectangle (3,3);
+      \input{figuras/datos/#1}
+      \draw[black, line width=0.5pt] (0,1) -- (0,3) (0,-1) -- (0,-3);
+    \end{scope}
+    \fill[magacero!85] (0,0) circle (1.52);
+    #2
+    \draw[grispizarra!60, line width=0.8pt] (-3,-3) rectangle (3,3);
+  \end{tikzpicture}}
+\begin{minipage}[t]{0.47\textwidth}\centering
+\esquema{esq_dip_fisico_lc.tex}{%
+  \node[circle, fill=white, inner sep=0pt, minimum size=7pt, font=\tiny\bfseries, text=magacero] at (0,0.42) {$+$};
+  \node[circle, fill=white, inner sep=0pt, minimum size=7pt, font=\tiny\bfseries, text=magacero] at (0,-0.42) {$-$};}
+\\[2pt]{\small\scshape (a)\; dipolo físico}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.47\textwidth}\centering
+\esquema{esq_dip_puntual_lc.tex}{%
+  \draw[-{Stealth[length=4pt,width=3.6pt]}, white, line width=1.2pt] (0,-0.45) -- (0,0.5);
+  \node[font=\small, text=white] at (0.32,0.1) {$\vp$};}
+\\[2pt]{\small\scshape (b)\; dipolo puntual}
+\end{minipage}
+\caption{Líneas de campo de (a)~un dipolo físico ($\pm q$ separadas $\ell$) y (b)~un dipolo puntual del mismo momento, vistas fuera de una
+esfera de radio $1{,}5\,\ell$ que oculta las fuentes. Las líneas son las curvas $\Psi=\text{cte}$ de la función de corriente, con
+$\Psi_{f}=\cos\alpha_{-}-\cos\alpha_{+}$ (ángulos medidos desde cada carga) y $\Psi_{p}=\ell\sen^{2}\theta/r$, y se trazan con los mismos valores en
+ambos paneles. Fuera de la esfera son prácticamente indistinguibles. Recreación de~\cite{FIGURAS-T2}.}
+\label{fig:esquema-dipolo}
+\end{figure}

@@ -1,0 +1,59 @@
+% =========================================================================
+% Figura: geometría del dipolo (apuntes manuscritos, págs. 2-3).
+% (a) -q en el origen, +q en el extremo de l; punto campo P, ángulo alpha.
+% (b) dipolo p = p u_z y base esférica en P: u_z = cos(t) u_r - sen(t) u_t.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{minipage}[b]{0.48\textwidth}\centering
+\begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
+  % ejes (perspectiva caballera)
+  \draw[eje] (0,0) -- (0,3.3) node[above, etiq] {$z$};
+  \draw[eje] (0,0) -- (3.6,0) node[right, etiq] {$y$};
+  \draw[eje] (0,0) -- (-1.5,-1.25) node[below left=-2pt, etiq] {$x$};
+  % vectores l, r y R = r - l
+  \coordinate (O) at (0,0);
+  \coordinate (L) at (0.9,1.75);
+  \coordinate (P) at (3.7,2.55);
+  \draw[vect, rojoteo] (O) -- (L) node[midway, left=1pt, etiq, text=rojoteo] {$\vl$};
+  \draw[vect] (O) -- (P) node[midway, below right=-1pt, etiq] {$\vc{r}$};
+  \draw[->, line width=0.6pt, grispizarra, densely dashed] (L) -- (P) node[midway, above=1pt, etiq] {$\vc{r}-\vl$};
+  % ángulo alpha entre l y r
+  \pic[draw=magacero, line width=0.5pt, angle radius=0.75cm, "$\alpha$", angle eccentricity=1.35, font=\small]
+      {angle=P--O--L};
+  \node[carganeg] at (O) {$-$};
+  \node[cargapos] at (L) {$+$};
+  \node[left=4pt, etiq] at (O) {$-q$};
+  \node[above left=1pt, etiq] at (L) {$+q$};
+  \fill[magprof] (P) circle (1.5pt) node[right=2pt, etiq] {$P$};
+\end{tikzpicture}\\[2pt]{\small\scshape (a)}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.48\textwidth}\centering
+\begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
+  \def\t{38}\def\rr{3.0}
+  \draw[eje] (0,-0.6) -- (0,3.6) node[above, etiq] {$z$};
+  \draw[eje] (-0.6,0) -- (3.4,0) node[right, etiq] {$x$};
+  \coordinate (O) at (0,0);
+  \coordinate (Zp) at (0,1);
+  \coordinate (P) at ({\rr*sin(\t)},{\rr*cos(\t)});
+  \draw[vect] (O) -- (P) node[midway, below right=-1pt, etiq] {$\vc{r}$};
+  \draw[->, line width=1.4pt, rojoteo] (0,-0.3) -- (0,0.75) node[left=2pt, etiq, text=rojoteo] {$\vp$};
+  \pic[draw=magacero, line width=0.5pt, angle radius=0.95cm, "$\theta$", angle eccentricity=1.3, font=\small]
+      {angle=P--O--Zp};
+  % base esférica en P
+  \draw[vectverde] (P) -- ++({sin(\t)},{cos(\t)}) node[above right=-2pt, etiq, text=verdeteo] {$\ur$};
+  \draw[vectverde] (P) -- ++({cos(\t)},{-sin(\t)}) node[right=1pt, etiq, text=verdeteo] {$\uth$};
+  % u_z en P y su descomposición
+  \draw[->, line width=0.9pt, magacero] (P) -- ++(0,1) node[above=1pt, etiq, text=magacero] {$\uz$};
+  % componentes de u_z: cos(t) u_r (a lo largo de u_r) y -sen(t) u_t
+  \draw[punteado] ($(P)+({sin(\t)*cos(\t)},{cos(\t)*cos(\t)})$) -- ($(P)+(0,1)$);
+  \fill[magprof] (P) circle (1.5pt) node[left=3pt, etiq] {$P$};
+  \node[etiq, align=left, anchor=west, font=\footnotesize] at (1.5,0.55)
+     {$\uz=\cos\theta\,\ur-\sen\theta\,\uth$};
+\end{tikzpicture}\\[2pt]{\small\scshape (b)}
+\end{minipage}
+\caption{(a)~Dipolo físico con la carga $-q$ en el origen y $+q$ en el extremo de $\vl$; $\alpha$ es el ángulo entre $\vl$ y el vector de
+posición $\vc{r}$ del punto campo $P$, cuya distancia a $+q$ es $\norm{\vc{r}-\vl}$. (b)~Con $\vp=p\,\uz$, el ángulo $\alpha$ es la colatitud
+$\theta$ y el versor $\uz$ se descompone en la base esférica local de $P$ (la línea de puntos marca la proyección $\cos\theta$ de $\uz$ sobre $\ur$).}
+\label{fig:dipolo-geom}
+\end{figure}
