@@ -1,4 +1,3 @@
-# Compilación con: latexmk -pdf main.tex   (pdfLaTeX + biber)
 $pdf_mode = 1;
-$pdflatex = 'pdflatex -interaction=nonstopmode -synctex=1 %O %S';
+$pdflatex = 'pdflatex -shell-escape -interaction=nonstopmode -synctex=1 %O %S';
 $bibtex_use = 2;

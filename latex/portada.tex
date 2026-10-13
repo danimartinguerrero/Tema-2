@@ -12,7 +12,7 @@
 \thispagestyle{empty}
 \pagecolor{white}
 
-\begin{tikzpicture}[remember picture, overlay]
+\tikzexternaldisable\begin{tikzpicture}[remember picture, overlay]
   \coordinate (O) at (current page.south west);
 
   % Velo muy tenue en la mitad superior (cabecera institucional)
@@ -77,6 +77,6 @@
   \node[anchor=south, align=center, inner sep=0, text width=15cm] at ($(O)+(9.9cm,2.9cm)$)
     {{\color{magprof}\scshape\large\textls[100]{\tipotrabajo}}\\[4pt]
      {\color{grispizarra}\scshape\small\textls[80]{\miUbicacion}}};
-\end{tikzpicture}
+\end{tikzpicture}\tikzexternalenable
 
 \end{titlepage}

@@ -69,6 +69,13 @@
                 fadings, shapes.geometric, spy}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
+% Externalización: cada figura TikZ/pgfplots se guarda como PDF en
+% figuras/ext/. Si el PDF existe y el código no ha cambiado (suma MD5), se
+% inserta directamente; así la compilación pasa de ~4 min a unos segundos.
+% Para regenerar una figura basta borrar su PDF (requiere -shell-escape).
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=figuras/ext/]
+\tikzset{external/up to date check=md5}
 \usepgfplotslibrary{colormaps, patchplots, fillbetween}
 \pgfplotsset{colormap={campo}{
   rgb255=(38,30,112) rgb255=(112,36,140) rgb255=(190,52,118)
@@ -244,7 +251,7 @@
 \newcounter{definicion}
 \renewcommand{\thedefinicion}{\theproposicion}
 \newtcolorbox{definicionbox}[1]{%
-  enhanced, breakable, sharp corners,
+  enhanced, breakable, sharp corners, shield externalize,
   colback=magfondo, colframe=magclaro, boxrule=0.4pt,
   left=9pt, right=9pt, top=5pt, bottom=5pt,
   before skip=12pt, after skip=12pt,
