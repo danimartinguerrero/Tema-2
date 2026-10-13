@@ -1,0 +1,44 @@
+% =========================================================================
+% Figura (clon de «Tema 2. Figuras», diapositiva «Equipotenciales»):
+% equipotenciales de los términos monopolar (phi ~ 1/r), dipolar
+% (phi ~ cos t / r^2) y cuadrupolar (phi ~ P2(cos t)/r^3), a intervalos
+% iguales de potencial. Monopolo: circunferencias analíticas; dipolo y
+% cuadrupolo: datos de figuras/datos/{dip,cua}_puntual_eq.tex.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\newcommand{\rotulo}[1]{{\footnotesize #1}\\[3pt]}
+\renewcommand{\EQ}[1]{\draw[mmaEQsolo] plot coordinates {#1};}
+\colorlet{marcoc}{grispizarra!60}
+\begin{minipage}[t]{0.325\textwidth}\centering
+\rotulo{Término monopolar ($\ell=0$)}
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \panelMMA{10}{white}{0}{%
+    \foreach \k in {0,...,12}{\pgfmathsetmacro{\rr}{1/(0.1+0.0194*\k)}\draw[mmaEQsolo] (0,0) circle (\rr);}}
+  \marcoMMA{10}{5}{$x$ (u.\,arb.)}{$z$ (u.\,arb.)}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.325\textwidth}\centering
+\rotulo{Término dipolar ($\ell=1$)}
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \panelMMA{10}{white}{0}{%
+    \input{figuras/datos/dip_puntual_eq.tex}
+    \draw[mmaEQsolo] (-10,0) -- (10,0);}
+  \fill[white] (0,0) circle (2.0);
+  \marcoMMA{10}{5}{$x$ (u.\,arb.)}{$z$ (u.\,arb.)}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.325\textwidth}\centering
+\rotulo{Término cuadrupolar ($\ell=2$)}
+\begin{tikzpicture}[x=0.198cm, y=0.198cm]
+  \panelMMA{10}{white}{0}{\input{figuras/datos/cua_puntual_eq.tex}}
+  \fill[white] (0,0) circle (2.0);
+  \marcoMMA{10}{5}{$x$ (u.\,arb.)}{$z$ (u.\,arb.)}
+\end{tikzpicture}
+\end{minipage}
+\caption{Equipotenciales, a intervalos iguales de potencial, de los tres primeros términos del desarrollo multipolar con simetría de revolución alrededor de $z$:
+monopolar (esferas $r=\text{cte}$, que se apiñan hacia el centro porque $\phi\propto1/r$), dipolar ($r^{2}\propto\cos\theta$, dos lóbulos de signo opuesto separados por
+el plano $z=0$) y cuadrupolar ($r^{3}\propto3\cos^{2}\theta-1$, cuatro lóbulos separados por el cono nodal $\cos^{2}\theta=1/3$, las rectas oblicuas). Recreación
+de~\cite{FIGURAS-T2}.}
+\label{fig:equipotenciales}
+\end{figure}

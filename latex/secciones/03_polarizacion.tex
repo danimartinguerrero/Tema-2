@@ -1,0 +1,109 @@
+% =========================================================================
+\section{Distribuciones de dipolos: la polarización}\label{sec:polarizacion}
+% =========================================================================
+Del mismo modo que una distribución continua de carga es el paso al continuo de un sistema de cargas puntuales, $\rho=\dif q/\dVp$,
+podemos considerar una distribución continua de \emph{dipolos}. Es la situación de un material dieléctrico, en el que un número enorme de
+dipolos moleculares, muy próximos entre sí, ocupa una región $V'$ del espacio.
+
+% -------------------------------------------------------------------------
+\subsection{Densidad de momento dipolar}\label{sec:pol-def}
+% -------------------------------------------------------------------------
+\begin{definicion}[Polarización]\label{def:polarizacion}
+Sea una región $V'$ con una distribución continua de dipolos. Se llama \emph{polarización} al campo vectorial
+\begin{equation}\label{eq:polarizacion}
+  \vP(\rp)=\frac{\dif\vp}{\dVp},\qquad\text{es decir,}\qquad \dif\vp=\vP(\rp)\,\dVp ,
+\end{equation}
+momento dipolar por unidad de volumen en el punto fuente $\rp$. Su unidad es $[\vP]=\mathrm{C\,m}/\mathrm{m^{3}}=\mathrm{C/m^{2}}$, la misma que la de una
+densidad superficial de carga.
+\end{definicion}
+
+\begin{observacion}[Analogía con la densidad de carga]\label{obs:analogia}
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}lcc@{}}
+  \toprule
+  & \textsc{Carga puntual} & \textsc{Dipolo puntual}\\
+  \midrule
+  Magnitud discreta & $q$ & $\vp$\\
+  Densidad continua & $\rho(\rp)=\dif q/\dVp$ & $\vP(\rp)=\dif\vp/\dVp$\\
+  Unidad de la densidad & $\mathrm{C/m^{3}}$ & $\mathrm{C/m^{2}}$\\
+  Potencial elemental & $\dfrac{\dif q}{4\pi\eo R}$ & $\dfrac{\dif\vp\cdot\uR}{4\pi\eo R^{2}}$\\
+  \bottomrule
+\end{tabular}
+\end{center}
+La polarización es una magnitud fundamental en el estudio de los materiales dieléctricos, que abordaremos más adelante en el curso.
+\end{observacion}
+
+\input{figuras/fig_polarizacion}
+
+% -------------------------------------------------------------------------
+\subsection{Potencial de una distribución de dipolos}\label{sec:pol-potencial}
+% -------------------------------------------------------------------------
+Cada elemento de volumen $\dVp$ situado en $\rp$ contiene un dipolo $\dif\vp=\vP\,\dVp$ que, por la \cref{prop:dipolo-Rp}, crea en $\vc{r}$ el potencial
+$\dif\phi=\dif\vp\cdot\uR/(4\pi\eo R^{2})$ (\cref{fig:polarizacion}). Por superposición,
+\begin{equation}\label{eq:pot-polarizacion}
+  \phi(\vc{r})=\frac{1}{4\pi\eo}\int_{V'}\frac{\vP(\rp)\cdot\uR}{R^{2}}\,\dVp=\frac{1}{4\pi\eo}\int_{V'}\frac{\vP(\rp)\cdot\vc{R}}{R^{3}}\,\dVp .
+\end{equation}
+Esta integral tiene una interpretación sorprendente: el potencial es el mismo que crearía una cierta distribución de \emph{carga}, en volumen y en la
+superficie que limita $V'$.
+
+\begin{lema}[Gradiente de $1/R$ respecto de las coordenadas fuente]\label{lem:grad-1R}
+Para $\vc{r}\neq\rp$,
+\begin{equation}\label{eq:grad-1R}
+  \nabp\Bigl(\frac{1}{R}\Bigr)=\frac{\vc{R}}{R^{3}}=\frac{\uR}{R^{2}}=-\nab\Bigl(\frac{1}{R}\Bigr).
+\end{equation}
+\end{lema}
+\begin{proof}
+Es el gradiente de $R^{n}$ con $n=-1$ estudiado en el Tema~0~\cite{TEMA0}: $\nab R^{n}=nR^{n-1}\uR$, de donde $\nab(1/R)=-\uR/R^{2}$. Como
+$\vc{R}=\vc{r}-\rp$, derivar respecto de $x'_j$ equivale a derivar respecto de $x_j$ cambiando el signo, luego $\nabp(1/R)=+\uR/R^{2}$.
+\end{proof}
+
+\begin{teorema}[Cargas de polarización]\label{teo:cargas-pol}
+Sea $\vP$ una polarización de clase $C^{1}$ en una región $V'$ limitada por una superficie cerrada $S'=\partial V'$ con normal unitaria exterior
+$\un$. El potencial \cref{eq:pot-polarizacion} es
+\begin{equation}\label{eq:pot-cargas-pol}
+  \phi(\vc{r})=\frac{1}{4\pi\eo}\int_{V'}\frac{\rhoP(\rp)}{R}\,\dVp+\frac{1}{4\pi\eo}\oiint_{S'}\frac{\sigP(\rp)}{R}\,\dSp,
+\end{equation}
+donde
+\begin{equation}\label{eq:densidades-pol}
+  \boxed{\;\rhoP=-\nabp\cdot\vP,\qquad \sigP=\vP\cdot\un\;}
+\end{equation}
+son las \emph{densidades volúmica y superficial de carga de polarización}.
+\end{teorema}
+\begin{proof}
+Por el \cref{lem:grad-1R}, el integrando de \cref{eq:pot-polarizacion} es $\vP\cdot\nabp(1/R)$. La regla del producto para la divergencia,
+$\nabp\cdot(f\vc{A})=f\,\nabp\cdot\vc{A}+\vc{A}\cdot\nabp f$, con $f=1/R$ y $\vc{A}=\vP$, da
+\[
+  \nabp\cdot\Bigl(\frac{\vP}{R}\Bigr)=\frac{\nabp\cdot\vP}{R}+\vP\cdot\nabp\Bigl(\frac{1}{R}\Bigr)
+  \quad\Longrightarrow\quad
+  \frac{\vP\cdot\uR}{R^{2}}=-\frac{\nabp\cdot\vP}{R}+\nabp\cdot\Bigl(\frac{\vP}{R}\Bigr).
+\]
+Integrando en $V'$,
+\[
+  \phi(\vc{r})=\frac{1}{4\pi\eo}\Biggl[\int_{V'}\frac{-\nabp\cdot\vP}{R}\,\dVp+\int_{V'}\nabp\cdot\Bigl(\frac{\vP}{R}\Bigr)\dVp\Biggr],
+\]
+y por el teorema de la divergencia (de Gauss)~\cite{TEMA0}, con $\dif\vc{S}\,'=\dSp\,\un$, la segunda integral es
+$\oiint_{S'}\frac{\vP\cdot\un}{R}\,\dSp$. Basta llamar $\rhoP$ y $\sigP$ a los numeradores. (Si $\vc{r}\in V'$, la singularidad en $R=0$ es integrable y
+el resultado se mantiene excluyendo una pequeña esfera alrededor de $\vc{r}$ y haciendo tender su radio a cero.)
+\end{proof}
+
+\begin{observacion}[Cargas ligadas]\label{obs:ligadas}
+Comparando \cref{eq:pot-cargas-pol} con el potencial de una distribución de carga (\cref{eq:integrales}), una distribución de dipolos equivale, a efectos de
+potencial y de campo, a una carga $\rhoP$ en volumen más una carga $\sigP$ en superficie. Estas cargas no son libres: proceden del desplazamiento
+microscópico de las cargas ligadas de cada molécula, y por eso la terminología habitual de los dieléctricos las llama \emph{cargas ligadas}. La normal
+$\un$ apunta, por convenio, hacia fuera del volumen. Físicamente, $\sigP$ es la carga que «asoma» en la superficie al no estar compensada por la
+molécula vecina, y $\rhoP$ aparece donde la polarización no es uniforme (si $\vP$ es constante, $\rhoP=0$ y solo hay carga superficial).
+\end{observacion}
+
+\begin{proposicion}[La carga total de polarización es nula]\label{prop:carga-pol-nula}
+\begin{equation}\label{eq:carga-pol-nula}
+  Q_{P}=\int_{V'}\rhoP\,\dVp+\oiint_{S'}\sigP\,\dSp=0 .
+\end{equation}
+\end{proposicion}
+\begin{proof}
+Por el teorema de la divergencia,
+\[
+  Q_{P}=-\int_{V'}\nabp\cdot\vP\,\dVp+\oiint_{S'}\vP\cdot\un\,\dSp=-\oiint_{S'}\vP\cdot\dif\vc{S}\,'+\oiint_{S'}\vP\cdot\dif\vc{S}\,'=0 .
+\]
+Es lo esperable: cada dipolo es neutro, y por tanto también lo es cualquier conjunto de ellos.
+\end{proof}

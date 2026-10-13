@@ -1,0 +1,25 @@
+% =========================================================================
+% Figura (apuntes manuscritos, pág. 12): interpretación del signo de Q_zz y
+% de las componentes fuera de la diagonal. Elipses sombreadas en la paleta
+% del documento (sección meridiana de la distribución de carga positiva).
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\newcommand{\forma}[4]{% semieje x, semieje z, giro, rótulo
+  \begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
+    \draw[eje] (0,-1.55) -- (0,1.65) node[above, etiq, font=\footnotesize] {$z$};
+    \draw[eje] (-1.55,0) -- (1.65,0) node[right, etiq, font=\footnotesize] {$x$};
+    \shade[rotate=#3, inner color=magacero!55, outer color=rosaclaro!60, opacity=0.9] (0,0) ellipse ({#1} and {#2});
+    \draw[rotate=#3, magacero, line width=0.7pt] (0,0) ellipse ({#1} and {#2});
+    \draw[rotate=#3, densely dashed, magprof, line width=0.4pt] (0,{-#2-0.15}) -- (0,{#2+0.15});
+    \node[font=\footnotesize, align=center] at (0,-2.05) {#4};
+  \end{tikzpicture}}
+\forma{0.55}{1.3}{0}{$Q_{zz}>0$: alargada\\(«cigarro»)}\hfill
+\forma{1.3}{0.55}{0}{$Q_{zz}<0$: achatada\\(«disco»)}\hfill
+\forma{0.95}{0.95}{0}{$Q_{zz}=0$: sin deformación\\(simetría esférica)}\hfill
+\forma{0.55}{1.3}{-35}{$Q_{xz}\neq0$: girada\\(ejes principales oblicuos)}
+\caption{Lectura geométrica del tensor cuadrupolar de una distribución de carga positiva. Con simetría de revolución alrededor de $z$, el signo de $Q_{zz}$ distingue una
+carga alargada a lo largo del eje de una achatada; las componentes fuera de la diagonal no nulas indican que los ejes principales (a trazos) están girados respecto de los
+ejes coordenados.}
+\label{fig:formas}
+\end{figure}

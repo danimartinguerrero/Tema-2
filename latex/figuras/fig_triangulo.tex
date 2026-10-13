@@ -1,0 +1,48 @@
+% =========================================================================
+% Figura: el «triángulo» de la electrostática (apuntes manuscritos, pág. 1).
+% Vértices rho, phi, E; en cada lado, la relación que permite pasar de una
+% descripción a otra (integración directa, derivación o ecuación diferencial).
+% Las flechas de ida van por fuera del triángulo y las de vuelta por dentro,
+% con los rótulos en el lado correspondiente para que no se superpongan.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm,
+    vert/.style={draw=magacero, line width=0.6pt, fill=magfondo, rounded corners=2pt,
+                 inner sep=5pt, minimum width=1.45cm, minimum height=0.75cm, font=\normalsize},
+    rel/.style={font=\footnotesize, text=black!85, inner sep=1.5pt},
+    ida/.style={-{Stealth[length=5pt,width=4pt]}, line width=0.7pt, magacero, shorten >=17pt, shorten <=17pt},
+    vuelta/.style={-{Stealth[length=5pt,width=4pt]}, line width=0.7pt, grispizarra, shorten >=17pt, shorten <=17pt}]
+  \coordinate (A) at (0,4.2);   % rho
+  \coordinate (B) at (-3.8,0);  % phi
+  \coordinate (C) at (3.8,0);   % E
+  % normales unitarias exteriores de los lados izquierdo y derecho
+  \coordinate (nI) at (-0.742,0.671);
+  \coordinate (nD) at (0.742,0.671);
+  % lado izquierdo: rho -> phi (por fuera), phi -> rho (por dentro)
+  \draw[ida]    ($(A)+0.13*(nI)$) -- ($(B)+0.13*(nI)$);
+  \draw[vuelta] ($(B)-0.13*(nI)$) -- ($(A)-0.13*(nI)$);
+  \node[rel, anchor=south east] at ($(A)!0.5!(B)+0.25*(nI)$)
+       {$\displaystyle\phi=\frac{1}{4\pi\eo}\int_{V'}\frac{\rho}{R}\,\dVp$};
+  \node[rel, anchor=north west] at ($(A)!0.57!(B)-0.2*(nI)$) {$\Lap\phi=-\dfrac{\rho}{\eo}$};
+  % lado derecho: rho -> E (por fuera), E -> rho (por dentro)
+  \draw[ida]    ($(A)+0.13*(nD)$) -- ($(C)+0.13*(nD)$);
+  \draw[vuelta] ($(C)-0.13*(nD)$) -- ($(A)-0.13*(nD)$);
+  \node[rel, anchor=south west] at ($(A)!0.5!(C)+0.25*(nD)$)
+       {$\displaystyle\vE=\frac{1}{4\pi\eo}\int_{V'}\frac{\rho\,\vc{R}}{R^{3}}\,\dVp$};
+  \node[rel, anchor=north east] at ($(A)!0.57!(C)-0.2*(nD)$) {$\nab\cdot\vE=\dfrac{\rho}{\eo}$};
+  % base: phi -> E (derivación) y E -> phi (integral de línea)
+  \draw[ida]    ($(B)+(0,0.13)$) -- ($(C)+(0,0.13)$);
+  \draw[vuelta] ($(C)-(0,0.13)$) -- ($(B)-(0,0.13)$);
+  \node[rel, anchor=south] at (0,0.22) {$\vE=-\nab\phi$};
+  \node[rel, anchor=north] at (0,-0.22) {$\displaystyle\phi(\vc{r})-\phi(\vc{r}_0)=-\int_{\vc{r}_0}^{\vc{r}}\vE\cdot\dl$};
+  % vértices
+  \node[vert] at (A) {$\rho(\rp)$};
+  \node[vert] at (B) {$\phi(\vc{r})$};
+  \node[vert] at (C) {$\vE(\vc{r})$};
+\end{tikzpicture}
+\caption{Las tres descripciones equivalentes de un problema electrostático (\cref{prop:triangulo}). Las flechas magenta (exteriores) se recorren
+\emph{integrando} sobre las fuentes o \emph{derivando}; las grises (interiores), resolviendo una ecuación diferencial o integrando a lo largo de un
+camino. El desarrollo multipolar aproxima la flecha $\rho\to\phi$, que es la más difícil de recorrer en la práctica.}
+\label{fig:triangulo}
+\end{figure}

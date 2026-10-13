@@ -1,0 +1,57 @@
+% =========================================================================
+% Figura del problema 2.1: (a) geometría de la barra (apuntes manuscritos,
+% pág. 23) y (b) error relativo de la aproximación multipolar frente al
+% potencial exacto. Datos: figuras/datos/error_barra.dat.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{minipage}[c]{0.36\textwidth}\centering
+\begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
+  \draw[eje] (0,-1.9) -- (0,2.6) node[above, etiq] {$z$};
+  \draw[eje] (0,0) -- (2.9,-0.55) node[right, etiq] {$y$};
+  \draw[eje] (0,0) -- (-1.1,-0.95) node[below left=-2pt, etiq] {$x$};
+  % barra
+  \fill[magacero!85] (-0.06,-1.3) rectangle (0.06,1.3);
+  \draw[fino] (0.15,1.3) -- (0.75,1.3) (0.15,-1.3) -- (0.75,-1.3);
+  \draw[<->, fino] (0.6,-1.3) -- node[pos=0.22, right=1pt, etiq, font=\footnotesize] {$\ell$} (0.6,1.3);
+  \node[etiq, font=\footnotesize, anchor=east] at (-0.12,1.45) {$\ell/2$};
+  \node[etiq, font=\footnotesize, anchor=east] at (-0.12,-1.45) {$-\ell/2$};
+  % elemento de carga
+  \coordinate (Q) at (0,0.95);
+  \fill[white, draw=magprof, line width=0.5pt] (-0.1,0.85) rectangle (0.1,1.05);
+  \node[etiq, font=\footnotesize, anchor=east] at (-0.12,0.95) {$\dif q$};
+  % punto campo
+  \coordinate (O) at (0,0);
+  \coordinate (Zp) at (0,1);
+  \coordinate (P) at (2.4,2.45);
+  \draw[vect] (O) -- (P) node[pos=0.55, below right=-1pt, etiq] {$\vc{r}$};
+  \draw[->, line width=0.6pt, grispizarra, densely dashed] (Q) -- (P) node[pos=0.55, above=1pt, etiq] {$\vc{R}$};
+  \pic[draw=magacero, line width=0.5pt, angle radius=0.42cm, "$\theta$", angle eccentricity=1.45, font=\small] {angle=P--O--Zp};
+  \fill[magprof] (P) circle (1.5pt) node[right=2pt, etiq] {$P(r,\theta,\varphi)$};
+\end{tikzpicture}\\[2pt]{\small\scshape (a)}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.62\textwidth}\centering
+\begin{tikzpicture}
+\begin{loglogaxis}[marcoMMA, width=8.6cm, height=5.6cm, xmin=1, xmax=100, ymin=1e-9, ymax=40,
+                   xlabel={$r/\ell$}, ylabel={error relativo (\%)},
+                   every axis plot/.style={line width=1.05pt},
+                   ytick={1e-8,1e-6,1e-4,1e-2,1}, xtick={1,10,100}, xticklabels={$1$,$10$,$100$},
+                   legend pos=south west, legend cell align=left, legend style={font=\tiny}]
+  \addplot[mmanaranja]                table[x=x, y=e0eje] {figuras/datos/error_barra.dat};
+  \addplot[mmanaranja, densely dashed] table[x=x, y=e0ecu] {figuras/datos/error_barra.dat};
+  \addplot[mmaazul]                   table[x=x, y=e2eje] {figuras/datos/error_barra.dat};
+  \addplot[mmaazul, densely dashed]    table[x=x, y=e2ecu] {figuras/datos/error_barra.dat};
+  \draw[rojoteo, line width=0.6pt] (axis cs:1,1) -- (axis cs:100,1);
+  \draw[grispizarra, line width=0.6pt, densely dotted] (axis cs:10,1e-9) -- (axis cs:10,40);
+  \node[font=\tiny, text=rojoteo, anchor=south east] at (axis cs:95,1) {$1\%$};
+  \node[font=\tiny, text=grispizarra, anchor=south west, rotate=90, xshift=2pt] at (axis cs:10,3e-9) {$r=10\ell$};
+  \legend{$\phimul{0}$; eje, $\phimul{0}$; ecuador, $\phimul{0}+\phimul{2}$; eje, $\phimul{0}+\phimul{2}$; ecuador}
+\end{loglogaxis}
+\end{tikzpicture}\\[2pt]{\small\scshape (b)}
+\end{minipage}
+\caption{Problema~2.1. (a)~Barra de longitud $\ell$ y densidad $\lambda$ sobre el eje $z$, centrada en el origen; el elemento de carga $\dif q=\lambda\,\dif z'$, en $z'$, y el punto campo $P$.
+(b)~Error relativo, frente al potencial exacto, de la aproximación monopolar (naranja) y monopolar más cuadrupolar (azul), sobre el eje ($\theta=0$, continua) y en el plano
+ecuatorial ($\theta=\pi/2$, a trazos). Para $r>10\ell$ (punteada) ambas aproximaciones quedan por debajo del $1\%$; la que incluye el término cuadrupolar mejora el resultado en
+unos tres órdenes de magnitud.}
+\label{fig:sem-barra}
+\end{figure}

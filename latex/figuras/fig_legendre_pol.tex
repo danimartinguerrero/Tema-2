@@ -1,0 +1,25 @@
+% =========================================================================
+% Figura del apéndice: polinomios de Legendre P_0 ... P_4 en [-1,1]
+% (analíticos, pgfplots), con la banda |P_l| <= 1 sombreada.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[tema, width=10.5cm, height=6cm, xmin=-1, xmax=1, ymin=-1.08, ymax=1.08,
+             xlabel={$x$}, ylabel={$\Pl{\ell}(x)$}, domain=-1:1, samples=161,
+             every axis plot/.style={line width=1.1pt},
+             xtick={-1,-0.5,0,0.5,1}, ytick={-1,-0.5,0,0.5,1},
+             legend pos=outer north east, legend cell align=left,
+             legend style={font=\scriptsize, draw=none}]
+  \addplot[magacero]                 {1};
+  \addplot[rojoclaro]                {x};
+  \addplot[pizarra]                  {0.5*(3*x^2-1)};
+  \addplot[verdeteo]                 {0.5*(5*x^3-3*x)};
+  \addplot[magprof, densely dashed]  {(35*x^4-30*x^2+3)/8};
+  \legend{$\Pl{0}$, $\Pl{1}$, $\Pl{2}$, $\Pl{3}$, $\Pl{4}$}
+\end{axis}
+\end{tikzpicture}
+\caption{Los cinco primeros polinomios de Legendre en $[-1,1]$. Todos valen $1$ en $x=1$, tienen la paridad de $\ell$, $\ell$ ceros en $(-1,1)$ y están acotados por $1$ en valor
+absoluto (\cref{lem:legendre-cota}). El cero de $\Pl{2}$ en $x=1/\sqrt3$ define el cono nodal del término cuadrupolar.}
+\label{fig:legendre-pol}
+\end{figure}

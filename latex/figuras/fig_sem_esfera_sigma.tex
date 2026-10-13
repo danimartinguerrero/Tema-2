@@ -1,0 +1,74 @@
+% =========================================================================
+% Figura del problema 2.4 (apuntes manuscritos, pág. 19): (a) esfera con
+% sigma = sigma_0 cos(theta) (signos con densidad proporcional a |cos t|) y
+% su momento dipolar; (b) líneas de campo exactas (analíticas): dipolares,
+% r = C sen^2(t), fuera, y uniformes (verticales, hacia -z) dentro, con las
+% equipotenciales a trazos (r^2 = a^2 cos t / cos t1 fuera, z = cte dentro).
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\begin{minipage}[b]{0.45\textwidth}\centering
+\begin{tikzpicture}[x=1cm, y=1cm, >=Stealth]
+  \def\ra{1.55}
+  \draw[eje] (0,-2.1) -- (0,2.4) node[above, etiq] {$z$};
+  \draw[eje] (-2.1,0) -- (2.4,0) node[right, etiq] {$x$};
+  \shade[inner color=white, outer color=rosaclaro] (0,0) circle (\ra);
+  \draw[magacero, line width=0.8pt] (0,0) circle (\ra);
+  % signos: más densos cerca de los polos (|sigma| ~ |cos t|)
+  \foreach \t in {8,22,36,50,64}{%
+    \foreach \s in {1,-1}{%
+      \pgfmathsetmacro{\tam}{0.35+0.65*cos(\t)}%
+      \node[font=\scriptsize\bfseries, text=rojoteo, scale=\tam] at ({\s*(\ra+0.22)*sin(\t)},{(\ra+0.22)*cos(\t)}) {$+$};
+      \node[font=\scriptsize\bfseries, text=pizarra, scale=\tam] at ({\s*(\ra+0.22)*sin(\t)},{-(\ra+0.22)*cos(\t)}) {$-$};}}
+  % momento dipolar
+  \draw[->, line width=1.6pt, magprof] (0,-0.55) -- (0,0.75) node[left=1pt, etiq, text=magprof] {$\vp$};
+  % punto fuente y ángulo
+  \coordinate (O) at (0,0);
+  \coordinate (Zp) at (0,1);
+  \coordinate (S) at ({\ra*sin(52)},{\ra*cos(52)});
+  \draw[vect, rojoteo] (O) -- (S);
+  \node[etiq, text=rojoteo, font=\footnotesize, anchor=west] at (1.74,0.55) {$\rp=a\,\ur$};
+  \draw[rojoteo!60, line width=0.3pt] (1.76,0.55) -- (0.72,0.52);
+  \pic[draw=magacero, line width=0.5pt, angle radius=0.62cm, "$\theta'$", angle eccentricity=1.35, font=\scriptsize] {angle=S--O--Zp};
+  \fill[magprof] (S) circle (1.3pt) node[above right=0pt, etiq, font=\footnotesize] {$\dSp$};
+\end{tikzpicture}\\[2pt]{\small\scshape (a)}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.5\textwidth}\centering
+\begin{tikzpicture}[x=0.95cm, y=0.95cm, >=Stealth]
+  \def\ra{1.2}
+  \begin{scope}
+    \clip (-3,-2.6) rectangle (3,2.6);
+    % equipotenciales (a trazos)
+    \foreach \tu in {40,70}{%
+      \foreach \s in {1,-1}{%
+        \draw[lequi] ({-\ra*sin(\tu)},{\s*\ra*cos(\tu)}) -- ({\ra*sin(\tu)},{\s*\ra*cos(\tu)});
+        \draw[lequi, domain=0:89, samples=60, variable=\t]
+          plot ({\ra*sqrt(cos(\t)/cos(\tu))*sin(\t)},{\s*\ra*sqrt(cos(\t)/cos(\tu))*cos(\t)});
+        \draw[lequi, domain=0:89, samples=60, variable=\t]
+          plot ({-\ra*sqrt(cos(\t)/cos(\tu))*sin(\t)},{\s*\ra*sqrt(cos(\t)/cos(\tu))*cos(\t)});}}
+    \draw[lequi] (-3,0) -- (3,0);
+    % líneas de campo exteriores: r = a sen^2(t)/sen^2(t0), de t0 a 180-t0
+    \foreach \tc in {22,38,56}{%
+      \pgfmathsetmacro{\C}{\ra/(sin(\tc)^2)}%
+      \foreach \s in {1,-1}{%
+        \draw[lcampo, domain=\tc:180-\tc, samples=90, variable=\t]
+          plot ({\s*\C*sin(\t)^3},{\C*sin(\t)^2*cos(\t)});}}
+    % líneas de campo interiores: verticales, hacia -z
+    \foreach \tc in {22,38,56}{%
+      \foreach \s in {1,-1}{%
+        \draw[lcampo] ({\s*\ra*sin(\tc)},{\ra*cos(\tc)}) -- ({\s*\ra*sin(\tc)},{-\ra*cos(\tc)});}}
+    \draw[lcampo] (0,\ra) -- (0,-\ra);
+    \draw[lcampoinv] (0,2.6) -- (0,\ra);
+    \draw[lcampo] (0,-\ra) -- (0,-2.6);
+  \end{scope}
+  \draw[magprof, line width=0.8pt] (0,0) circle (\ra);
+  \draw[grispizarra!60, line width=0.5pt] (-3,-2.6) rectangle (3,2.6);
+  \node[etiq, font=\scriptsize, fill=white, inner sep=0.8pt] at (0.25,-0.32) {$\vE_{\mathrm{int}}$};
+\end{tikzpicture}\\[2pt]{\small\scshape (b)}
+\end{minipage}
+\caption{Problema~2.4. (a)~Esfera de radio $a$ con densidad superficial $\sigma=\sigma_0\cos\theta$: positiva en el hemisferio norte y negativa en el sur (el tamaño de cada signo
+crece con $\abs{\sigma}$), y su momento dipolar $\vp=\frac43\pi a^{3}\sigma_0\,\uz$. (b)~Líneas de campo exactas (magenta) y equipotenciales (a trazos) en un plano meridiano: fuera de
+la esfera el campo es el de un dipolo puntual en el centro, $r=C\sen^{2}\theta$; dentro, uniforme y dirigido según $-\uz$. Las líneas nacen en el hemisferio positivo y mueren en
+el negativo, tanto por fuera como por dentro.}
+\label{fig:sem-esfera-sigma}
+\end{figure}

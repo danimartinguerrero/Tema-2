@@ -1,0 +1,36 @@
+% =========================================================================
+% Figura del problema 2.3 (apuntes manuscritos, pág. 19): paralelepípedo
+% [-a,a]x[-b,b]x[-c,c] uniformemente cargado, con el origen en su centro.
+% =========================================================================
+\begin{figure}[ht]
+\centering
+\tdplotsetmaincoords{68}{122}
+\begin{tikzpicture}[tdplot_main_coords, scale=1.05, >=Stealth]
+  \def\A{1.5}\def\B{2.1}\def\C{1.0}
+  % caras ocultas (aristas a trazos)
+  \draw[magacero!70, densely dashed, line width=0.5pt] (-\A,-\B,-\C) -- (\A,-\B,-\C) (-\A,-\B,-\C) -- (-\A,\B,-\C) (-\A,-\B,-\C) -- (-\A,-\B,\C);
+  % caras visibles
+  \fill[rosaclaro, opacity=0.55] (\A,-\B,-\C) -- (\A,\B,-\C) -- (\A,\B,\C) -- (\A,-\B,\C) -- cycle;
+  \fill[rosaclaro!70, opacity=0.55] (-\A,\B,-\C) -- (\A,\B,-\C) -- (\A,\B,\C) -- (-\A,\B,\C) -- cycle;
+  \fill[rosaclaro!45, opacity=0.6] (-\A,-\B,\C) -- (\A,-\B,\C) -- (\A,\B,\C) -- (-\A,\B,\C) -- cycle;
+  \draw[magacero, line width=0.7pt] (\A,-\B,-\C) -- (\A,\B,-\C) -- (-\A,\B,-\C) -- (-\A,\B,\C) -- (-\A,-\B,\C) -- (\A,-\B,\C) -- cycle;
+  \draw[magacero, line width=0.7pt] (\A,\B,-\C) -- (\A,\B,\C) -- (-\A,\B,\C) (\A,\B,\C) -- (\A,-\B,\C);
+  % ejes por el centro
+  \draw[eje] (0,0,0) -- (2.9,0,0) node[anchor=north east, etiq] {$x$};
+  \draw[eje] (0,0,0) -- (0,3.3,0) node[anchor=west, etiq] {$y$};
+  \draw[eje] (0,0,0) -- (0,0,2.2) node[anchor=south, etiq] {$z$};
+  % elemento de volumen
+  \coordinate (Q) at (1.0,0.6,0.3);
+  \draw[vect] (0,0,0) -- (Q) node[pos=0.55, anchor=north west, etiq] {$\rp$};
+  \fill[white, draw=magprof, line width=0.5pt] (Q) circle (2pt);
+  \node[etiq, font=\footnotesize, anchor=south west] at ($(Q)+(0,0.08,0.05)$) {$\dVp$};
+  % cotas
+  \draw[<->, fino] (\A+0.25,-\B,-\C) -- node[anchor=north, etiq, font=\footnotesize] {$2b$} (\A+0.25,\B,-\C);
+  \draw[<->, fino] (\A,\B+0.25,-\C) -- node[anchor=north west, etiq, font=\footnotesize] {$2a$} (-\A,\B+0.25,-\C);
+  \draw[<->, fino] (\A,\B+0.25,-\C) -- node[anchor=west, etiq, font=\footnotesize] {$2c$} (\A,\B+0.25,\C);
+  \node[etiq, text=magprof, anchor=south east] at (-\A,-\B,\C) {$\rho=\dfrac{Q}{8abc}$};
+\end{tikzpicture}
+\caption{Problema~2.3. Paralelepípedo de lados $2a$, $2b$, $2c$ con carga $Q$ uniforme, centrado en el origen y con las aristas paralelas a los ejes. La simetría de inversión anula
+el momento dipolar y todas las componentes no diagonales del tensor cuadrupolar.}
+\label{fig:sem-paralelepipedo}
+\end{figure}

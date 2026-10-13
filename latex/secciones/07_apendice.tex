@@ -1,0 +1,76 @@
+% =========================================================================
+\clearpage
+\appendix
+\section{Formulario del tema y herramientas auxiliares}\label{app:formulario}
+% =========================================================================
+Recogemos aquí, en el orden en que aparecen en el formulario del curso~\cite{FORMULARIO}, las expresiones del Tema~2, junto con las propiedades de los polinomios de
+Legendre y las integrales angulares que se han usado repetidamente.
+
+% -------------------------------------------------------------------------
+\subsection{Formulario del Tema 2: multipolos eléctricos}\label{app:tabla}
+% -------------------------------------------------------------------------
+\begin{table}[ht]
+\centering
+\caption{Formulario del Tema~2. Entre paréntesis, el resultado del texto donde se obtiene cada expresión.}
+\label{tab:formulario}
+\renewcommand{\arraystretch}{2.05}
+\small
+\begin{tabular}{@{}>{\centering\arraybackslash}p{0.5\textwidth}>{\raggedright\arraybackslash}p{0.43\textwidth}@{}}
+  \toprule
+  \textsc{Expresión} & \textsc{Significado}\\
+  \midrule
+  $\displaystyle\vp=\lim_{q\to\infty,\ \ell\to0}q\,\vl$ & Dipolo eléctrico puntual (\cref{def:dipolo-puntual})\\
+  $\displaystyle\phi(\vc{r})=\frac{\vp\cdot\ur}{4\pi\eo r^{2}}$,\quad $\displaystyle\vE(\vc{r})=\frac{p}{4\pi\eo r^{3}}\bigl(2\cos\theta\,\ur+\sen\theta\,\uth\bigr)$\newline
+  $\displaystyle\vE(\vc{r})=\frac{1}{4\pi\eo r^{3}}\bigl[3(\vp\cdot\ur)\,\ur-\vp\bigr]$
+     & Potencial y campo creados por un dipolo (\cref{prop:pot-dipolo,teo:campo-dipolo})\\
+  $\displaystyle\vP(\rp)=\frac{\dif\vp(\rp)}{\dVp}$ & Polarización, densidad de momento dipolar (\cref{def:polarizacion})\\
+  $\rhoP(\rp)=-\nabp\cdot\vP(\rp)$,\quad $\sigP(\rp)=\vP(\rp)\cdot\un$ & Densidades de carga de polarización (\cref{teo:cargas-pol})\\
+  $\displaystyle\phi(\vc{r})=\frac{1}{4\pi\eo}\sum_{\ell=0}^{\infty}\frac{1}{r^{\ell+1}}\int_{V'}r'^{\,\ell}\rho(\rp)\,\Pl{\ell}(\cosp)\,\dVp$ & Desarrollo multipolar del potencial (\cref{teo:multipolar})\\
+  $\displaystyle\phimul{0}(\vc{r})=\frac{Q}{4\pi\eo r}$,\quad $\displaystyle Q=\int_{V'}\rho(\rp)\,\dVp$ & Término monopolar, $\ell=0$ (\cref{prop:monopolar})\\
+  $\displaystyle\phimul{1}(\vc{r})=\frac{\vp\cdot\ur}{4\pi\eo r^{2}}$,\quad $\displaystyle\vp=\int_{V'}\rp\rho(\rp)\,\dVp$ & Término dipolar, $\ell=1$ (\cref{prop:dipolar})\\
+  $\vp_{O'}=\vp_{O}-Q\,\OOp$ & Efecto de la elección del origen de coordenadas en el momento dipolar (\cref{prop:p-origen})\\
+  $\displaystyle\phimul{2}(\vc{r})=\frac{1}{8\pi\eo r^{3}}\sum_{j,k}\Qjk\,\cd{j}\cd{k}$,\quad $\displaystyle\Qjk=\int_{V'}\rho(\rp)\bigl(3x'_jx'_k-\delt{j}{k}r'^{2}\bigr)\dVp$
+     & Término cuadrupolar, $\ell=2$ (\cref{prop:cuadrupolar})\\
+  $\displaystyle\phimul{2}(\vc{r})=\frac{Q_{zz}}{16\pi\eo r^{3}}\bigl(3\cos^{2}\theta-1\bigr)$ & Término cuadrupolar para sistemas con simetría de revolución (\cref{teo:revolucion})\\
+  $\displaystyle\frac{\phimul{n}(\vc{r})}{\phimul{0}(\vc{r})}<\Bigl(\frac{a}{r}\Bigr)^{n}$ & Estimación del error al truncar el desarrollo a orden $n$, en sistemas con carga neta no nula y toda del mismo signo (\cref{teo:cota-error})\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+% -------------------------------------------------------------------------
+\subsection{Polinomios de Legendre}\label{app:legendre}
+% -------------------------------------------------------------------------
+Los polinomios de Legendre son las soluciones polinómicas de la ecuación de Legendre, $(1-x^{2})y''-2xy'+\ell(\ell+1)y=0$, que aparece al separar variables en la ecuación de
+Laplace en coordenadas esféricas~\cite{ARFKEN,JACKSON}; de ahí su papel central en la electrostática. Además de la función generatriz y la fórmula de Rodrigues
+(\cref{def:legendre}), usamos estas propiedades:
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{Paridad}: $\Pl{\ell}(-x)=(-1)^{\ell}\Pl{\ell}(x)$ (se sigue de $g(-x,-t)=g(x,t)$).
+  \item \emph{Valores extremos y acotación}: $\Pl{\ell}(1)=1$, $\Pl{\ell}(-1)=(-1)^{\ell}$ y $\abs{\Pl{\ell}(x)}\le1$ en $[-1,1]$ (\cref{lem:legendre-cota}).
+  \item \emph{Ortogonalidad}: $\displaystyle\int_{-1}^{1}\Pl{\ell}(x)\,\Pl{m}(x)\,\dif x=\frac{2}{2\ell+1}\,\delt{\ell}{m}$. En particular, $\int_{-1}^{1}\Pl{\ell}(x)\,\dif x=0$ si $\ell\ge1$.
+  \item \emph{Recurrencia de Bonnet}: $(\ell+1)\Pl{\ell+1}(x)=(2\ell+1)\,x\,\Pl{\ell}(x)-\ell\,\Pl{\ell-1}(x)$, que permite generar todos a partir de $\Pl{0}=1$ y $\Pl{1}=x$.
+\end{enumerate}
+
+\input{figuras/fig_legendre_pol}
+
+% -------------------------------------------------------------------------
+\subsection{Integrales angulares de uso frecuente}\label{app:integrales}
+% -------------------------------------------------------------------------
+En coordenadas esféricas, $\dVp=r'^{2}\sen\theta'\,\dif r'\,\dif\theta'\,\dif\varphi'$ y, sobre una esfera de radio $a$, $\dSp=a^{2}\sen\theta'\,\dif\theta'\,\dif\varphi'$. Las integrales azimutales
+que anulan los momentos de las distribuciones con simetría de revolución son
+\[
+  \int_{0}^{2\pi}\cos\varphi'\,\dif\varphi'=\int_{0}^{2\pi}\sen\varphi'\,\dif\varphi'=\int_{0}^{2\pi}\sen\varphi'\cos\varphi'\,\dif\varphi'=0,
+\]
+\[
+  \int_{0}^{2\pi}\cos^{2}\varphi'\,\dif\varphi'=\int_{0}^{2\pi}\sen^{2}\varphi'\,\dif\varphi'=\pi ,
+\]
+y las polares, con el cambio $u=\cos\theta'$, $\dif u=-\sen\theta'\,\dif\theta'$,
+\[
+  \int_{0}^{\pi}\sen\theta'\,\dif\theta'=2,\quad
+  \int_{0}^{\pi}\cos\theta'\sen\theta'\,\dif\theta'=0,\quad
+  \int_{0}^{\pi}\cos^{2}\theta'\sen\theta'\,\dif\theta'=\frac23,
+\]
+\[
+  \int_{0}^{\pi}\bigl(3\cos^{2}\theta'-1\bigr)\sen\theta'\,\dif\theta'=0 .
+\]
+Por último, para el cálculo de momentos de distribuciones superficiales y lineales mediante la delta de Dirac~\cite{TEMA0,TEMA1},
+$\int_{0}^{\infty}f(r')\,\delta(r'-a)\,\dif r'=f(a)$ para $a>0$.

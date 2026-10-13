@@ -1,0 +1,137 @@
+% =========================================================================
+%  Estilos y macros gráficas comunes del Tema 2
+%  - \mapcolor{t}: escala cromática «campo» (t en [0,1]); define el color mapc
+%  - Estilos TikZ heredados de los temas 0 y 1 (ejes, vectores, versores...)
+%  - \panelMMA: marco de las figuras clonadas de Mathematica (StreamPlot,
+%    ContourPlot y VectorPlot) que dibuja los datos de figuras/datos/*.tex
+% =========================================================================
+
+% --- Escala cromática (5 tramos entre cm0 y cm4) ------------------------
+\newcommand{\mapcolor}[1]{%
+  \pgfmathsetmacro{\mt}{min(max(#1,0),0.9999)*4}%
+  \pgfmathtruncatemacro{\mi}{floor(\mt)}%
+  \pgfmathtruncatemacro{\mj}{\mi+1}%
+  \pgfmathsetmacro{\mf}{100*(\mt-\mi)}%
+  \colorlet{mapc}{cm\mj!\mf!cm\mi}}
+
+% --- Estilos TikZ generales ------------------------------------------------
+\tikzset{
+  >=Stealth,
+  eje/.style={->, line width=0.6pt, grispizarra},
+  ejeprof/.style={->, line width=0.7pt, magprof},
+  vect/.style={->, line width=1pt, magprof},
+  vectrojo/.style={->, line width=1pt, rojoteo},
+  vectverde/.style={->, line width=1pt, verdeteo},
+  fino/.style={line width=0.4pt, grispizarra},
+  punteado/.style={densely dotted, line width=0.5pt, grispizarra},
+  etiq/.style={font=\small, text=black!85},
+  cuadro/.style={draw=grispizarra!60, line width=0.4pt, fill=white, inner sep=2pt},
+  trayecto/.style={line width=1.1pt, rojoteo},
+  orienta/.style={decoration={markings, mark=at position 0.55 with {\arrow{Stealth[length=5pt]}}}, postaction={decorate}},
+  % líneas de campo y equipotenciales en la paleta del documento
+  lcampo/.style={magacero, line width=0.55pt, postaction={decorate},
+                 decoration={markings, mark=at position 0.5 with {\arrow{Stealth[length=3.6pt]}}}},
+  lcampoinv/.style={magacero, line width=0.55pt, postaction={decorate},
+                 decoration={markings, mark=at position 0.5 with {\arrowreversed{Stealth[length=3.6pt]}}}},
+  lequi/.style={pizarra!70, line width=0.45pt, densely dashed},
+}
+
+% --- Estilo base de ejes pgfplots (como en los temas anteriores) -----------
+\pgfplotsset{
+  tema/.style={
+    tick label style={font=\scriptsize}, label style={font=\small},
+    axis lines=left, axis line style={grispizarra},
+    grid=major, grid style={grisclaro, line width=0.4pt},
+    every tick/.style={grispizarra},
+    legend style={font=\scriptsize, draw=none, fill=white, fill opacity=0.85,
+                  text opacity=1},
+    /pgf/number format/use comma,
+  },
+  % Ejes con marco completo, como los «Plot» de Mathematica de las figuras del tema
+  marcoMMA/.style={
+    tick label style={font=\scriptsize}, label style={font=\small},
+    axis line style={grispizarra!80, line width=0.5pt},
+    every tick/.style={grispizarra}, tick align=inside,
+    grid=major, grid style={grisclaro!70, line width=0.3pt},
+    /pgf/number format/use comma,
+    legend style={font=\scriptsize, draw=none, fill=white, fill opacity=0.85,
+                  text opacity=1},
+  },
+  mapa/.style={
+    tick label style={font=\scriptsize}, label style={font=\small},
+    axis line style={grispizarra}, every tick/.style={grispizarra},
+    /pgf/number format/use comma,
+    colormap name=campo,
+  },
+}
+
+% =========================================================================
+%  Paneles «tipo Mathematica» (ventana [-L,L]^2 en unidades de \ell)
+%  Uso dentro de un tikzpicture con x=y=<escala>:
+%    \panelMMA{L}{fondo}{radio del disco central}{contenido}
+%  El contenido se recorta a la ventana; luego se dibujan el disco blanco
+%  (región excluida, donde están las fuentes) y el marco con marcas.
+% =========================================================================
+% Estilos de los objetos que escribe scripts/generar_datos.py
+\tikzset{
+  mmaLC/.style={mmalinea, line width=0.42pt},
+  mmaEQ/.style={mmaequi, line width=0.28pt},
+  mmaEQsolo/.style={black, line width=0.4pt},
+  mmaFL/.style={-{Stealth[length=3.3pt, width=2.7pt]}, mmalinea, line width=0.42pt},
+}
+% Macros por defecto (cada figura puede redefinirlas antes de \input)
+\newcommand{\EQ}[1]{\draw[mmaEQ] plot coordinates {#1};}
+\newcommand{\LC}[1]{\draw[mmaLC] plot coordinates {#1};}
+\newcommand{\FL}[3]{\draw[mmaFL] (#1,#2) -- ++(#3:0.02);}
+\newcommand{\VF}[5]{%
+  \mapcolor{#5}%
+  \pgfmathsetmacro{\hl}{2.0+2.4*#5}\pgfmathsetmacro{\lw}{0.32+0.45*#5}%
+  \draw[-{Stealth[length=\hl pt,width=0.85*\hl pt]}, line width=\lw pt, mapc]
+     ({#1-0.5*#3},{#2-0.5*#4}) -- ++(#3,#4);}
+
+% Marco con marcas en -L, -L/2, 0, L/2, L y rótulos de los ejes
+% \marcoMMA{L}{paso de marcas}{rótulo x}{rótulo y}
+\colorlet{marcoc}{mmamarco}
+\newcommand{\marcoMMA}[4]{%
+  \draw[marcoc, line width=0.55pt] (-#1,-#1) rectangle (#1,#1);
+  \foreach \t in {-#1,-#2,0,#2,#1}{%
+    \draw[grispizarra, line width=0.35pt] (\t,-#1) -- ++(0,0.025*#1*2);
+    \draw[grispizarra, line width=0.35pt] (-#1,\t) -- ++(0.025*#1*2,0);
+    \draw[grispizarra, line width=0.35pt] (\t,#1) -- ++(0,-0.025*#1*2);
+    \draw[grispizarra, line width=0.35pt] (#1,\t) -- ++(-0.025*#1*2,0);
+    \node[below=1pt, font=\tiny, inner sep=1pt] at (\t,-#1) {$\pgfmathprintnumber{\t}$};
+    \node[left=1pt, font=\tiny, inner sep=1pt] at (-#1,\t) {$\pgfmathprintnumber{\t}$};}
+  \node[font=\small, anchor=north] at (0,-#1) [yshift=-9pt] {#3};
+  \node[font=\small, anchor=south, rotate=90] at (-#1,0) [xshift=0pt, yshift=12pt] {#4};}
+
+% \panelMMA{L}{color de fondo}{r0}{contenido}
+\newcommand{\panelMMA}[4]{%
+  \fill[#2] (-#1,-#1) rectangle (#1,#1);
+  \begin{scope}\clip (-#1,-#1) rectangle (#1,#1); #4 \end{scope}
+  \ifdim #3pt>0pt
+    \fill[white] (0,0) circle (#3);
+    \draw[mmamarco!80, line width=0.4pt] (0,0) circle (#3);
+  \fi}
+
+% Vector dipolar rojo en el centro de un panel (altura ±h)
+\newcommand{\dipoloRojo}[1]{%
+  \draw[-{Stealth[length=4pt,width=3.6pt]}, mmarojo, line width=1.3pt] (0,-#1) -- (0,#1);}
+
+% =========================================================================
+%  Primitivas 3D para tdplot (vista fija: tdplotsetmaincoords{70}{125}),
+%  heredadas del Tema 1.
+% =========================================================================
+\def\VA{125}
+% \tdCirc[opciones]{radio}{z}   (mitad frontal continua, trasera a trazos)
+\newcommand{\tdCirc}[3][]{%
+  \draw[#1, domain=\VA-180:\VA, samples=36, variable=\tdt]
+    plot ({#2*cos(\tdt)},{#2*sin(\tdt)},{#3});
+  \draw[#1, densely dashed, domain=\VA:\VA+180, samples=36, variable=\tdt]
+    plot ({#2*cos(\tdt)},{#2*sin(\tdt)},{#3});}
+% \tdEsfera{radio}{color}  (esfera sombreada con ecuador)
+\newcommand{\tdEsfera}[2]{%
+  \begin{scope}[tdplot_screen_coords]
+    \shade[ball color=rosaclaro!80, opacity=0.45] (0,0) circle (#1);
+    \draw[#2, line width=0.7pt] (0,0) circle (#1);
+  \end{scope}
+  \tdCirc[#2!60, line width=0.4pt]{#1}{0}}
