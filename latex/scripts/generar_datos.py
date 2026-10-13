@@ -389,13 +389,18 @@ if __name__ == "__main__":
 
     # Término cuadrupolar (cuadrupolo puntual con simetría de revolución)
     E, phi = cuadrupolo_puntual()
+    # Niveles como en el ContourPlot de las figuras del tema: equiespaciados y
+    # acotados (10 positivos, 15 negativos), sin disco excluido. La región en
+    # blanco es la de |phi| por encima del último nivel, que tiene forma de
+    # trébol de cuatro hojas; las curvas convergen hacia el cono nodal.
+    niv_cua = [0.00125 * k for k in range(1, 11)] + [-0.00125 * k for k in range(1, 16)] + [0.0]
     exporta("cua_puntual", "Cuadrupolo puntual", E, phi,
-            niveles_simetricos(0.00125, 17) + [0.0], r0_eq=1.3, r0_lc=1.2, dsep=0.88)
+            niv_cua, r0_eq=0.25, r0_lc=1.2, dsep=0.88)
 
     # Cuadrupolo físico lineal: +2 en z = +-1/2, -4 en el origen (Q_zz = 4 q d^2)
     E, phi = cargas([(2, 0, 0.5), (2, 0, -0.5), (-4, 0, 0)])
     exporta("cua_fisico", "Cuadrupolo físico (lineal)", E, phi,
-            niveles_simetricos(0.00125, 17) + [0.0], r0_eq=1.3, r0_lc=1.2, dsep=0.88, vect=False)
+            niv_cua, r0_eq=0.25, r0_lc=1.2, dsep=0.88, vect=False)
 
     # Esquema «dipolo físico frente a dipolo puntual» (fuera de una esfera r < 1)
     #   puntual: Psi = sen^2(t)/r = x^2/r^3 ;  físico: Psi = cos(a-) - cos(a+)
